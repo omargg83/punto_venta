@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900|Rubik:300,400,500,700,900');
+
+
 :root {
   --main-bg-color: #3e4676;
 }
@@ -32,7 +35,7 @@ body {
 	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.12);
 }
 .logincard{
-    font-family: "myriad-pro",sans-serif;
+    font-family: 'Baloo 2', cursive;
     font-style: normal;
     font-weight: 100;
 
@@ -99,14 +102,14 @@ i:hover{
 }
 
 label{
-	font-family: 'Baloo Chettan 2', cursive;
+	font-family: 'Baloo 2', cursive;
 	font-weight: bold;
 }
 
 /*Comienza la SIDEBAR*/
 /*//////////////////////////////////////////////////////////////////////////*/
 .sidebar{
-	font-family: 'Baloo Chettan 2', cursive;
+	font-family: 'Baloo 2', cursive;
 	position: fixed;
 	z-index: 10;
 	top: 56px;
@@ -148,7 +151,7 @@ label{
 	background-color: #5e628c;
 }
 .table, .input{
-  font-family: "myriad-pro",sans-serif;
+  font-family: 'Baloo 2', cursive;
 }
 /* Main content */
 .main {
@@ -195,7 +198,7 @@ label{
 }
 
 .card {
-	font-family: 'Baloo Chettan 2', cursive;
+	font-family: 'Baloo 2', cursive;
 	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.12);
 	-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.12);
 	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.12);

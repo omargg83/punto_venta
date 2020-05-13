@@ -9,9 +9,11 @@
         <hr>
         <a href='#a_usuarios/index' title='Usuarios'><i class='fas fa-users'></i> <span>Usuarios</span></a>
         <a href='#a_cliente/index' title='Clientes'><i class='fas fa-user-tag'></i><span>Clientes</span></a>
+
+        <!--
         <a href='#a_tienda/index' title='sucursal'><i class="fas fa-store-alt"></i><span>Sucursal</span></a>
         <a href='#a_asistencia/index' title='Asistencia'><i class='fas fa-user-check'></i><span>Asistencia</span></a>
-        <a href='http://sagyc.com.mx/app/smhidalgo/publish.htm' target='_blanck' title='Asistencia'><i class="fas fa-print"></i><span>Impresión</span></a>
+        <a href='http://sagyc.com.mx/app/smhidalgo/publish.htm' target='_blanck' title='Asistencia'><i class="fas fa-print"></i><span>Impresión</span></a>-->
       </div>
     </div>
     <div class='fijaproceso main' id='contenido'>
