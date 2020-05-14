@@ -138,7 +138,7 @@ class Escritorio extends Sagyc{
 			return "Database access FAILED!".$e->getMessage();
 		}
 	}
-	public function citas_lista($tipo){
+	public function citas_lista2($tipo){
 		try{
 			self::set_names();
 			$fecha=date('Y-m-d')." 00:00:00";
