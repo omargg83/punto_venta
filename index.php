@@ -108,6 +108,16 @@
 	<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="librerias15/modulos.css"/>
 
+	<!--- calendario -->
+	<link href='librerias15/fullcalendar-4.0.1/packages/core/main.css' rel='stylesheet' />
+	<link href='librerias15/fullcalendar-4.0.1/packages/daygrid/main.css' rel='stylesheet' />
+	<link href='librerias15/fullcalendar-4.0.1/packages/timegrid/main.css' rel='stylesheet' />
+
+	<script src='librerias15/fullcalendar-4.0.1/packages/core/main.js'></script>
+	<script src='librerias15/fullcalendar-4.0.1/packages/interaction/main.js'></script>
+	<script src='librerias15/fullcalendar-4.0.1/packages/daygrid/main.js'></script>
+	<script src='librerias15/fullcalendar-4.0.1/packages/timegrid/main.js'></script>
+	<script src='librerias15/fullcalendar-4.0.1/packages/core/locales/es.js'></script>
 
 	<!--   Tablas  -->
 	<script type="text/javascript" src="librerias15/DataTables/datatables.js"></script>

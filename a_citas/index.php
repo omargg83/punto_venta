@@ -1,8 +1,5 @@
 <?php
 	require_once("db_.php");
-  if($_SESSION['administrador']!=1){
-    exit();
-  }
 
 	echo "<nav class='navbar navbar-expand-lg navbar-light bg-light'>
 
@@ -13,8 +10,11 @@
 	  </button>
 		  <div class='collapse navbar-collapse' id='navbarSupportedContent'>
 			<ul class='navbar-nav mr-auto'>";
-      echo "<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_cita1' data-lugar='citas/cita_retiro'><i class='fas fa-list-ul'></i><span>Retiro</span></a></li>";
-			echo "<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_cita2' data-lugar='citas/cita_credito'><i class='fas fa-list-ul'></i><span>Credito</span></a></li>";
+
+			echo "<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='calendario' onclick='calendar_load(1)'><i class='fas fa-list-ul'></i><span>Calendario</span></a></li>";
+
+      echo "<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='winmodal_pass' data-id='0' data-lugar='a_citas/editar_cita'><i class='fas fa-list-ul'></i><span>Nuevo</span></a></li>";
+
 
 			echo "</ul>";
 
@@ -27,21 +27,26 @@
 		echo "
 	  </div>
 	</nav>";
+
+	echo "<div class='container' style='background-color:".$_SESSION['cfondo']."; '>";
 	echo "<div id='trabajo' class='container'>";
 
+  echo "</div>";
   echo "</div>";
 ?>
 <script>
 
-
+$(function(){
+	calendar_load(1);
+});
 
 function calendar_load(tipo){
   var fecha = new Date();
-  var calendarEl = document.getElementById('calendar');
+  var calendarEl = document.getElementById('trabajo');
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
     plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
-    defaultView: 'timeGrid',
+    defaultView: 'dayGridMonth',
     defaultDate: fecha,
     buttonText:{
       today:    'Hoy',
@@ -66,11 +71,11 @@ function calendar_load(tipo){
       right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
     dateClick: function(info) {
-      //alert('Date: ' + info);
+      console.log('Date: ' + info);
      },
      eventClick: function(info) {
       $('#myModal').modal('show');
-      $("#modal_form").load("citas/info.php?id="+info.event.id);
+      $("#modal_form").load("a_citas/editar_cita.php?id="+info.event.id);
     },
     events: {
     url: 'citas/eventos.php?tipo='+tipo,
