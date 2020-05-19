@@ -4,7 +4,7 @@
  ?>
 
  <nav class='navbar navbar-expand-sm navbar-light bg-light'>
- 		  <a class='navbar-brand' ><i class="fas fa-shopping-basket"></i>Pedidos</a>
+ 		  <a class='navbar-brand' ><i class="fas fa-shopping-basket"></i>Citas</a>
  		  <button class='navbar-toggler navbar-toggler-right' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
  			<span class='navbar-toggler-icon'></span>
  		  </button>
@@ -38,59 +38,125 @@
  ?>
 <script type="text/javascript">
 
-$(function(){
-  calendar_load(1);
-});
-
-function calendar_load(tipo){
-  var fecha = new Date();
-
-  $('#trabajo').html("");
-
-  var calendarEl = document.getElementById('trabajo');
-
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
-    defaultView: 'dayGridMonth',
-    defaultDate: fecha,
-    buttonText:{
-      today:    'Hoy',
-      month:    'Mes',
-      week:     'Semana',
-      day:      'Dia',
-      list:     'Lista'
-    },
-    locale: 'es',
-
-    minTime: "09:00:00",
-    maxTime: "18:00:00",
-    slotDuration: "00:05:00",
-    businessHours: {
-      start: '9:00',
-      end: '18:00',
-    },
-    hiddenDays: [ 0, 6 ],
-    header: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
-    },
-    dateClick: function(info) {
-      console.log('Date: ' + info);
-     },
-     eventClick: function(info) {
-      $('#myModal').modal('show');
-      $("#modal_form").load("a_citas/editar_cita.php?id="+info.event.id);
-    },
-    events: {
-    url: 'citas/eventos.php?tipo='+tipo,
-     failure: function() {
-      document.getElementById('script-warning').style.display = 'block'
-      }
-    }
+  $(function(){
+    calendar_load(1);
   });
-  calendar.render();
-}
+
+  function calendar_load(tipo){
+    var fecha = new Date();
+
+    $('#trabajo').html("");
+
+    var calendarEl = document.getElementById('trabajo');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
+      defaultView: 'dayGridMonth',
+      defaultDate: fecha,
+      buttonText:{
+        today:    'Hoy',
+        month:    'Mes',
+        week:     'Semana',
+        day:      'Dia',
+        list:     'Lista'
+      },
+      locale: 'es',
+
+      minTime: "09:00:00",
+      maxTime: "18:00:00",
+      slotDuration: "00:05:00",
+      businessHours: {
+        start: '9:00',
+        end: '18:00',
+      },
+      hiddenDays: [ 0, 6 ],
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      dateClick: function(info) {
+        console.log('Date: ' + info);
+       },
+       eventClick: function(info) {
+        $('#myModal').modal('show');
+        $("#modal_form").load("a_citas/editar_cita.php?id="+info.event.id);
+      },
+      events: {
+      url: 'a_citas/eventos.php?tipo='+tipo,
+       failure: function() {
+        document.getElementById('script-warning').style.display = 'block'
+        }
+      }
+    });
+    calendar.render();
+  }
+  function buscar_cliente(){
+    var texto=$("#prod_venta").val();
+    var idcliente=$("#idcliente").val();
+    var idcita=$("#idcita").val();
+    if(texto.length>=-1){
+      $.ajax({
+        data:  {
+          "texto":texto,
+          "idcliente":idcliente,
+          "idcita":idcita,
+          "function":"busca_cliente"
+        },
+        url:   "a_citas/db_.php",
+        type:  'post',
+        beforeSend: function () {
+          $("#resultadosx").html("buscando...");
+        },
+        success:  function (response) {
+          $("#resultadosx").html(response);
+          $("#prod_venta").val();
+        }
+      });
+    }
+  }
+  function cliente_add(idcliente,idcita){
+    $.confirm({
+      title: 'Cliente',
+      content: '¿Desea agregar el cliente seleccionado?',
+      buttons: {
+        Aceptar: function () {
+          $.ajax({
+            data:  {
+              "idcliente":idcliente,
+              "idcita":idcita,
+              "function":"agrega_cliente"
+            },
+            url:   "a_citas/db_.php",
+            type:  'post',
+            success:  function (response) {
+              var datos = JSON.parse(response);
+              if (datos.idcliente>0){
+                $("#idcliente").val(datos.idcliente);
+                $("#nombre").val(datos.nombre);
+                $("#correo").val(datos.email_prove);
+                Swal.fire({
+                  type: 'success',
+                  title: "Se agregó correctamente",
+                  showConfirmButton: false,
+                  timer: 1000
+                });
+                $('#myModal').modal('hide');
+              }
+              else{
+                $.alert(datos.terror);
+              }
+            }
+          });
+        },
+        Cancelar: function () {
+
+        }
+      }
+    });
+  }
+
+
 
   function buscar_pedido(){
     var buscar = $("#buscar").val();
@@ -104,30 +170,6 @@ function calendar_load(tipo){
         $("#trabajo").html(response);
       }
     });
-  }
-  function buscar_cliente(){
-  	var texto=$("#prod_venta").val();
-  	var idcliente=$("#idcliente").val();
-  	var idcita=$("#idcita").val();
-  	if(texto.length>=-1){
-  		$.ajax({
-  			data:  {
-  				"texto":texto,
-  				"idcliente":idcliente,
-  				"idcita":idcita,
-  				"function":"busca_cliente"
-  			},
-  			url:   "a_citas/db_.php",
-  			type:  'post',
-  			beforeSend: function () {
-  				$("#resultadosx").html("buscando...");
-  			},
-  			success:  function (response) {
-  				$("#resultadosx").html(response);
-  				$("#prod_venta").val();
-  			}
-  		});
-  	}
   }
   function buscar_prodpedido(){
   	var texto=$("#prod_venta").val();
@@ -152,54 +194,6 @@ function calendar_load(tipo){
   			}
   		});
   	}
-  }
-  function cliente_add(idcliente,idcita){
-    $.confirm({
-      title: 'Cliente',
-      content: '¿Desea agregar el cliente seleccionado?',
-      buttons: {
-        Aceptar: function () {
-          $.ajax({
-            data:  {
-              "idcliente":idcliente,
-              "idcita":idcita,
-              "function":"agrega_cliente"
-            },
-            url:   "a_citas/db_.php",
-            type:  'post',
-            success:  function (response) {
-              console.log(response);
-              var datos = JSON.parse(response);
-              if (datos.error==0){
-                $.ajax({
-                  data:  {
-                    "id":datos.id
-                  },
-                  url:   'a_citas/editar.php',
-                  type:  'post',
-                  success:  function (response) {
-                    $("#trabajo").html(response);
-                  }
-                });
-                Swal.fire({
-                  type: 'success',
-                  title: "Se agregó correctamente",
-                  showConfirmButton: false,
-                  timer: 1000
-                });
-                $('#myModal').modal('hide');
-              }
-              else{
-                $.alert(datos.terror);
-              }
-            }
-          });
-        },
-        Cancelar: function () {
-          $.alert('Canceled!');
-        }
-      }
-    });
   }
   function prod_add(id,idpedido){
     var cantidad=$("#cantidad_"+id).val();

@@ -11,88 +11,6 @@ class Pedidos extends Sagyc{
 	public function __construct(){
 		parent::__construct();
 	}
-	public function pedidos_lista(){
-		try{
-			parent::set_names();
-			if (isset($_REQUEST['buscar']) and strlen(trim($_REQUEST['buscar']))>0){
-				$texto=trim(htmlspecialchars($_REQUEST['buscar']));
-				$sql="SELECT * from pedidos
-				left outer join clientes on clientes.id=pedidos.idcliente
-				where pedidos.id like '%$texto%' or pedidos.estatus like '%$texto%' or clientes.nombre like '%$texto' order by pedidos.id desc limit 100";
-			}
-			else{
-				$sql="SELECT * from pedidos order by pedidos.id desc";
-			}
-			$sth = $this->dbh->prepare($sql);
-			$sth->execute();
-			return $sth->fetchAll();
-		}
-		catch(PDOException $e){
-			return "Database access FAILED! ".$e->getMessage();
-		}
-	}
-	public function editar_pedido($id){
-		try{
-			parent::set_names();
-			$sql="SELECT * from pedidos where id=:id";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(':id', "$id");
-			$sth->execute();
-			return $sth->fetch();
-		}
-		catch(PDOException $e){
-			return "Database access FAILED! ".$e->getMessage();
-		}
-	}
-	public function pedidos_web($id){
-		try{
-			parent::set_names();
-			$sql="SELECT * from pedidos_web where idpedido=:id";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(':id', "$id");
-			$sth->execute();
-			return $sth->fetchAll();
-		}
-		catch(PDOException $e){
-			return "Database access FAILED! ".$e->getMessage();
-		}
-	}
-	public function guardar_pedido(){
-		try{
-			parent::set_names();
-			$id=$_REQUEST['id'];
-			$arreglo =array();
-
-			if (isset($_REQUEST['fecha']) and strlen($_REQUEST['fecha'])>0){
-				$fx=explode("-",$_REQUEST['fecha']);
-				$arreglo+=array('fecha'=>$fx['2']."-".$fx['1']."-".$fx['0']);
-			}
-			if (isset($_REQUEST['estatus'])){
-				$arreglo+= array('estatus'=>$_REQUEST['estatus']);
-			}
-			if (isset($_REQUEST['idfactura'])){
-				$arreglo+= array('idfactura'=>$_REQUEST['idfactura']);
-			}
-			if (isset($_REQUEST['idenvio'])){
-				$arreglo+= array('idenvio'=>$_REQUEST['idenvio']);
-			}
-			if (isset($_REQUEST['notas'])){
-				$arreglo+= array('notas'=>$_REQUEST['notas']);
-			}
-
-			$x="";
-			if($id==0){
-				$x=$this->insert('pedidos', $arreglo);
-			}
-			else{
-				$x=$this->update('pedidos',array('id'=>$id), $arreglo);
-			}
-			return $x;
-		}
-		catch(PDOException $e){
-			return "Database access FAILED!".$e->getMessage();
-		}
-	}
 	public function busca_cliente(){
 		try{
 			parent::set_names();
@@ -100,7 +18,7 @@ class Pedidos extends Sagyc{
 			$idcliente=$_REQUEST['idcliente'];
 			$idcita=$_REQUEST['idcita'];
 
-			$sql="SELECT * from et_cliente where razon_social_prove like '%$texto%' limit 100";
+			$sql="SELECT * from et_cliente where nombre like '%$texto%' limit 100";
 			$sth = $this->dbh->prepare($sql);
 			$sth->execute();
 			echo "<table class='table table-sm'>";
@@ -116,7 +34,7 @@ class Pedidos extends Sagyc{
 							echo $key['rfc_prove'];
 					echo "</td>";
 					echo "<td>";
-							echo $key['razon_social_prove'];
+							echo $key['nombre'];
 					echo "</td>";
 					echo "<td>";
 							echo $key['contacto_prove'];
@@ -133,42 +51,80 @@ class Pedidos extends Sagyc{
 		try{
 			parent::set_names();
 			$x="";
-			$id=$_REQUEST['idpedido'];
 			$idcliente=$_REQUEST['idcliente'];
-
-			$sql="select * from clientes where id=:id";
+			$sql="select idcliente, nombre, email_prove from et_cliente where idcliente=:id";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":id",$idcliente);
 			$sth->execute();
-			$cli_x=$sth->fetch(PDO::FETCH_OBJ);
-
-			$arreglo =array();
-			$arreglo+= array('idcliente'=>$cli_x->id);
-			$arreglo+= array('rfc'=>$cli_x->rfc);
-			$arreglo+= array('cfdi'=>$cli_x->cfdi);
-			$arreglo+= array('nombre'=>$cli_x->nombre);
-			$arreglo+= array('apellido'=>$cli_x->apellido);
-			$arreglo+= array('correo'=>$cli_x->correo);
-			$arreglo+= array('direccion1'=>$cli_x->direccion1);
-			$arreglo+= array('entrecalles'=>$cli_x->entrecalles);
-			$arreglo+= array('numero'=>$cli_x->numero);
-			$arreglo+= array('colonia'=>$cli_x->colonia);
-			$arreglo+= array('cp'=>$cli_x->cp);
-			$arreglo+= array('pais'=>$cli_x->pais);
-			$arreglo+= array('estado'=>$cli_x->estado);
-			$arreglo+= array('telefono'=>$cli_x->telefono);
-			$arreglo+= array('ciudad'=>$cli_x->ciudad);
-			$arreglo+= array('cfdi'=>$cli_x->cfdi);
-
-			if($id==0){
-				$arreglo+= array('fecha'=>date("Y-m-d H:i:s"));
-				$arreglo+= array('estatus'=>"EN ESPERA");
-				$x=$this->insert('pedidos', $arreglo);
+			return json_encode($sth->fetch(PDO::FETCH_OBJ));
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+	public function citas_lista(){
+		try{
+			parent::set_names();
+			if (isset($_REQUEST['buscar']) and strlen(trim($_REQUEST['buscar']))>0){
+				$texto=trim(htmlspecialchars($_REQUEST['buscar']));
+				$sql="SELECT * from pedidos
+				left outer join clientes on clientes.id=pedidos.idcliente
+				where pedidos.id like '%$texto%' or pedidos.estatus like '%$texto%' or clientes.nombre like '%$texto' order by pedidos.id desc limit 100";
 			}
 			else{
-				$x=$this->update('citas',array('id'=>$id), $arreglo);
+				$sql="SELECT * from citas order by citas.idcitas desc";
+			}
+			$sth = $this->dbh->prepare($sql);
+			$sth->execute();
+			return $sth->fetchAll(PDO::FETCH_OBJ);
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+	public function guardar_cita(){
+		try{
+			parent::set_names();
+			$id=$_REQUEST['id'];
+			$arreglo =array();
+			$hora=$_REQUEST['hora'];
+			$minuto=$_REQUEST['minuto'];
+			if (isset($_REQUEST['fecha']) and strlen($_REQUEST['fecha'])>0){
+				$fx=explode("-",$_REQUEST['fecha']);
+				$arreglo+=array('fecha'=>$fx['2']."-".$fx['1']."-".$fx['0']." $hora:$minuto:00");
+			}
+			if (isset($_REQUEST['estatus'])){
+				$arreglo+= array('estatus'=>$_REQUEST['estatus']);
+			}
+			if (isset($_REQUEST['idcliente'])){
+				$arreglo+= array('idcliente'=>$_REQUEST['idcliente']);
+			}
+			if (isset($_REQUEST['observaciones'])){
+				$arreglo+= array('observaciones'=>$_REQUEST['observaciones']);
+			}
+
+			$x="";
+			if($id==0){
+				$x=$this->insert('citas', $arreglo);
+			}
+			else{
+				$x=$this->update('citas',array('idcitas'=>$id), $arreglo);
 			}
 			return $x;
+		}
+		catch(PDOException $e){
+			return "Database access FAILED!".$e->getMessage();
+		}
+	}
+
+	public function editar_cita($id){
+		try{
+			parent::set_names();
+			$sql="SELECT * from citas where idcitas=:id";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(':id', "$id");
+			$sth->execute();
+			return $sth->fetch(PDO::FETCH_OBJ);
 		}
 		catch(PDOException $e){
 			return "Database access FAILED! ".$e->getMessage();
@@ -176,15 +132,34 @@ class Pedidos extends Sagyc{
 	}
 	public function cliente($idcliente){
 		try{
-			$sql="select * from clientes where id=$idcliente";
+			$sql="select * from et_cliente where idcliente='$idcliente'";
 			$sth = $this->dbh->prepare($sql);
 			$sth->execute();
-			return $sth->fetch();
+			return $sth->fetch(PDO::FETCH_OBJ);
 		}
 		catch(PDOException $e){
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
+	public function citas_calendario($inicio,$fin){
+		try{
+			parent::set_names();
+
+			$inicio=$inicio." 00:00:00";
+			$fin=$fin." 23:59:59";
+			$sql="SELECT * from citas left outer join et_cliente on et_cliente.idcliente=citas.idcliente
+			where citas.fecha between '$inicio' and '$fin' order by citas.idcitas desc";
+			$sth = $this->dbh->prepare($sql);
+			$sth->execute();
+			return $sth->fetchAll(PDO::FETCH_OBJ);
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+
+
+
 	public function direccion($idcliente){
 		try{
 			$sql="select * from clientes_direccion where idcliente=$idcliente";
