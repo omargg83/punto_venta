@@ -17,6 +17,9 @@ if($id==0){
 	$entregar=0;
 	$estado="Activa";
 	$fecha="";
+	$nombre_cli="";
+	$correo_cli="";
+	$telefono_cli="";
 }
 else{
 	$pd = $db->venta($id);
@@ -30,12 +33,17 @@ else{
 	$estado=$pd['estado'];
 	$fecha=$pd['fecha'];
 
+	$cliente=$db->cliente($idcliente);
+	$nombre_cli=$cliente->profesion." ".$cliente->nombre." ".$cliente->apellidop." ".$cliente->apellidom;
+	$correo_cli=$cliente->correo;
+	$telefono_cli=$cliente->telefono;
 }
 ?>
 <div class="container">
 	<div class='card'>
 		<form action="" id="form_venta" data-lugar="a_ventas/db_" data-funcion="guardar_venta" data-destino='a_ventas/editar'>
 			<input type="hidden" class="form-control form-control-sm" name="llave" id="llave" value="<?php echo $llave ;?>" placeholder="Numero de compra">
+			<input type="hidden" class="form-control form-control-sm" name="idcliente" id="idcliente" value="<?php echo $idcliente ;?>" placeholder="cliente">
 			<div class='card-header'>Venta <?php echo $id; ?></div>
 			<div class='card-body'>
 				<div class='row'>
@@ -43,23 +51,6 @@ else{
 						<label >Numero:</label>
 						<input type="text" class="form-control form-control-sm" name="id" id="id" value="<?php echo $id ;?>" placeholder="Numero de compra" required readonly>
 					</div>
-
-					<div class='col-4'>
-						<label >Cliente:</label>
-						<?php
-						echo "<select class='form-control form-control-sm' name='idcliente' id='idcliente'>";
-						echo '<option disabled>Seleccione el cliente</option>';
-						foreach($clientes as $key){
-							echo '<option value="'.$key['idcliente'].'"';
-							if($key['idcliente']==$idcliente){
-								echo " selected";
-							}
-							echo '>'.$key["razon_social_prove"].'</option>';
-						}
-						echo "</select>";
-						?>
-					</div>
-
 					<div class='col-3'>
 						<label>Fecha:</label>
 						<input type="text" class="form-control form-control-sm" name="fecha" id="fecha" value="<?php echo $fecha ;?>" placeholder="Fecha" readonly>
@@ -69,8 +60,25 @@ else{
 						<label>Estado:</label>
 						<input type="text" class="form-control form-control-sm" name="estado" id="estado" value="<?php echo $estado ;?>" placeholder="Lugar de entrega" readonly>
 					</div>
-
 				</div>
+					<?php
+						echo "<div class='row'>";
+							echo "<div class='col-8'>";
+								echo "<label>Nombre:</label>";
+									echo "<input type='text' class='form-control form-control-sm' id='nombre' name='nombre' value='$nombre_cli' placeholder='Nombre del cliente' readonly>";
+							echo "</div>";
+
+							echo "<div class='col-4'>";
+								echo "<label>Correo:</label>";
+								echo "<input type='text' class='form-control form-control-sm' id='correo' name='correo' value='$correo_cli' readonly>";
+							echo "</div>";
+
+							echo "<div class='col-4'>";
+								echo "<label>Teléfono:</label>";
+								echo "<input type='text' class='form-control form-control-sm' id='telefono' name='telefono' value='$telefono_cli' readonly>";
+							echo "</div>";
+						echo "</div>";
+					?>
 			</div>
 			<div class='card-footer'>
 				<div class="row">
@@ -81,7 +89,7 @@ else{
 									//echo "<button class='btn btn-outline-primary btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
 
 									echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_producto' data-id='0' data-id2='$id' data-lugar='a_ventas/form_producto'><i class='fas fa-plus'></i>Agregar Producto</button>";
-
+									echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='winmodal_cli' data-id='$idcliente' data-id2='$id' data-lugar='a_ventas/form_cliente' title='Agregar Cliente' ><i class='fas fa-user-tag'></i>+ Cliente</button>";
 									echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_finalizar' data-id='$id' data-lugar='a_ventas/finalizar'><i class='fas fa-cash-register'></i> Finalizar Venta</button>";
                 }
 								if($estado=="Pagada"){

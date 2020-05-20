@@ -520,7 +520,6 @@
 				}
 				else{
 					$("#cargando").removeClass("is-active");
-					$.alert(response);
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {

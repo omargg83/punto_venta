@@ -18,6 +18,72 @@ class Venta extends Sagyc{
 			die();
 		}
 	}
+	public function cliente($idcliente){
+		try{
+			$sql="select * from clientes where idcliente='$idcliente'";
+			$sth = $this->dbh->prepare($sql);
+			$sth->execute();
+			return $sth->fetch(PDO::FETCH_OBJ);
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+	public function busca_cliente(){
+		try{
+			parent::set_names();
+			$texto=$_REQUEST['texto'];
+			$idcliente=$_REQUEST['idcliente'];
+			$idcita=$_REQUEST['idcita'];
+
+			$sql="SELECT * from clientes where nombre like '%$texto%' limit 100";
+			$sth = $this->dbh->prepare($sql);
+			$sth->execute();
+			echo "<table class='table table-sm'>";
+			echo "<tr><th>-</th><th>Prof.</th><th>Nombre </th><th>Correo</th><th>Teléfono</th></tr>";
+			foreach($sth->fetchAll(PDO::FETCH_OBJ) as $key){
+				echo "<tr>";
+					echo "<td>";
+						echo "<div class='btn-group'>";
+						echo "<button type='button' onclick='cliente_addv(".$key->idcliente.",$idcita)' class='btn btn-outline-secondary btn-sm' title='Seleccionar cliente'><i class='fas fa-plus'></i></button>";
+						echo "</div>";
+					echo "</td>";
+					echo "<td>";
+							echo $key->profesion;
+					echo "</td>";
+					echo "<td>";
+							echo $key->nombre." ".$key->apellidop." ".$key->apellidom;
+					echo "</td>";
+					echo "<td>";
+							echo $key->correo;
+					echo "</td>";
+					echo "<td>";
+							echo $key->telefono;
+					echo "</td>";
+				echo "</tr>";
+			}
+			echo "</table>";
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+	public function agrega_cliente(){
+		try{
+			parent::set_names();
+			$x="";
+			$idcliente=$_REQUEST['idcliente'];
+			$sql="select * from clientes where idcliente=:id";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":id",$idcliente);
+			$sth->execute();
+			return json_encode($sth->fetch(PDO::FETCH_OBJ));
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+
 	public function venta($id){
 		self::set_names();
 		$sql="select * from et_venta where idventa='$id'";
@@ -71,8 +137,7 @@ class Venta extends Sagyc{
 
 					echo  "<td>";
 						echo  "<span style='font-size:12px'>";
-						echo  "<B>IMEI: </B>".$key["imei"]."  ";
-						echo  "<br><B>BARRAS: </B>".$key["codigo"]."  ";
+						echo  "<B>BARRAS: </B>".$key["codigo"]."  ";
 						echo  "<br><B>RAPIDO: </B>".$key["rapido"];
 						echo  "</span>";
 					echo  "</td>";
@@ -122,19 +187,19 @@ class Venta extends Sagyc{
 			echo "<input type='hidden' name='idproducto' id='idproducto' value='$idproducto' readonly>";
 			echo "<input type='hidden' name='tipo' id='tipo' value='".$res->tipo."' readonly>";
 			echo "<div class='row'>";
-				/*
+
 				echo "<div class='col-12'>";
 					echo "<label>Tipo:</label>";
-						if($res->tipo=="0") echo $res->tipo."Registro (solo registra ventas, no es necesario registrar entrada, tiempo aire)";
-						if($res->tipo=="1") echo $res->tipo."Pago de linea";
-						if($res->tipo=="2") echo $res->tipo."Reparación";
-						if($res->tipo=="3") echo $res->tipo."Volúmen (Se controla el inventario por volúmen, fundas, accesorios)";
-						if($res->tipo=="4") echo $res->tipo."Unico (se controla inventario por pieza única, Fichas Amigo, Equipos)";
+						if($res->tipo=="0") echo " Registro (solo registra ventas, no es necesario registrar entrada)";
+						if($res->tipo=="1") echo " Pago de linea";
+						if($res->tipo=="2") echo " Reparación";
+						if($res->tipo=="3") echo " Volúmen (Se controla el inventario por volúmen)";
+						if($res->tipo=="4") echo " Unico (se controla inventario por pieza única)";
 					echo "</select>";
 				echo "</div>";
-				*/
+
 				echo "<div class='col-12'>";
-					echo "<label>Nombre:</label>".$res->tipo;
+					echo "<label>Nombre:</label>";
 					echo "<input type='text' class='form-control form-control-sm' name='nombre' id='nombre' value='".$res->nombre."' readonly>";
 				echo "</div>";
 
@@ -240,8 +305,6 @@ class Venta extends Sagyc{
 		}
 		$tipo=$_REQUEST['tipo'];
 
-
-
 		try{
 			parent::set_names();
 			if($idventa==0){
@@ -269,12 +332,19 @@ class Venta extends Sagyc{
 			$res=$sth->fetch(PDO::FETCH_OBJ);
 
 			///////////////////////////////////////////////////actualiza producto tipo idn_to_unicode
+			if($tipo==4){
+				$sql="update productos set idventa=:idventa where id=:id";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":idventa",$idventa);
+				$sth->bindValue(":id",$idproducto);
+				$sth->execute();
+			}
 
-			$sql="update productos set idventa=:idventa where id=:id";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idventa",$idventa);
-			$sth->bindValue(":id",$idproducto);
-			$sth->execute();
+			if($tipo==3){
+				/////////////para
+			}
+
+
 
 
 			////////////////////////////////////////////////////////

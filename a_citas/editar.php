@@ -143,7 +143,15 @@
 
 						echo "<div class='col-6'>";
 							echo "<label>Servicio</label>";
-							echo "<input type='text' class='form-control form-control-sm' id='servicio' name='servicio' value='$servicio' placeholder='Servicio'>";
+							echo "<select id='servicio' name='servicio' class='form-control form-control-sm'>";
+								echo "<option value='PODOLOGICO PREVENTIVO'"; if($servicio=='PODOLOGICO PREVENTIVO'){ echo " selected"; } echo ">PODOLOGICO PREVENTIVO</option>";
+								echo "<option value='ONICOCRIPTOSIS'"; if($servicio=='ONICOCRIPTOSIS'){ echo " selected"; } echo ">ONICOCRIPTOSIS</option>";
+								echo "<option value='MASAJE RELAJANTE PODAL'"; if($servicio=='MASAJE RELAJANTE PODAL'){ echo " selected"; } echo ">MASAJE RELAJANTE PODAL</option>";
+								echo "<option value='MANICURA'"; if($servicio=='MANICURA'){ echo " selected"; } echo ">MANICURA</option>";
+								echo "<option value='ESMALTE EN GEL'"; if($servicio=='ESMALTE EN GEL'){ echo " selected"; } echo ">ESMALTE EN GEL</option>";
+								echo "<option value='APLICACION DE ESMALTE EN PIES O MANOS'"; if($servicio=='APLICACION DE ESMALTE EN PIES O MANOS'){ echo " selected"; } echo ">APLICACION DE ESMALTE EN PIES O MANOS</option>";
+								echo "<option value='RETIRADO DE GEL'"; if($servicio=='RETIRADO DE GEL'){ echo " selected"; } echo ">RETIRADO DE GEL</option>";
+							echo "</select>";
 						echo "</div>";
 					echo "</div>";
 

@@ -17,7 +17,7 @@ class Productos extends Sagyc{
 				$sql="SELECT * from productos where codigo like '%$texto%' or nombre like '%$texto%' or marca like '%$texto%' or modelo like '%$texto%' or imei like '%$texto%' limit 100";
 			}
 			else{
-				$sql="SELECT * from productos where activo=1 and idventa is null order by tipo asc,id asc limit 100";
+				$sql="SELECT * from productos where activo=1  and idventa is null order by tipo asc,id asc limit 100";
 			}
 			$sth = $this->dbh->prepare($sql);
 			$sth->execute();
