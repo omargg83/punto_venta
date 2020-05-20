@@ -18,26 +18,29 @@ class Pedidos extends Sagyc{
 			$idcliente=$_REQUEST['idcliente'];
 			$idcita=$_REQUEST['idcita'];
 
-			$sql="SELECT * from et_cliente where nombre like '%$texto%' limit 100";
+			$sql="SELECT * from clientes where nombre like '%$texto%' limit 100";
 			$sth = $this->dbh->prepare($sql);
 			$sth->execute();
 			echo "<table class='table table-sm'>";
-			echo "<tr><th>-</th><th>Nombre</th><th>Apellido</th><th>Correo</th></tr>";
-			foreach($sth->fetchAll() as $key){
+			echo "<tr><th>-</th><th>Prof.</th><th>Nombre </th><th>Correo</th><th>Teléfono</th></tr>";
+			foreach($sth->fetchAll(PDO::FETCH_OBJ) as $key){
 				echo "<tr>";
 					echo "<td>";
 						echo "<div class='btn-group'>";
-						echo "<button type='button' onclick='cliente_add(".$key['idcliente'].",$idcita)' class='btn btn-outline-secondary btn-sm' title='Seleccionar cliente'><i class='fas fa-plus'></i></button>";
+						echo "<button type='button' onclick='cliente_add(".$key->idcliente.",$idcita)' class='btn btn-outline-secondary btn-sm' title='Seleccionar cliente'><i class='fas fa-plus'></i></button>";
 						echo "</div>";
 					echo "</td>";
 					echo "<td>";
-							echo $key['rfc_prove'];
+							echo $key->profesion;
 					echo "</td>";
 					echo "<td>";
-							echo $key['nombre'];
+							echo $key->nombre." ".$key->apellidop." ".$key->apellidom;
 					echo "</td>";
 					echo "<td>";
-							echo $key['contacto_prove'];
+							echo $key->correo;
+					echo "</td>";
+					echo "<td>";
+							echo $key->telefono;
 					echo "</td>";
 				echo "</tr>";
 			}
@@ -52,7 +55,7 @@ class Pedidos extends Sagyc{
 			parent::set_names();
 			$x="";
 			$idcliente=$_REQUEST['idcliente'];
-			$sql="select idcliente, nombre, email_prove from et_cliente where idcliente=:id";
+			$sql="select * from clientes where idcliente=:id";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":id",$idcliente);
 			$sth->execute();
@@ -102,6 +105,15 @@ class Pedidos extends Sagyc{
 			if (isset($_REQUEST['observaciones'])){
 				$arreglo+= array('observaciones'=>$_REQUEST['observaciones']);
 			}
+			if (isset($_REQUEST['cubiculo'])){
+				$arreglo+= array('cubiculo'=>$_REQUEST['cubiculo']);
+			}
+			if (isset($_REQUEST['atiende'])){
+				$arreglo+= array('atiende'=>$_REQUEST['atiende']);
+			}
+			if (isset($_REQUEST['servicio'])){
+				$arreglo+= array('servicio'=>$_REQUEST['servicio']);
+			}
 
 			$x="";
 			if($id==0){
@@ -116,7 +128,17 @@ class Pedidos extends Sagyc{
 			return "Database access FAILED!".$e->getMessage();
 		}
 	}
-
+	public function atiende(){
+		try{
+			$sql="select * from usuarios";
+			$sth = $this->dbh->prepare($sql);
+			$sth->execute();
+			return $sth->fetchAll(PDO::FETCH_OBJ);
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
 	public function editar_cita($id){
 		try{
 			parent::set_names();
@@ -132,7 +154,7 @@ class Pedidos extends Sagyc{
 	}
 	public function cliente($idcliente){
 		try{
-			$sql="select * from et_cliente where idcliente='$idcliente'";
+			$sql="select * from clientes where idcliente='$idcliente'";
 			$sth = $this->dbh->prepare($sql);
 			$sth->execute();
 			return $sth->fetch(PDO::FETCH_OBJ);
@@ -147,7 +169,7 @@ class Pedidos extends Sagyc{
 
 			$inicio=$inicio." 00:00:00";
 			$fin=$fin." 23:59:59";
-			$sql="SELECT * from citas left outer join et_cliente on et_cliente.idcliente=citas.idcliente
+			$sql="SELECT * from citas left outer join clientes on clientes.idcliente=citas.idcliente
 			where citas.fecha between '$inicio' and '$fin' order by citas.idcitas desc";
 			$sth = $this->dbh->prepare($sql);
 			$sth->execute();
@@ -157,6 +179,8 @@ class Pedidos extends Sagyc{
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
+
+
 
 
 

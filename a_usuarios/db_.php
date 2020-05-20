@@ -22,14 +22,14 @@ class Usuario extends Sagyc{
 
 	public function usuario($id){
 		self::set_names();
-		$sql="select * from et_usuario where idusuario='$id'";
+		$sql="select * from usuarios where idusuario='$id'";
 		$sth = $this->dbh->prepare($sql);
 		$sth->execute();
 		return $sth->fetch();
 	}
 	public function usuario_lista(){
     self::set_names();
-		$sql="select et_usuario.idusuario, et_usuario.idtienda, et_usuario.nombre, et_usuario.user, et_usuario.pass, et_usuario.nivel, et_usuario.activo, et_tienda.nombre as tienda  from et_usuario left outer join et_tienda on et_tienda.id=et_usuario.idtienda";
+		$sql="select usuarios.idusuario, usuarios.idtienda, usuarios.nombre, usuarios.user, usuarios.pass, usuarios.nivel, usuarios.activo, et_tienda.nombre as tienda  from usuarios left outer join et_tienda on et_tienda.id=usuarios.idtienda";
 		$sth = $this->dbh->prepare($sql);
 		$sth->execute();
 		return $sth->fetchAll();
@@ -66,17 +66,17 @@ class Usuario extends Sagyc{
 
 		if($id==0){
 
-			$x.=$this->insert('et_usuario', $arreglo);
+			$x.=$this->insert('usuarios', $arreglo);
 		}
 		else{
-			$x.=$this->update('et_usuario',array('idusuario'=>$id), $arreglo);
+			$x.=$this->update('usuarios',array('idusuario'=>$id), $arreglo);
 		}
 		return $x;
 	}
 
 	public function lista_acceso(){
     self::set_names();
-		$sql="select *  from et_usuarioreg left outer join et_usuario on et_usuario.idusuario=et_usuarioreg.idpersonal order by fecha desc limit 1000";
+		$sql="select *  from usuariosreg left outer join usuarios on usuarios.idusuario=usuariosreg.idpersonal order by fecha desc limit 1000";
 		$sth = $this->dbh->prepare($sql);
 		$sth->execute();
 		return $sth->fetchAll();
@@ -89,7 +89,7 @@ class Usuario extends Sagyc{
 			$arreglo=array();
 			$passPOST=md5(trim($pass1));
 			$arreglo=array('pass'=>$passPOST);
-			$x=$this->update('et_usuario',array('idusuario'=>$id), $arreglo);
+			$x=$this->update('usuarios',array('idusuario'=>$id), $arreglo);
 			return $x;
 		}
 		else{

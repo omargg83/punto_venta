@@ -171,7 +171,7 @@
 		public function acceso2($mail, $pass){
 			try{
 				self::set_names();
-				$sql="SELECT * FROM et_usuario where user=:correo and pass=:pass and activo=1";
+				$sql="SELECT * FROM usuarios where user=:correo and pass=:pass and activo=1";
 				$sth = $this->dbh->prepare($sql);
 				$sth->bindValue(":correo",$mail);
 				$sth->bindValue(":pass",$pass);
@@ -421,7 +421,7 @@
 		public function fondo(){
 			if (isset($_REQUEST['imagen'])){$imagen=$_REQUEST['imagen'];}
 			$arreglo=array('idfondo'=>$imagen);
-			$x=$this->update('et_usuario',array('idusuario'=>$_SESSION['idpersona']), $arreglo);
+			$x=$this->update('usuarios',array('idusuario'=>$_SESSION['idpersona']), $arreglo);
 		}
 		public function leerfondo(){
 			return $_SESSION['idfondo'];

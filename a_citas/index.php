@@ -133,8 +133,9 @@
               var datos = JSON.parse(response);
               if (datos.idcliente>0){
                 $("#idcliente").val(datos.idcliente);
-                $("#nombre").val(datos.nombre);
-                $("#correo").val(datos.email_prove);
+                $("#nombre").val(datos.profesion+" "+datos.nombre+" "+datos.apellidop+" "+datos.apellidom);
+                $("#correo").val(datos.correo);
+                $("#telefono").val(datos.telefono);
                 Swal.fire({
                   type: 'success',
                   title: "Se agregó correctamente",

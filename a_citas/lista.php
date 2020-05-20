@@ -13,7 +13,7 @@
 			<th>Cliente</th>
 			<th>Fecha</th>
 			<th>Estado</th>
-		
+
 			</tr>
 			</thead>
 			<tbody>
@@ -24,7 +24,7 @@
 						echo "<td>";
 							echo "<div class='btn-group'>";
 								echo "<button class='btn btn-outline-secondary btn-sm' id='edit_comision' title='Editar' data-lugar='a_citas/editar'><i class='fas fa-pencil-alt'></i></i></button>";
-								if($key->estatus=="EN ESPERA"){
+								if($key->estatus=="PENDIENTE"){
 									echo "<button class='btn btn-outline-secondary btn-sm' id='eliminar_pedido' data-lugar='a_citas/db_' data-destino='a_pedidos/lista' data-id='".$key->idcitas."' data-funcion='borrar_pedido' data-div='trabajo'><i class='far fa-trash-alt'></i></button>";
 								}
 
@@ -34,7 +34,7 @@
 
 						if($key->idcliente){
 							$cli=$db->cliente($key->idcliente);
-							$nombre=$cli->nombre;
+							$nombre=$cli->profesion." ".$cli->nombre." ".$cli->apellidop." ".$cli->apellidom;
 						}
 						else{
 							$nombre="";
