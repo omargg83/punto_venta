@@ -70,7 +70,7 @@
 			      echo "</div>";
 
 						echo "<div class='col-2'>";
-			        echo "<label>Hora</label>";
+			        echo "<label>Minuto</label>";
 			        echo "<select class='form-control form-control-sm' name='minuto' id='minuto'>";
 								for($i=0;$i<59;$i++){
 									echo  "<option value='$i' "; if($minuto==$i){ echo " selected";} echo ">$i</option>";

@@ -34,7 +34,6 @@ class Venta extends Sagyc{
 			parent::set_names();
 			$texto=$_REQUEST['texto'];
 			$idcliente=$_REQUEST['idcliente'];
-			$idcita=$_REQUEST['idcita'];
 
 			$sql="SELECT * from clientes where nombre like '%$texto%' limit 100";
 			$sth = $this->dbh->prepare($sql);
@@ -45,7 +44,7 @@ class Venta extends Sagyc{
 				echo "<tr>";
 					echo "<td>";
 						echo "<div class='btn-group'>";
-						echo "<button type='button' onclick='cliente_addv(".$key->idcliente.",$idcita)' class='btn btn-outline-secondary btn-sm' title='Seleccionar cliente'><i class='fas fa-plus'></i></button>";
+						echo "<button type='button' onclick='cliente_addv(".$key->idcliente.")' class='btn btn-outline-secondary btn-sm' title='Seleccionar cliente'><i class='fas fa-plus'></i></button>";
 						echo "</div>";
 					echo "</td>";
 					echo "<td>";
@@ -86,6 +85,8 @@ class Venta extends Sagyc{
 
 	public function venta($id){
 		self::set_names();
+		$this->total_venta($id);
+
 		$sql="select * from et_venta where idventa='$id'";
 		$sth = $this->dbh->prepare($sql);
 		$sth->execute();
@@ -131,7 +132,6 @@ class Venta extends Sagyc{
 					if($key['tipo']==0 or $key['tipo']==2 or ($key['tipo']==3 and $key['cantidad']>0) or ($key['tipo']==4 and strlen($key['idventa'])==0)){
 							echo  "<button type='button' onclick='sel_prod(".$key['id'].",$idventa)' class='btn btn-outline-secondary btn-sm' title='Seleccionar articulo'><i class='far fa-hand-pointer'></i></button>";
 					}
-					echo $key['tipo'];
 					echo  "</div>";
 					echo  "</td>";
 
@@ -170,6 +170,146 @@ class Venta extends Sagyc{
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
+	public function busca_cita(){
+			try{
+				parent::set_names();
+				$texto=$_REQUEST['texto'];
+				$idcliente=$_REQUEST['idcliente'];
+				$idventa=$_REQUEST['idventa'];
+
+				$sql="SELECT * from citas left outer join clientes on clientes.idcliente=citas.idcliente
+				where citas.estatus='REALIZADA' and (clientes.nombre like '%$texto%' or clientes.apellidop like '%$texto%' or clientes.apellidom like '%$texto%' or citas.idcitas like '%$texto%')";
+
+				$sth = $this->dbh->prepare($sql);
+				$sth->execute();
+				echo "<table class='table table-sm'>";
+				echo "<tr><th>-</th><th>#</th><th>Nombre </th><th>Fecha</th><th>Estatus</th></tr>";
+				foreach($sth->fetchAll(PDO::FETCH_OBJ) as $key){
+					echo "<tr>";
+						echo "<td>";
+							echo "<div class='btn-group'>";
+							echo "<button type='button' onclick='sel_cita(".$key->idcitas.",$idventa)' class='btn btn-outline-secondary btn-sm' title='Seleccionar cliente'><i class='fas fa-plus'></i></button>";
+							echo "</div>";
+						echo "</td>";
+						echo "<td>";
+							echo $key->idcitas;
+						echo "</td>";
+						echo "<td>";
+								echo $key->profesion." ".$key->nombre." ".$key->apellidop." ".$key->apellidom;
+						echo "</td>";
+						echo "<td>";
+								echo fecha($key->fecha,2);
+						echo "</td>";
+						echo "<td>";
+								echo $key->estatus;
+						echo "</td>";
+					echo "</tr>";
+				}
+				echo "</table>";
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
+	}
+	public function selecciona_cita(){
+		try{
+			parent::set_names();
+			$idcita=$_REQUEST['idcita'];
+			$idventa=$_REQUEST['idventa'];
+
+			$sql="SELECT * from citas where idcitas=:id";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":id",$idcita);
+			$sth->execute();
+			$row=$sth->fetch(PDO::FETCH_OBJ);
+
+			$fech = new DateTime($row->fecha);
+			$fecha=$fech->format('d-m-Y');
+			$hora=$fech->format('H');
+			$minuto=$fech->format('i');
+
+			$estatus=$row->estatus;
+			$observaciones=$row->observaciones;
+			$idcliente=$row->idcliente;
+			$cubiculo=$row->cubiculo;
+			$atiende=$row->atiende;
+			$servicio=$row->servicio;
+
+			$cliente=$this->cliente($idcliente);
+			$nombre_cli=$cliente->profesion." ".$cliente->nombre." ".$cliente->apellidop." ".$cliente->apellidom;
+			$correo_cli=$cliente->correo;
+			$telefono_cli=$cliente->telefono;
+
+
+			echo "<form id='form_producto' action='' data-lugar='a_ventas/db_' data-destino='a_ventas/editar' data-funcion='agregaventa'>";
+			echo "<input type='hidden' name='idventa' id='idventa' value='$idventa' readonly>";
+			echo "<input type='hidden' name='idcita' id='idcita' value='$idcita' readonly>";
+			echo "<div class='row'>";
+
+				echo "<div class='col-3'>";
+					echo "<label>Fecha</label>";
+					echo "<input type='text' class='form-control form-control-sm fechaclass' id='fecha' name='fecha' value='$fecha' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-3'>";
+					echo "<label>Hora</label>";
+					echo "<input type='text' class='form-control form-control-sm fechaclass' id='fecha' name='fecha' value='$hora:$minuto' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-3'>";
+					echo "<label>Estado</label>";
+					echo "<input type='text' class='form-control form-control-sm fechaclass' id='estado' name='estado' value='$estatus' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-6'>";
+					echo "<label>Nombre:</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='nombre' id='nombre' value='".$nombre_cli."' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-6'>";
+					echo "<label>Correo:</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='correo' id='correo' value='".$correo_cli."' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-2'>";
+					echo "<label>Cubiculo</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='correo' id='correo' value='".$cubiculo."' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-4'>";
+					echo "<label>Atiende</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='atiende' id='atiende' value='".$atiende."' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-6'>";
+					echo "<label>Servicio</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='servicio' id='servicio' value='".$servicio."' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-12'>";
+					echo "<label>Notas:</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='observaciones' id='observaciones' value='".$observaciones."' readonly>";
+				echo "</div>";
+
+			echo "</div>";
+			echo "<hr>";
+			echo "<div class='row'>";
+				echo "<div class='col-12'>";
+					echo "<div class='btn-group'>";
+						echo "<button type='submit' class='btn btn-outline-info btn-sm'><i class='fas fa-cart-plus'></i>Agregar</button>";
+						echo "<button type='button' class='btn btn-outline-primary btn-sm' data-dismiss='modal'><i class='fas fa-sign-out-alt'></i>Cerrar</button>";
+					echo "</div>";
+				echo "</div>";
+			echo "</div>";
+			echo "</form>";
+
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+
+
 	public function selecciona_producto(){
 		try{
 			parent::set_names();
@@ -331,22 +471,6 @@ class Venta extends Sagyc{
 			$sth->execute();
 			$res=$sth->fetch(PDO::FETCH_OBJ);
 
-			///////////////////////////////////////////////////actualiza producto tipo idn_to_unicode
-			if($tipo==4){
-				$sql="update productos set idventa=:idventa where id=:id";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":idventa",$idventa);
-				$sth->bindValue(":id",$idproducto);
-				$sth->execute();
-			}
-
-			if($tipo==3){
-				/////////////para
-			}
-
-
-
-
 			////////////////////////////////////////////////////////
 			$arreglo=array();
 			$arreglo+=array('idventa'=>$idventa);
@@ -375,19 +499,24 @@ class Venta extends Sagyc{
 
 			if($ped->error==0){
 				{
-					$sql="select sum(v_total) as gtotal from bodega where idventa=:texto";
-					$sth = $this->dbh->prepare($sql);
-					$sth->bindValue(":texto",$idventa);
-					$sth->execute();
-					$res=$sth->fetch();
-					$gtotal=$res['gtotal'];
-
-					$subtotal=$gtotal/1.16;
-					$iva=$gtotal-$subtotal;
-
-					$values = array('subtotal'=>$subtotal, 'iva'=>$iva, 'total'=>$gtotal, 'gtotal'=>$gtotal );
-					$this->update('et_venta',array('idventa'=>$idventa), $values);
+					$this->total_venta($idventa);
 				}
+
+
+				///////////////////////////////////////////////////actualiza producto tipo idn_to_unicode
+				if($tipo==4){
+					$sql="update productos set idventa=:idventa where id=:id";
+					$sth = $this->dbh->prepare($sql);
+					$sth->bindValue(":idventa",$idventa);
+					$sth->bindValue(":id",$idproducto);
+					$sth->execute();
+				}
+
+				if($tipo==3){
+					/////////////para
+				 $this->cantidad_update($idproducto);
+				}
+
 
 				$arreglo =array();
 				$arreglo+=array('id'=>$idventa);
@@ -416,13 +545,21 @@ class Venta extends Sagyc{
 		$sth->execute();
 		$res=$sth->fetch(PDO::FETCH_OBJ);
 
+		$x=$this->borrar('bodega',"id",$id);
+
 		if($res->tipo==4){
 			$sql="update productos set idventa=NULL where id=:id";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":id",$res->idproducto);
 			$sth->execute();
 		}
-		return $this->borrar('bodega',"id",$id);
+
+		if($res->tipo==3){
+			$this->cantidad_update($res->idproducto);
+		}
+
+		$this->total_venta($res->idventa);
+		return $x;
 	}
 	public function ventas_pedido($id){
 		self::set_names();
@@ -434,22 +571,22 @@ class Venta extends Sagyc{
 
 	public function ventas_lista(){
 		self::set_names();
-		$sql="select et_venta.idventa, et_venta.idtienda, et_venta.iddescuento, et_venta.factura, et_cliente.razon_social_prove, et_tienda.nombre, et_venta.total, et_venta.fecha, et_venta.gtotal, et_venta.estado, et_descuento.nombre as descuento from et_venta
-		left outer join et_cliente on et_cliente.idcliente=et_venta.idcliente
+		$sql="select et_venta.idventa, et_venta.idtienda, et_venta.iddescuento, et_venta.factura, clientes.nombre, et_tienda.nombre as tienda, et_venta.total, et_venta.fecha, et_venta.gtotal, et_venta.estado, et_descuento.nombre as descuento from et_venta
+		left outer join clientes on clientes.idcliente=et_venta.idcliente
 		left outer join et_descuento on et_descuento.iddescuento=et_venta.iddescuento
 		left outer join et_tienda on et_tienda.id=et_venta.idtienda where et_venta.idtienda='".$_SESSION['idtienda']."' and et_venta.estado='Activa' order by et_venta.fecha desc";
 		$sth = $this->dbh->prepare($sql);
 		$sth->execute();
-		return $sth->fetchAll();
+		return $sth->fetchAll(PDO::FETCH_OBJ);
 	}
 	public function buscar($texto){
 		self::set_names();
 		$texto=trim($texto);
 		if(strlen($texto)>0){
-			$sql="select et_venta.idventa, et_venta.idtienda, et_venta.iddescuento, et_venta.factura, et_cliente.razon_social_prove, et_tienda.nombre, et_venta.total, et_venta.fecha, et_venta.gtotal, et_venta.estado, et_descuento.nombre as descuento from et_venta
-			left outer join et_cliente on et_cliente.idcliente=et_venta.idcliente
+			$sql="select et_venta.idventa, et_venta.idtienda, et_venta.iddescuento, et_venta.factura, clientes.nombre, et_tienda.nombre, et_venta.total, et_venta.fecha, et_venta.gtotal, et_venta.estado, et_descuento.nombre as descuento from et_venta
+			left outer join clientes on clientes.idcliente=et_venta.idcliente
 			left outer join et_descuento on et_descuento.iddescuento=et_venta.iddescuento
-			left outer join et_tienda on et_tienda.id=et_venta.idtienda where et_venta.idtienda='".$_SESSION['idtienda']."' and (et_venta.idventa like '%$texto%' or et_cliente.razon_social_prove like '%$texto%' or et_venta.estado like '%$texto%' or et_venta.total like '%$texto%') order by et_venta.fecha desc";
+			left outer join et_tienda on et_tienda.id=et_venta.idtienda where et_venta.idtienda='".$_SESSION['idtienda']."' and (et_venta.idventa like '%$texto%' or clientes.nombre like '%$texto%' or et_venta.estado like '%$texto%' or et_venta.total like '%$texto%') order by et_venta.fecha desc";
 			$sth = $this->dbh->prepare($sql);
 			$sth->execute();
 			return $sth->fetchAll();
@@ -457,7 +594,7 @@ class Venta extends Sagyc{
 	}
 	public function clientes_lista(){
 		self::set_names();
-		$sql="SELECT * FROM et_cliente";
+		$sql="SELECT * FROM clientes";
 		$sth = $this->dbh->prepare($sql);
 		$sth->execute();
 		return $sth->fetchAll();
@@ -576,8 +713,8 @@ class Venta extends Sagyc{
 			$desde = date("Y-m-d", strtotime($desde))." 00:00:00";
 			$hasta = date("Y-m-d", strtotime($hasta))." 23:59:59";
 
-			$sql="select et_venta.idventa, et_venta.idtienda, et_venta.iddescuento, et_venta.factura, et_cliente.razon_social_prove, et_tienda.nombre, et_venta.total, et_venta.fecha, et_venta.gtotal, et_venta.estado from et_venta
-			left outer join et_cliente on et_cliente.idcliente=et_venta.idcliente
+			$sql="select et_venta.idventa, et_venta.idtienda, et_venta.iddescuento, et_venta.factura, clientes.nombre, et_tienda.nombre, et_venta.total, et_venta.fecha, et_venta.gtotal, et_venta.estado from et_venta
+			left outer join clientes on clientes.idcliente=et_venta.idcliente
 			left outer join et_tienda on et_tienda.id=et_venta.idtienda where (et_venta.fecha BETWEEN :fecha1 AND :fecha2)";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":fecha1",$desde);
@@ -603,7 +740,7 @@ class Venta extends Sagyc{
 					et_venta.idtienda,
 					et_venta.iddescuento,
 					et_venta.factura,
-					et_cliente.razon_social_prove,
+					clientes.nombre,
 					et_tienda.nombre,
 					et_venta.total,
 					et_venta.fecha,
@@ -616,7 +753,7 @@ class Venta extends Sagyc{
 					bodega
 				LEFT OUTER JOIN et_venta ON et_venta.idventa = bodega.idventa
 				left outer join productos on productos.id=bodega.idproducto
-				LEFT OUTER JOIN et_cliente ON et_cliente.idcliente = et_venta.idcliente
+				LEFT OUTER JOIN clientes ON clientes.idcliente = et_venta.idcliente
 				LEFT OUTER JOIN et_tienda ON et_tienda.id = et_venta.idtienda
 				where bodega.idventa and (et_venta.fecha BETWEEN :fecha1 AND :fecha2) order by idventa desc";
 			$sth = $this->dbh->prepare($sql);

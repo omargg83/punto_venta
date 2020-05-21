@@ -25,23 +25,23 @@
 		</thead>
 		<tbody>
 		<?php
-			for($i=0;$i<count($pd);$i++){
+			foreach($pd as $key){
 		?>
-					<tr id="<?php echo $pd[$i]['idventa']; ?>" class="edit-t">
+					<tr id="<?php echo $key->idventa; ?>" class="edit-t">
 						<td>
 							<div class="btn-group">
 								<button class='btn btn-outline-primary btn-sm'  id='edit_persona' title='Editar' data-lugar='a_ventas/editar'><i class="fas fa-pencil-alt"></i></button>
 							</div>
 						</td>
-						<td  ><?php echo $pd[$i]["idventa"]; ?></td>
-						<td><?php echo $pd[$i]["fecha"]; ?></td>
-						<td><?php echo $pd[$i]["razon_social_prove"]; ?></td>
-						<td><?php echo $pd[$i]["factura"]; ?></td>
-						<td><?php echo $pd[$i]["descuento"]; ?></td>
-						<td><?php echo $pd[$i]["nombre"]; ?></td>
-						<td align="right"><?php echo number_format($pd[$i]["total"],2); ?></td>
-						<td align="right"><?php echo number_format($pd[$i]["gtotal"],2); ?></td>
-						<td><?php echo $pd[$i]["estado"]; ?></td>
+						<td  ><?php echo $key->idventa; ?></td>
+						<td><?php echo $key->fecha; ?></td>
+						<td><?php echo $key->nombre; ?></td>
+						<td><?php echo $key->factura; ?></td>
+						<td><?php echo $key->descuento; ?></td>
+						<td><?php echo $key->tienda; ?></td>
+						<td align="right"><?php echo number_format($key->total,2); ?></td>
+						<td align="right"><?php echo number_format($key->gtotal,2); ?></td>
+						<td><?php echo $key->estado; ?></td>
 
 					</tr>
 		<?php

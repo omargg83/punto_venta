@@ -4,7 +4,6 @@
 ?>
 <?php
 echo "<input  type='hidden' id='idcliente' NAME='idcliente' value='$id'>";
-echo "<input  type='hidden' id='idcita' NAME='idcita' value='$id2'>";
 ?>
   <div class='modal-header'>
   	<h5 class='modal-title'>Agregar cliente</h5>

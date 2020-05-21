@@ -7,7 +7,7 @@
 		<span class='navbar-toggler-icon'></span>
 	  </button>
 		  <div class='collapse navbar-collapse' id='navbarSupportedContent'>
-			<ul class='navbar-nav mr-auto'>";
+			<ul class='navbar-nav mr-auto'>
 				<div class='form-inline my-2 my-lg-0' id='daigual' action='' >
 					<div class="input-group  mr-sm-2">
 						<input type="text" class="form-control form-control-sm" placeholder="Buscar" aria-label="Buscar" aria-describedby="basic-addon2"  id='buscar' onkeyup='Javascript: if (event.keyCode==13) buscarx()'>
@@ -36,16 +36,52 @@
 </div>
 
 <script type="text/javascript">
-function buscar_clientev(){
+function buscar_cita(idventa){
 	var texto=$("#prod_venta").val();
 	var idcliente=$("#idcliente").val();
-	var idcita=$("#idcita").val();
 	if(texto.length>=-1){
 		$.ajax({
 			data:  {
 				"texto":texto,
 				"idcliente":idcliente,
-				"idcita":idcita,
+				"idventa":idventa,
+				"function":"busca_cita"
+			},
+			url:   "a_ventas/db_.php",
+			type:  'post',
+			beforeSend: function () {
+				$("#resultadosx").html("buscando...");
+			},
+			success:  function (response) {
+				$("#resultadosx").html(response);
+				$("#prod_venta").val();
+			}
+		});
+	}
+}
+function sel_cita(idcita,idventa){
+	$.ajax({
+		data:  {
+			"idcita":idcita,
+			"idventa":idventa,
+			"function":"selecciona_cita"
+		},
+		url:   "a_ventas/db_.php",
+		type:  'post',
+		success:  function (response) {
+			$("#resultadosx").html(response);
+		}
+	});
+}
+
+function buscar_clientev(){
+	var texto=$("#prod_venta").val();
+	var idcliente=$("#idcliente").val();
+	if(texto.length>=-1){
+		$.ajax({
+			data:  {
+				"texto":texto,
+				"idcliente":idcliente,
 				"function":"busca_cliente"
 			},
 			url:   "a_ventas/db_.php",
@@ -175,6 +211,7 @@ function ventraprod(idx,tipo){
 						url:   "a_ventas/db_.php",
 						type:  'post',
 						success:  function (response) {
+							console.log(response);
 							var data = JSON.parse(response);
 							$("#id").val(data.idventa);
 							$("#sub_x").val(data.subtotal);

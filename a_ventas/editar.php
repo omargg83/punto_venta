@@ -88,9 +88,15 @@ else{
 								if($estado=="Activa"){
 									//echo "<button class='btn btn-outline-primary btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
 
-									echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_producto' data-id='0' data-id2='$id' data-lugar='a_ventas/form_producto'><i class='fas fa-plus'></i>Agregar Producto</button>";
-									echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='winmodal_cli' data-id='$idcliente' data-id2='$id' data-lugar='a_ventas/form_cliente' title='Agregar Cliente' ><i class='fas fa-user-tag'></i>+ Cliente</button>";
+									echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='winmodal_cli' data-id='$idcliente' data-id2='$id' data-lugar='a_ventas/form_cliente' title='Agregar Cliente' >+<i class='fas fa-user-tag'></i>Cliente</button>";
+
+									echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_producto' data-id='0' data-id2='$id' data-lugar='a_ventas/form_producto'>+ <i class='fab fa-product-hunt'></i>Producto</button>";
+
+									echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_citas' data-id='0' data-id2='$id' data-lugar='a_ventas/form_citas'>+ <i class='fab fa-product-hunt'></i>Citas</button>";
+
 									echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_finalizar' data-id='$id' data-lugar='a_ventas/finalizar'><i class='fas fa-cash-register'></i> Finalizar Venta</button>";
+
+
                 }
 								if($estado=="Pagada"){
 									echo "<button type='button' class='btn btn-outline-primary btn-sm' onclick='imprime($id)'><i class='fas fa-print'></i>Imprimir</button>";

@@ -657,22 +657,44 @@
 
 		public function cantidad_update($id){
 			try{
-				$sql="select sum(cantidad) as total from bodega where idproducto=$id";
-				$sth = $db->dbh->prepare($sql);
+
+				$sql="select sum(cantidad) as total from bodega where idproducto='$id'";
+				$sth = $this->dbh->prepare($sql);
 				$sth->execute();
 				$total=$sth->fetch(PDO::FETCH_OBJ);
 				$existencia=$total->total;
 
 				$arreglo =array();
-				$arreglo = array('cantidad'=>$existencia);
-				$db->update('productos',array('id'=>$id), $arreglo);
+				$arreglo+=array('cantidad'=>$existencia);
+				return $this->update('productos',array('id'=>$id), $arreglo);
 			}
 			catch(PDOException $e){
 				return "Database access FAILED!".$e->getMessage();
 			}
 		}
+		public function total_venta($idventa){
+			try{
+				///////////total
+				$sql="select sum(v_total) as gtotal from bodega where idventa=:texto";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":texto",$idventa);
+				$sth->execute();
+				$suma=$sth->fetch();
+				$gtotal=$suma['gtotal'];
 
+				$subtotal=$gtotal/1.16;
+				$iva=$gtotal-$subtotal;
+
+				$values = array('subtotal'=>$subtotal, 'iva'=>$iva, 'total'=>$gtotal, 'gtotal'=>$gtotal );
+				return $this->update('et_venta',array('idventa'=>$idventa), $values);
+			}
+			catch(PDOException $e){
+				return "Database access FAILED!".$e->getMessage();
+			}
+
+		}
 	}
+
 
 	if(strlen($ctrl)>0){
 		$db = new Sagyc();
