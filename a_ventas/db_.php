@@ -349,6 +349,7 @@ class Venta extends Sagyc{
 			$cubiculo=$row->cubiculo;
 			$atiende=$row->atiende;
 			$servicio=$row->servicio;
+			$precio=$row->precio;
 
 			$cliente=$this->cliente($idcliente);
 			$nombre_cli=$cliente->profesion." ".$cliente->nombre." ".$cliente->apellidop." ".$cliente->apellidom;
@@ -409,7 +410,7 @@ class Venta extends Sagyc{
 
 				echo "<div class='col-3'>";
 					echo "<label>Precio</label>";
-					echo "<input type='text' class='form-control form-control-sm' name='precio' id='precio' value=''>";
+					echo "<input type='text' class='form-control form-control-sm' name='precio' id='precio' value='$precio'>";
 				echo "</div>";
 
 			echo "</div>";
