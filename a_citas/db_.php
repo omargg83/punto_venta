@@ -121,6 +121,9 @@ class Pedidos extends Sagyc{
 			if (isset($_REQUEST['servicio'])){
 				$arreglo+= array('servicio'=>$_REQUEST['servicio']);
 			}
+			if (isset($_REQUEST['precio'])){
+				$arreglo+= array('precio'=>$_REQUEST['precio']);
+			}
 
 			$x="";
 			if($id==0){
@@ -186,8 +189,6 @@ class Pedidos extends Sagyc{
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
-
-
 
 	public function borrar_cita(){
 		if (isset($_REQUEST['id'])){$id=$_REQUEST['id'];}

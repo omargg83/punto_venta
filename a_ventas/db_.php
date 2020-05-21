@@ -92,6 +92,7 @@ class Venta extends Sagyc{
 		$sth->execute();
 		return $sth->fetch();
 	}
+
 	public function busca_producto(){
 		try{
 			$texto=$_REQUEST['texto'];
@@ -170,146 +171,6 @@ class Venta extends Sagyc{
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
-	public function busca_cita(){
-			try{
-				parent::set_names();
-				$texto=$_REQUEST['texto'];
-				$idcliente=$_REQUEST['idcliente'];
-				$idventa=$_REQUEST['idventa'];
-
-				$sql="SELECT * from citas left outer join clientes on clientes.idcliente=citas.idcliente
-				where citas.estatus='REALIZADA' and (clientes.nombre like '%$texto%' or clientes.apellidop like '%$texto%' or clientes.apellidom like '%$texto%' or citas.idcitas like '%$texto%')";
-
-				$sth = $this->dbh->prepare($sql);
-				$sth->execute();
-				echo "<table class='table table-sm'>";
-				echo "<tr><th>-</th><th>#</th><th>Nombre </th><th>Fecha</th><th>Estatus</th></tr>";
-				foreach($sth->fetchAll(PDO::FETCH_OBJ) as $key){
-					echo "<tr>";
-						echo "<td>";
-							echo "<div class='btn-group'>";
-							echo "<button type='button' onclick='sel_cita(".$key->idcitas.",$idventa)' class='btn btn-outline-secondary btn-sm' title='Seleccionar cliente'><i class='fas fa-plus'></i></button>";
-							echo "</div>";
-						echo "</td>";
-						echo "<td>";
-							echo $key->idcitas;
-						echo "</td>";
-						echo "<td>";
-								echo $key->profesion." ".$key->nombre." ".$key->apellidop." ".$key->apellidom;
-						echo "</td>";
-						echo "<td>";
-								echo fecha($key->fecha,2);
-						echo "</td>";
-						echo "<td>";
-								echo $key->estatus;
-						echo "</td>";
-					echo "</tr>";
-				}
-				echo "</table>";
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-	}
-	public function selecciona_cita(){
-		try{
-			parent::set_names();
-			$idcita=$_REQUEST['idcita'];
-			$idventa=$_REQUEST['idventa'];
-
-			$sql="SELECT * from citas where idcitas=:id";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":id",$idcita);
-			$sth->execute();
-			$row=$sth->fetch(PDO::FETCH_OBJ);
-
-			$fech = new DateTime($row->fecha);
-			$fecha=$fech->format('d-m-Y');
-			$hora=$fech->format('H');
-			$minuto=$fech->format('i');
-
-			$estatus=$row->estatus;
-			$observaciones=$row->observaciones;
-			$idcliente=$row->idcliente;
-			$cubiculo=$row->cubiculo;
-			$atiende=$row->atiende;
-			$servicio=$row->servicio;
-
-			$cliente=$this->cliente($idcliente);
-			$nombre_cli=$cliente->profesion." ".$cliente->nombre." ".$cliente->apellidop." ".$cliente->apellidom;
-			$correo_cli=$cliente->correo;
-			$telefono_cli=$cliente->telefono;
-
-
-			echo "<form id='form_producto' action='' data-lugar='a_ventas/db_' data-destino='a_ventas/editar' data-funcion='agregaventa'>";
-			echo "<input type='hidden' name='idventa' id='idventa' value='$idventa' readonly>";
-			echo "<input type='hidden' name='idcita' id='idcita' value='$idcita' readonly>";
-			echo "<div class='row'>";
-
-				echo "<div class='col-3'>";
-					echo "<label>Fecha</label>";
-					echo "<input type='text' class='form-control form-control-sm fechaclass' id='fecha' name='fecha' value='$fecha' readonly>";
-				echo "</div>";
-
-				echo "<div class='col-3'>";
-					echo "<label>Hora</label>";
-					echo "<input type='text' class='form-control form-control-sm fechaclass' id='fecha' name='fecha' value='$hora:$minuto' readonly>";
-				echo "</div>";
-
-				echo "<div class='col-3'>";
-					echo "<label>Estado</label>";
-					echo "<input type='text' class='form-control form-control-sm fechaclass' id='estado' name='estado' value='$estatus' readonly>";
-				echo "</div>";
-
-				echo "<div class='col-6'>";
-					echo "<label>Nombre:</label>";
-					echo "<input type='text' class='form-control form-control-sm' name='nombre' id='nombre' value='".$nombre_cli."' readonly>";
-				echo "</div>";
-
-				echo "<div class='col-6'>";
-					echo "<label>Correo:</label>";
-					echo "<input type='text' class='form-control form-control-sm' name='correo' id='correo' value='".$correo_cli."' readonly>";
-				echo "</div>";
-
-				echo "<div class='col-2'>";
-					echo "<label>Cubiculo</label>";
-					echo "<input type='text' class='form-control form-control-sm' name='correo' id='correo' value='".$cubiculo."' readonly>";
-				echo "</div>";
-
-				echo "<div class='col-4'>";
-					echo "<label>Atiende</label>";
-					echo "<input type='text' class='form-control form-control-sm' name='atiende' id='atiende' value='".$atiende."' readonly>";
-				echo "</div>";
-
-				echo "<div class='col-6'>";
-					echo "<label>Servicio</label>";
-					echo "<input type='text' class='form-control form-control-sm' name='servicio' id='servicio' value='".$servicio."' readonly>";
-				echo "</div>";
-
-				echo "<div class='col-12'>";
-					echo "<label>Notas:</label>";
-					echo "<input type='text' class='form-control form-control-sm' name='observaciones' id='observaciones' value='".$observaciones."' readonly>";
-				echo "</div>";
-
-			echo "</div>";
-			echo "<hr>";
-			echo "<div class='row'>";
-				echo "<div class='col-12'>";
-					echo "<div class='btn-group'>";
-						echo "<button type='submit' class='btn btn-outline-info btn-sm'><i class='fas fa-cart-plus'></i>Agregar</button>";
-						echo "<button type='button' class='btn btn-outline-primary btn-sm' data-dismiss='modal'><i class='fas fa-sign-out-alt'></i>Cerrar</button>";
-					echo "</div>";
-				echo "</div>";
-			echo "</div>";
-			echo "</form>";
-
-		}
-		catch(PDOException $e){
-			return "Database access FAILED! ".$e->getMessage();
-		}
-	}
-
-
 	public function selecciona_producto(){
 		try{
 			parent::set_names();
@@ -420,11 +281,163 @@ class Venta extends Sagyc{
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
+
+	public function busca_cita(){
+			try{
+				parent::set_names();
+				$texto=$_REQUEST['texto'];
+				$idcliente=$_REQUEST['idcliente'];
+				$idventa=$_REQUEST['idventa'];
+
+				$sql="SELECT * from citas left outer join clientes on clientes.idcliente=citas.idcliente
+				where citas.estatus='REALIZADA' and (clientes.nombre like '%$texto%' or clientes.apellidop like '%$texto%' or clientes.apellidom like '%$texto%' or citas.idcitas like '%$texto%')";
+
+				$sth = $this->dbh->prepare($sql);
+				$sth->execute();
+				echo "<table class='table table-sm'>";
+				echo "<tr><th>-</th><th>#</th><th>Nombre </th><th>Fecha</th><th>Estatus</th><th>Precio</th></tr>";
+				foreach($sth->fetchAll(PDO::FETCH_OBJ) as $key){
+					echo "<tr>";
+						echo "<td>";
+							echo "<div class='btn-group'>";
+							echo "<button type='button' onclick='sel_cita(".$key->idcitas.",$idventa)' class='btn btn-outline-secondary btn-sm' title='Seleccionar cliente'><i class='fas fa-plus'></i></button>";
+							echo "</div>";
+						echo "</td>";
+						echo "<td>";
+							echo $key->idcitas;
+						echo "</td>";
+						echo "<td>";
+								echo $key->profesion." ".$key->nombre." ".$key->apellidop." ".$key->apellidom;
+						echo "</td>";
+						echo "<td>";
+								echo fecha($key->fecha,2);
+						echo "</td>";
+						echo "<td>";
+								echo $key->estatus;
+						echo "</td>";
+						echo "<td>";
+								echo moneda($key->precio);
+						echo "</td>";
+					echo "</tr>";
+				}
+				echo "</table>";
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
+	}
+	public function selecciona_cita(){
+		try{
+			parent::set_names();
+			$idcita=$_REQUEST['idcita'];
+			$idventa=$_REQUEST['idventa'];
+
+			$sql="SELECT * from citas where idcitas=:id";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":id",$idcita);
+			$sth->execute();
+			$row=$sth->fetch(PDO::FETCH_OBJ);
+
+			$fech = new DateTime($row->fecha);
+			$fecha=$fech->format('d-m-Y');
+			$hora=$fech->format('H');
+			$minuto=$fech->format('i');
+
+			$estatus=$row->estatus;
+			$observaciones=$row->observaciones;
+			$idcliente=$row->idcliente;
+			$cubiculo=$row->cubiculo;
+			$atiende=$row->atiende;
+			$servicio=$row->servicio;
+
+			$cliente=$this->cliente($idcliente);
+			$nombre_cli=$cliente->profesion." ".$cliente->nombre." ".$cliente->apellidop." ".$cliente->apellidom;
+			$correo_cli=$cliente->correo;
+			$telefono_cli=$cliente->telefono;
+
+
+			echo "<form id='form_producto' action='' data-lugar='a_ventas/db_' data-destino='a_ventas/editar' data-funcion='agregaventa'>";
+			echo "<input type='hidden' name='idventa' id='idventa' value='$idventa' readonly>";
+			echo "<input type='hidden' name='idcita' id='idcita' value='$idcita' readonly>";
+			echo "<input type='hidden' name='tipo' id='tipo' value='99' readonly>";
+			echo "<div class='row'>";
+
+				echo "<div class='col-3'>";
+					echo "<label>Fecha</label>";
+					echo "<input type='text' class='form-control form-control-sm fechaclass' id='fechac' name='fechac' value='$fecha' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-3'>";
+					echo "<label>Hora</label>";
+					echo "<input type='text' class='form-control form-control-sm fechaclass' id='horac' name='horac' value='$hora:$minuto' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-3'>";
+					echo "<label>Estado</label>";
+					echo "<input type='text' class='form-control form-control-sm fechaclass' id='estadoc' name='estadoc' value='$estatus' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-6'>";
+					echo "<label>Nombre:</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='nombrec' id='nombrec' value='".$nombre_cli."' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-6'>";
+					echo "<label>Correo:</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='correoc' id='correoc' value='".$correo_cli."' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-2'>";
+					echo "<label>Cubiculo</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='cubiculoc' id='cubiculoc' value='".$cubiculo."' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-4'>";
+					echo "<label>Atiende</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='atiendec' id='atiendec' value='".$atiende."' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-6'>";
+					echo "<label>Servicio</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='servicioc' id='servicioc' value='".$servicio."' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-12'>";
+					echo "<label>Notas:</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='observacionesc' id='observacionesc' value='".$observaciones."' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-3'>";
+					echo "<label>Precio</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='precio' id='precio' value=''>";
+				echo "</div>";
+
+			echo "</div>";
+			echo "<hr>";
+			echo "<div class='row'>";
+				echo "<div class='col-12'>";
+					echo "<div class='btn-group'>";
+						echo "<button type='submit' class='btn btn-outline-info btn-sm'><i class='fas fa-cart-plus'></i>Agregar</button>";
+						echo "<button type='button' class='btn btn-outline-primary btn-sm' data-dismiss='modal'><i class='fas fa-sign-out-alt'></i>Cerrar</button>";
+					echo "</div>";
+				echo "</div>";
+			echo "</div>";
+			echo "</form>";
+
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+
+
 	public function agregaventa(){
 		parent::set_names();
 		$x="";
 		$idventa=$_REQUEST['idventa'];
-		$idproducto=$_REQUEST['idproducto'];
+		if (isset($_REQUEST['idproducto'])){
+			$idproducto=$_REQUEST['idproducto'];
+		}
 		$cliente="";
 		$observaciones="";
 		$cantidad="0";
@@ -465,57 +478,106 @@ class Venta extends Sagyc{
 				}
 			}
 
-			$sql="SELECT * from productos where id=:id";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":id",$idproducto);
-			$sth->execute();
-			$res=$sth->fetch(PDO::FETCH_OBJ);
+			if($tipo<80){
+				$sql="SELECT * from productos where id=:id";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":id",$idproducto);
+				$sth->execute();
+				$res=$sth->fetch(PDO::FETCH_OBJ);
 
-			////////////////////////////////////////////////////////
-			$arreglo=array();
-			$arreglo+=array('idventa'=>$idventa);
-			$arreglo+=array('idproducto'=>$idproducto);
-			$arreglo+=array('idpersona'=>$_SESSION['idpersona']);
-			$arreglo+=array('idtienda'=>$_SESSION['idtienda']);
-			$arreglo+=array('tipo'=>$tipo);
-			$arreglo+=array('nombre'=>$res->nombre);
-			$arreglo+=array('observaciones'=>$observaciones);
-			$arreglo+=array('cliente'=>$cliente);
-			if($tipo==3){
-				$arreglo+=array('cantidad'=>$cantidad*-1);
-			}
-			$arreglo+=array('v_cantidad'=>$cantidad);
-			$arreglo+=array('v_precio'=>$precio);
-			$total=$precio*$cantidad;
-			$arreglo+=array('v_total'=>$total);
-			if($tipo==4){
-				$arreglo+=array('v_marca'=>$res->marca);
-				$arreglo+=array('v_modelo'=>$res->modelo);
-				$arreglo+=array('v_imei'=>$res->imei);
-			}
-			//$arreglo+=array('v_total'=>$total);
-			$x=$this->insert('bodega', $arreglo);
-			$ped=json_decode($x);
-
-			if($ped->error==0){
-				{
-					$this->total_venta($idventa);
-				}
-
-
-				///////////////////////////////////////////////////actualiza producto tipo idn_to_unicode
-				if($tipo==4){
-					$sql="update productos set idventa=:idventa where id=:id";
-					$sth = $this->dbh->prepare($sql);
-					$sth->bindValue(":idventa",$idventa);
-					$sth->bindValue(":id",$idproducto);
-					$sth->execute();
-				}
-
+				////////////////////////////////////////////////////////
+				$arreglo=array();
+				$arreglo+=array('idventa'=>$idventa);
+				$arreglo+=array('idproducto'=>$idproducto);
+				$arreglo+=array('idpersona'=>$_SESSION['idpersona']);
+				$arreglo+=array('idtienda'=>$_SESSION['idtienda']);
+				$arreglo+=array('codigo'=>$res->codigo);
+				$arreglo+=array('tipo'=>$tipo);
+				$arreglo+=array('nombre'=>$res->nombre);
+				$arreglo+=array('observaciones'=>$observaciones);
+				$arreglo+=array('cliente'=>$cliente);
 				if($tipo==3){
-					/////////////para
-				 $this->cantidad_update($idproducto);
+					$arreglo+=array('cantidad'=>$cantidad*-1);
 				}
+				$arreglo+=array('v_cantidad'=>$cantidad);
+				$arreglo+=array('v_precio'=>$precio);
+				$total=$precio*$cantidad;
+				$arreglo+=array('v_total'=>$total);
+				if($tipo==4){
+					$arreglo+=array('v_marca'=>$res->marca);
+					$arreglo+=array('v_modelo'=>$res->modelo);
+					$arreglo+=array('v_imei'=>$res->imei);
+				}
+				//$arreglo+=array('v_total'=>$total);
+				$x=$this->insert('bodega', $arreglo);
+				$ped=json_decode($x);
+
+				if($ped->error==0){
+					{
+						$this->total_venta($idventa);
+					}
+
+
+					///////////////////////////////////////////////////actualiza producto tipo idn_to_unicode
+					if($tipo==4){
+						$sql="update productos set idventa=:idventa where id=:id";
+						$sth = $this->dbh->prepare($sql);
+						$sth->bindValue(":idventa",$idventa);
+						$sth->bindValue(":id",$idproducto);
+						$sth->execute();
+					}
+
+					if($tipo==3){
+						/////////////para
+					 $this->cantidad_update($idproducto);
+					}
+
+
+					$arreglo =array();
+					$arreglo+=array('id'=>$idventa);
+					$arreglo+=array('error'=>0);
+					$arreglo+=array('terror'=>0);
+					$arreglo+=array('param1'=>"");
+					$arreglo+=array('param2'=>"");
+					$arreglo+=array('param3'=>"");
+					return json_encode($arreglo);
+				}
+				else{
+						return $x;
+				}
+			}
+			else{
+
+				$fechac=$_REQUEST['fechac'];
+				$horac=$_REQUEST['horac'];
+				$estadoc=$_REQUEST['estadoc'];
+				$nombrec=$_REQUEST['nombrec'];
+				$correoc=$_REQUEST['correoc'];
+				$cubiculoc=$_REQUEST['cubiculoc'];
+				$atiendec=$_REQUEST['atiendec'];
+				$servicioc=$_REQUEST['servicioc'];
+
+
+				$arreglo=array();
+				$arreglo+=array('observaciones'=>$observaciones);
+
+				$nombre=$servicioc;
+				$cantidad=1;
+
+				$arreglo=array();
+				$arreglo+=array('idventa'=>$idventa);
+				$arreglo+=array('idpersona'=>$_SESSION['idpersona']);
+				$arreglo+=array('idtienda'=>$_SESSION['idtienda']);
+				$arreglo+=array('tipo'=>$tipo);
+				$arreglo+=array('nombre'=>$nombre);
+				$arreglo+=array('observaciones'=>$observaciones);
+				$arreglo+=array('cliente'=>$cliente);
+				$arreglo+=array('cantidad'=>$cantidad);
+				$arreglo+=array('v_cantidad'=>$cantidad);
+				$arreglo+=array('v_precio'=>$precio);
+				$total=$precio*$cantidad;
+				$arreglo+=array('v_total'=>$total);
+				$x=$this->insert('bodega', $arreglo);
 
 
 				$arreglo =array();
@@ -527,9 +589,9 @@ class Venta extends Sagyc{
 				$arreglo+=array('param3'=>"");
 				return json_encode($arreglo);
 			}
-			else{
-					return $x;
-			}
+
+
+
 		}
 		catch(PDOException $e){
 			return "Database access FAILED! ".$e->getMessage();

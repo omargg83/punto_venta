@@ -53,7 +53,7 @@
 						}
 					echo "</div>";
 					echo "<div class='col-2'>";
-						echo $res->codigo;
+						echo $key['codigo'];
 					echo "</div>";
 
 					echo "<div class='col-3'>";

@@ -7,6 +7,7 @@
 	$cubiculo=0;
 	$atiende=0;
 	$servicio=0;
+	$precio=0;
 
 
   $estatus="";
@@ -36,6 +37,7 @@
 		$cubiculo=$row->cubiculo;
 		$atiende=$row->atiende;
 		$servicio=$row->servicio;
+		$precio=$row->precio;
 
 		$cliente=$db->cliente($idcliente);
 		$nombre_cli=$cliente->profesion." ".$cliente->nombre." ".$cliente->apellidop." ".$cliente->apellidom;
@@ -132,7 +134,7 @@
 							echo  "</select>";
 						echo "</div>";
 
-						echo "<div class='col-4'>";
+						echo "<div class='col-3'>";
 							echo "<label>Atiende</label>";
 							echo "<select class='form-control form-control-sm' name='atiende' id='atiende'>";
 								foreach($ati as $key){
@@ -141,7 +143,7 @@
 							echo  "</select>";
 						echo "</div>";
 
-						echo "<div class='col-6'>";
+						echo "<div class='col-4'>";
 							echo "<label>Servicio</label>";
 							echo "<select id='servicio' name='servicio' class='form-control form-control-sm'>";
 								echo "<option value='PODOLOGICO PREVENTIVO'"; if($servicio=='PODOLOGICO PREVENTIVO'){ echo " selected"; } echo ">PODOLOGICO PREVENTIVO</option>";
@@ -153,6 +155,12 @@
 								echo "<option value='RETIRADO DE GEL'"; if($servicio=='RETIRADO DE GEL'){ echo " selected"; } echo ">RETIRADO DE GEL</option>";
 							echo "</select>";
 						echo "</div>";
+
+						echo "<div class='col-3'>";
+              echo "<label>Costo:</label>";
+              echo "<input type='text' class='form-control form-control-sm' id='precio' name='precio' value='$precio' placeholder='Costo de la cita'>";
+            echo "</div>";
+
 					echo "</div>";
 
         echo "</div>";

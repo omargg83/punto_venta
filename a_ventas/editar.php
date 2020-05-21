@@ -92,11 +92,9 @@ else{
 
 									echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_producto' data-id='0' data-id2='$id' data-lugar='a_ventas/form_producto'>+ <i class='fab fa-product-hunt'></i>Producto</button>";
 
-									echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_citas' data-id='0' data-id2='$id' data-lugar='a_ventas/form_citas'>+ <i class='fab fa-product-hunt'></i>Citas</button>";
+									echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_citas' data-id='0' data-id2='$id' data-lugar='a_ventas/form_citas'>+ <i class='far fa-calendar-check'></i>Citas</button>";
 
 									echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_finalizar' data-id='$id' data-lugar='a_ventas/finalizar'><i class='fas fa-cash-register'></i> Finalizar Venta</button>";
-
-
                 }
 								if($estado=="Pagada"){
 									echo "<button type='button' class='btn btn-outline-primary btn-sm' onclick='imprime($id)'><i class='fas fa-print'></i>Imprimir</button>";
@@ -113,7 +111,7 @@ else{
 		<?php
 
 			echo "<div class='card-body' id='compras'>";
-			include 'lista_pedido.php';
+				include 'lista_pedido.php';
 			echo "</div>";
 
 		?>
