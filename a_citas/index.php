@@ -51,6 +51,7 @@
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
+      droppable: true,
       defaultView: 'dayGridMonth',
       defaultDate: fecha,
       buttonText:{
@@ -90,6 +91,7 @@
       }
     });
     calendar.render();
+    new Draggable(draggableEl);
   }
   function buscar_cliente(){
     var texto=$("#prod_venta").val();
