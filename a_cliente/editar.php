@@ -32,29 +32,29 @@
 				<div class='row'>
 					<div class="col-3">
 						<label>Profesión:</label>
-							<input type="text" class="form-control form-control-sm" name="profesion" id="profesion" value="<?php echo $profesion;?>" placeholder="Profesión">
+							<input type="text" class="form-control form-control-sm" name="profesion" id="profesion" value="<?php echo $profesion;?>" placeholder="Profesión" required>
 					</div>
 					<div class="col-3">
 						<label>Nombre:</label>
-							<input type="text" class="form-control form-control-sm" name="nombre" id="nombre" value="<?php echo $nombre;?>" placeholder="Nombre">
+							<input type="text" class="form-control form-control-sm" name="nombre" id="nombre" value="<?php echo $nombre;?>" placeholder="Nombre" required>
 					</div>
 					<div class="col-3">
 						<label>Apellido Paterno:</label>
-							<input type="text" class="form-control form-control-sm" name="apellidop" id="apellidop" value="<?php echo $apellidop;?>" placeholder="Apellido Paterno">
+							<input type="text" class="form-control form-control-sm" name="apellidop" id="apellidop" value="<?php echo $apellidop;?>" placeholder="Apellido Paterno" required>
 					</div>
 					<div class="col-3">
 						<label>Apellido materno:</label>
-							<input type="text" class="form-control form-control-sm" name="apellidom" id="apellidom" value="<?php echo $apellidom;?>" placeholder="Apellido materno">
+							<input type="text" class="form-control form-control-sm" name="apellidom" id="apellidom" value="<?php echo $apellidom;?>" placeholder="Apellido materno" required>
 					</div>
 				</div>
 				<div class='row'>
 					<div class="col-3">
 						<label>Teléfono:</label>
-							<input type="text" class="form-control form-control-sm" name="telefono" id="telefono" value="<?php echo $telefono;?>" placeholder="Teléfono">
+							<input type="text" class="form-control form-control-sm" name="telefono" id="telefono" value="<?php echo $telefono;?>" placeholder="Teléfono" required>
 					</div>
 					<div class="col-3">
 						<label>Correo:</label>
-							<input type="text" class="form-control form-control-sm" name="correo" id="correo" value="<?php echo $correo;?>" placeholder="Correo">
+							<input type="text" class="form-control form-control-sm" name="correo" id="correo" value="<?php echo $correo;?>" placeholder="Correo" required>
 					</div>
 				</div>
 			</div>
