@@ -1,6 +1,9 @@
+<?php
+	session_start();
+?>
 <nav class='navbar navbar-expand-sm fixed-top navbar-light bg-light text-'  style='background-color:#3e4676 !important; color: white !important;'>
   <img src='img/sagyc.png' width='60' height='30' alt=''>
-  <a class='navbar-brand text-white text-center' href='#'>  SMHIDALGO  </a>
+  <a class='navbar-brand text-white text-center' href='#'> <?php echo $_SESSION['nombre_sis']; ?>  </a>
   <button class='navbar-toggler collapsed' type='button' data-toggle='collapse' data-target='#navbarsExample06' aria-controls='navbarsExample06' aria-expanded='false' aria-label='Toggle navigation'>
     <span class='navbar-toggler-icon'></span>
   </button>

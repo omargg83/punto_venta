@@ -28,7 +28,6 @@
  		</div>
  	  </div>
  	</nav>
-
 <?php
 
    echo "<div id='trabajo' style='margin-top:5px;'>";
@@ -38,61 +37,6 @@
  ?>
 <script type="text/javascript">
 
-  $(function(){
-    calendar_load(1);
-  });
-
-  function calendar_load(tipo){
-    var fecha = new Date();
-
-    $('#trabajo').html("");
-
-    var calendarEl = document.getElementById('trabajo');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
-      droppable: true,
-      defaultView: 'dayGridMonth',
-      defaultDate: fecha,
-      buttonText:{
-        today:    'Hoy',
-        month:    'Mes',
-        week:     'Semana',
-        day:      'Dia',
-        list:     'Lista'
-      },
-      locale: 'es',
-
-      minTime: "09:00:00",
-      maxTime: "18:00:00",
-      slotDuration: "00:05:00",
-      businessHours: {
-        start: '9:00',
-        end: '18:00',
-      },
-      hiddenDays: [ 0, 6 ],
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-      },
-      dateClick: function(info) {
-        console.log('Date: ' + info);
-       },
-       eventClick: function(info) {
-        $('#myModal').modal('show');
-        $("#modal_form").load("a_citas/editar_cita.php?id="+info.event.id);
-      },
-      events: {
-      url: 'a_citas/eventos.php?tipo='+tipo,
-       failure: function() {
-        document.getElementById('script-warning').style.display = 'block'
-        }
-      }
-    });
-    calendar.render();
-    new Draggable(draggableEl);
-  }
   function buscar_cliente(){
     var texto=$("#prod_venta").val();
     var idcliente=$("#idcliente").val();
@@ -247,72 +191,8 @@
         }
       }
     });
-  }
-  function buscar_cupon(){
-    var texto=$("#prod_venta").val();
-  	var idpedido=$("#idpedido").val();
-  	if(texto.length>=-1){
-  		$.ajax({
-  			data:  {
-  				"texto":texto,
-  				"idpedido":idpedido,
-  				"function":"busca_cupon"
-  			},
-  			url:   "a_citas/db_.php",
-  			type:  'post',
-  			beforeSend: function () {
-  				$("#resultadosx").html("buscando...");
-  			},
-  			success:  function (response) {
-  				$("#resultadosx").html(response);
-  				$("#prod_venta").val();
-  			}
-  		});
-  	}
-  }
-  function cupon_agrega(idcupon,idpedido){
-    $.ajax({
-      url:  "a_citas/db_.php",
-      type: "POST",
-      data: {
-        "idcupon":idcupon,
-        "idpedido":idpedido,
-        "function":"cupon_busca"
-      },
-      success: function( response ) {
-        console.log(response);
-        var datos = JSON.parse(response);
-        if (datos.error==0){
-          Swal.fire({
-              type: 'success',
-              title: "Se agregó correctamente",
-              showConfirmButton: false,
-              timer: 1000
-          });
+  } 
 
-          $.ajax({
-            data:  {
-              "id":idpedido
-            },
-            url:   'a_citas/editar.php',
-            type:  'post',
-            success:  function (response) {
-              $("#trabajo").html(response);
-            }
-          });
-
-        }
-        else{
-          Swal.fire({
-              type: 'error',
-              title: datos.terror,
-              showConfirmButton: false,
-              timer: 1000
-          });
-        }
-      }
-    });
-  }
   function elimina_cuadmin(id,idpedido){
     $.confirm({
         title: 'Cupon',
@@ -346,122 +226,6 @@
         }
       });
   }
-  function confirmar_web(pedido_web,idpedido){
-    $.confirm({
-      title: 'Cliente',
-      content: '¿Desea confirmar el pedido a CT?',
-      buttons: {
-        Aceptar: function () {
-          $.ajax({
-            data:  {
-              "pedido_web":pedido_web,
-              "idpedido":idpedido,
-              "function":"confirmar_web"
-            },
-            url:   "a_citas/db_.php",
-            type:  'post',
-            success:  function (response) {
-              console.log(response);
-              var datos = JSON.parse(response);
-              if (datos.error==0){
-                $.ajax({
-                  data:  {
-                    "id":idpedido
-                  },
-                  url:   'a_citas/editar.php',
-                  type:  'post',
-                  success:  function (response) {
-                    $("#trabajo").html(response);
-                  }
-                });
-                Swal.fire({
-                  type: 'success',
-                  title: "Se agregó correctamente",
-                  showConfirmButton: false,
-                  timer: 1000
-                });
-                $('#myModal').modal('hide');
-              }
-              else{
-                $.ajax({
-                  data:  {
-                    "id":idpedido
-                  },
-                  url:   'a_citas/editar.php',
-                  type:  'post',
-                  success:  function (response) {
-                    $("#trabajo").html(response);
-                  }
-                });
-                Swal.fire({
-                  type: 'error',
-                  title: datos.terror,
-                  showConfirmButton: false,
-                  timer: 1000
-                });
-              }
 
-            }
-          });
-        },
-        Cancelar: function () {
-          $.alert('Canceled!');
-        }
-      }
-    });
-  }
-  function solicitar_ct(id){
-    $.confirm({
-      title: 'Cliente',
-      content: '¿Desea procesar el pedido?, (envio de productos a CT, descuento de inventario)',
-      buttons: {
-        Aceptar: function () {
-          $.ajax({
-      			data:  {
-      				"id":id,
-      				"function":"pedir_ct"
-      			},
-      			url:   "a_citas/db_.php",
-      			type:  'post',
-      			beforeSend: function () {
-              $("#cargando").addClass("is-active");
-      			},
-      			success:  function (response) {
-              var datos = JSON.parse(response);
-              if (datos.error==0){
-                Swal.fire({
-                  type: 'success',
-                  title: "Pedido procesado correctamente",
-                  showConfirmButton: false,
-                  timer: 1000
-                });
-                $.ajax({
-                  data:  {
-                    "id":id
-                  },
-                  url:   'a_citas/editar.php',
-                  type:  'post',
-                  success:  function (response) {
-                    $("#trabajo").html(response);
-                  }
-                });
-      				}
-              else{
-                Swal.fire({
-                  type: 'error',
-                  title: datos.terror,
-                  showConfirmButton: false,
-                  timer: 1000
-                });
-              }
-              $("#cargando").removeClass("is-active");
-      			}
-      		});
-        },
-        Cancelar: function () {
 
-        }
-      }
-    });
-  }
 </script>

@@ -15,8 +15,19 @@
 
 		public function __construct(){
 			date_default_timezone_set("America/Mexico_City");
-			$this->Salud = array();
-			$this->dbh = new PDO('mysql:host=sagyc.com.mx;dbname=sagycrmr_piesventa', "sagyccom_esponda", "esponda123$");
+			try{
+				$this->Salud = array();
+				$this->dbh = new PDO('mysql:host=sagyc.com.mx;dbname=sagycrmr_piesventa', "sagyccom_esponda", "esponda123$");
+
+				$sql="select * from datosemp";
+				$sth=$this->dbh->query($sql);
+				$resp=$sth->fetch(PDO::FETCH_OBJ);
+				$_SESSION['nombre_sis']=$resp->nombre_sis;
+
+			}
+			catch(PDOException $e){
+				return "Database access FAILED!";
+			}
 		}
 		public function set_names(){
 			return $this->dbh->query("SET NAMES 'utf8'");

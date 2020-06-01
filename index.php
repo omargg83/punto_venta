@@ -7,7 +7,7 @@
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
-	<title>SMHidalgo</title>
+	<title><?php echo $_SESSION['nombre_sis']; ?></title>
 	<link rel="icon" type="image/png" href="img/favicon.ico">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
