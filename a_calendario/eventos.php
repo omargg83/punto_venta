@@ -8,21 +8,20 @@
 	$inicio=explode("T",$start);
 	$fin=explode("T",$end);
 
-
 	$citas=$db->citas_calendario($inicio[0],$fin[0]);
 	$arreglo=array();
 
 	$i=0;
 	foreach($citas as $key){
 		$hora=explode(" ",$key->fecha);
+		$hora2=explode(" ",$key->fecha_fin);
 		$color="";
 		$limite=new DateTime($key->fecha);
 
 		$limite->modify("+60 minute");
 		$color="#ffd6bb";
 		$texto="Retiro";
-		$hora2=explode(" ",$limite->format('Y-m-d H:i:s'));
-
+	
 		$arreglo[$i]=array(
 			'id'=>$key->idcitas,
 			'title'=>$key->nombre,

@@ -92,6 +92,9 @@ class Pedidos extends Sagyc{
 			$arreglo =array();
 			$hora=$_REQUEST['hora'];
 			$minuto=$_REQUEST['minuto'];
+
+			$hora_fin=$_REQUEST['hora_fin'];
+			$minuto_fin=$_REQUEST['minuto_fin'];
 			if (!isset($_REQUEST['idcliente']) or strlen($_REQUEST['idcliente'])==0 or $_REQUEST['idcliente']==0){
 				$resp=array();
 				$resp+=array('id'=>0);
@@ -99,9 +102,15 @@ class Pedidos extends Sagyc{
 				$resp+=array('terror'=>'Falta seleccionar cliente');
 				return json_encode($resp);
 			}
+
 			if (isset($_REQUEST['fecha']) and strlen($_REQUEST['fecha'])>0){
 				$fx=explode("-",$_REQUEST['fecha']);
 				$arreglo+=array('fecha'=>$fx['2']."-".$fx['1']."-".$fx['0']." $hora:$minuto:00");
+			}
+
+			if (isset($_REQUEST['fecha']) and strlen($_REQUEST['fecha'])>0){
+				$fx=explode("-",$_REQUEST['fecha']);
+				$arreglo+=array('fecha_fin'=>$fx['2']."-".$fx['1']."-".$fx['0']." $hora_fin:$minuto_fin:00");
 			}
 			if (isset($_REQUEST['estatus'])){
 				$arreglo+= array('estatus'=>$_REQUEST['estatus']);
@@ -168,22 +177,6 @@ class Pedidos extends Sagyc{
 			$sth = $this->dbh->prepare($sql);
 			$sth->execute();
 			return $sth->fetch(PDO::FETCH_OBJ);
-		}
-		catch(PDOException $e){
-			return "Database access FAILED! ".$e->getMessage();
-		}
-	}
-	public function citas_calendario($inicio,$fin){
-		try{
-			parent::set_names();
-
-			$inicio=$inicio." 00:00:00";
-			$fin=$fin." 23:59:59";
-			$sql="SELECT * from citas left outer join clientes on clientes.idcliente=citas.idcliente
-			where citas.fecha between '$inicio' and '$fin' order by citas.idcitas desc";
-			$sth = $this->dbh->prepare($sql);
-			$sth->execute();
-			return $sth->fetchAll(PDO::FETCH_OBJ);
 		}
 		catch(PDOException $e){
 			return "Database access FAILED! ".$e->getMessage();

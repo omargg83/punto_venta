@@ -27,11 +27,9 @@
  	  </div>
  	</nav>
 <?php
-
    echo "<div id='trabajo' style='margin-top:5px;background-color:".$_SESSION['cfondo']."; '>";
 
    echo "</div>";
-
  ?>
 <script type="text/javascript">
 
@@ -47,6 +45,7 @@
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
+      editable: true,
       defaultView: 'dayGridMonth',
       defaultDate: fecha,
       buttonText:{
@@ -60,7 +59,7 @@
       eventColor: '#378006',
       minTime: "09:00:00",
       maxTime: "18:00:00",
-      slotDuration: "00:05:00",
+      slotDuration: "00:30:00",
       businessHours: {
         start: '9:00',
         end: '18:00',
@@ -71,20 +70,104 @@
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay'
       },
+      events: {
+        url: 'a_calendario/eventos.php?tipo='+tipo,
+        failure: function() {
+          document.getElementById('script-warning').style.display = 'block'
+        }
+      },
       dateClick: function(info) {
         console.log('Date: ' + info);
        },
-       eventClick: function(info) {
+      eventClick: function(info) {
         $('#myModal').modal('show');
-        $("#modal_form").load("a_citas/editar_cita.php?id="+info.event.id);
+        $("#modal_form").load("a_calendario/info.php?id="+info.event.id);
       },
-      events: {
-      url: 'a_citas/eventos.php?tipo='+tipo,
-       failure: function() {
-        document.getElementById('script-warning').style.display = 'block'
-        }
+      eventDrop: function (info) { // this function is called when something is dropped
+        //alert(info.event.title + " was dropped on " + info.event.start.toISOString());
+        console.log(info.event);
+
+        alert(info.event.start.toLocaleString());
+        alert(info.event.end.toLocaleString());
+
+        $.confirm({
+          title: 'Cliente',
+          content: '¿Desea mover la cita seleccionada?',
+          buttons: {
+            Mover: function () {
+              $.ajax({
+                data:  {
+                  "horario":info.event.start.toLocaleString(),
+                  "idcita":info.event.id,
+                  "function":"cambiar_dia"
+                },
+                url:   "a_calendario/db_.php",
+                type:  'post',
+                success:  function (response) {
+                  var datos = JSON.parse(response);
+                  if (datos.error==0){
+                    Swal.fire({
+                      type: 'success',
+                      title: "Se modificó correctamente",
+                      showConfirmButton: false,
+                      timer: 1000
+                    });
+                  }
+                  else{
+                    info.revert();
+                  }
+                }
+              });
+            },
+            Cancelar: function () {
+              info.revert();
+            }
+          }
+        });
       },
-      editable: true,
+      eventResize: function(info) {
+        console.log(info.event);
+
+        alert(info.event.start.toLocaleString());
+        alert(info.event.end.toLocaleString());
+
+        $.confirm({
+          title: 'Cliente',
+          content: '¿Desea mover la cita seleccionada?',
+          buttons: {
+            Mover: function () {
+              $.ajax({
+                data:  {
+                  "horario":info.event.start.toLocaleString(),
+                  "horario2":info.event.end.toLocaleString(),
+                  "idcita":info.event.id,
+                  "function":"cambiar_hora"
+                },
+                url:   "a_calendario/db_.php",
+                type:  'post',
+                success:  function (response) {
+                  console.log(response);
+                  var datos = JSON.parse(response);
+                  if (datos.error==0){
+                    Swal.fire({
+                      type: 'success',
+                      title: "Se modificó correctamente",
+                      showConfirmButton: false,
+                      timer: 1000
+                    });
+                  }
+                  else{
+                    info.revert();
+                  }
+                }
+              });
+            },
+            Cancelar: function () {
+              info.revert();
+            }
+          }
+        });
+      }
     });
     calendar.render();
   }

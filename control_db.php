@@ -428,7 +428,7 @@
 			}
 		}
 
-////////////////////
+		////////////////////
 		public function fondo(){
 			if (isset($_REQUEST['imagen'])){$imagen=$_REQUEST['imagen'];}
 			$arreglo=array('idfondo'=>$imagen);

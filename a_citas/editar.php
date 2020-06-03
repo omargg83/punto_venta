@@ -4,6 +4,10 @@
   $fecha=date("d-m-Y");
 	$hora=0;
 	$minuto=0;
+
+	$hora_fin=0;
+	$minuto_fin=0;
+
 	$cubiculo=0;
 	$atiende=0;
 	$servicio=0;
@@ -30,6 +34,11 @@
 		$fecha=$fech->format('d-m-Y');
 		$hora=$fech->format('H');
 		$minuto=$fech->format('i');
+
+		$fech_fin = new DateTime($row->fecha_fin);
+
+		$hora_fin=$fech_fin->format('H');
+		$minuto_fin=$fech_fin->format('i');
 
 		$estatus=$row->estatus;
 		$observaciones=$row->observaciones;
@@ -63,7 +72,7 @@
             echo "</div>";
 
 						echo "<div class='col-2'>";
-			        echo "<label>Hora</label>";
+			        echo "<label>Hora Inicio</label>";
 			        echo "<select class='form-control form-control-sm' name='hora' id='hora'>";
 								for($i=0;$i<24;$i++){
 									echo  "<option value='$i' "; if($hora==$i){ echo " selected";} echo ">$i</option>";
@@ -76,6 +85,24 @@
 			        echo "<select class='form-control form-control-sm' name='minuto' id='minuto'>";
 								for($i=0;$i<59;$i++){
 									echo  "<option value='$i' "; if($minuto==$i){ echo " selected";} echo ">$i</option>";
+								}
+			        echo  "</select>";
+			      echo "</div>";
+
+						echo "<div class='col-2'>";
+			        echo "<label>Hora final</label>";
+			        echo "<select class='form-control form-control-sm' name='hora_fin' id='hora_fin'>";
+								for($i=0;$i<24;$i++){
+									echo  "<option value='$i' "; if($hora_fin==$i){ echo " selected";} echo ">$i</option>";
+								}
+			        echo  "</select>";
+			      echo "</div>";
+
+						echo "<div class='col-2'>";
+			        echo "<label>Minuto</label>";
+			        echo "<select class='form-control form-control-sm' name='minuto_fin' id='minuto_fin'>";
+								for($i=0;$i<59;$i++){
+									echo  "<option value='$i' "; if($minuto_fin==$i){ echo " selected";} echo ">$i</option>";
 								}
 			        echo  "</select>";
 			      echo "</div>";

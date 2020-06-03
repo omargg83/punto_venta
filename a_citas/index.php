@@ -18,7 +18,6 @@
             </div>
           </div>
 				</div>
-        <li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='calendario' onclick='calendar_load(1)'><i class='fas fa-list-ul'></i><span>Calendario</span></a></li>
  				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='new_poliza' data-lugar='a_citas/editar'><i class="fas fa-folder-plus"></i><span>Nuevo</span></a></li>
  				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_prod' data-lugar='a_citas/lista'><i class="fas fa-list"></i><span>Lista</span></a></li>
 
@@ -191,7 +190,7 @@
         }
       }
     });
-  } 
+  }
 
   function elimina_cuadmin(id,idpedido){
     $.confirm({
