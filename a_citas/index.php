@@ -179,6 +179,21 @@
     });
     calendar.render();
   }
+  function editar_cita(id){
+    $.ajax({
+      data:  {
+        "id":id
+      },
+      url:   'a_citas/editar.php',
+      type:  'post',
+      beforeSend: function () {
+          $('#myModal').modal('hide');
+      },
+      success:  function (response) {
+        $("#trabajo").html(response);
+      }
+    });
+  }
   function buscar_cliente(){
     var texto=$("#prod_venta").val();
     var idcliente=$("#idcliente").val();

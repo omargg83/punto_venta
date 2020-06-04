@@ -55,6 +55,7 @@
         </div>
      </div>
      <div class="modal-footer">
-       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+       <button type="button" class="btn btn-outline-primary btn-sm" onclick='editar_cita(<?php echo $id; ?>)'><i class='fas fa-pencil-alt'></i>Editar</button>
+       <button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal"><i class='fas fa-undo-alt'></i>Cerrar</button>
      </div>
    </div>
