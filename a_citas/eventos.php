@@ -19,9 +19,15 @@
 		$limite=new DateTime($key->fecha);
 
 		$limite->modify("+60 minute");
-		$color="#ffd6bb";
+
+		$color="#000";
+		if($key->estatus=='PENDIENTE'){ $color="#bc9c6b"; }
+		if($key->estatus=='PROGRAMADA'){ $color="#fffacd"; }
+		if($key->estatus=='REALIZADA'){ $color="#8bb9dd"; }
+		if($key->estatus=='CANCELADA'){ $color="#f59aa8"; }
+
 		$texto="Retiro";
-	
+
 		$arreglo[$i]=array(
 			'id'=>$key->idcitas,
 			'title'=>$key->nombre,

@@ -346,7 +346,6 @@
 			var xyId=0;
 			var valor="";
 			padre=id.split("_")[0]
-			opcion=id.split("_")[1];
 			$("#cargando").addClass("is-active");
 
 			if ( $(this).data('valor')!=undefined ) {
@@ -370,7 +369,7 @@
 				}
 			}
 			$.ajax({
-				data:  {"algo":"algo","padre":padre,"opcion":opcion,"id":xyId,"nombre":id,"funcion":funcion,"valor":valor},
+				data:  {"id":xyId,"funcion":funcion,"valor":valor},
 				url:   lugar,
 				type:  'post',
 				timeout:30000,

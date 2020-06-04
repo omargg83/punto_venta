@@ -2,6 +2,8 @@
 	require_once("db_.php");
   $id=$_REQUEST['id'];
   $resp=$db->info($id);
+
+	$cliente=$db->cliente($resp->idcliente);
   $tipo="";
 
  ?>
@@ -18,14 +20,16 @@
             <label>Cita</label>
             <input id='id' name='id' class='form-control form-control-sm' value='<?php echo $resp->idcitas; ?>' readonly>
           </div>
-          <div class='col-4'>
+          <div class='col-5'>
             <label>Fecha</label>
             <input id='fecha' name='fecha' class='form-control form-control-sm' value='<?php echo fecha($resp->fecha,2); ?>' readonly>
           </div>
-          <div class='col-4'>
+          <div class='col-5'>
             <label>Hasta</label>
             <input id='fecha' name='fecha' class='form-control form-control-sm' value='<?php echo fecha($resp->fecha_fin,2); ?>' readonly>
           </div>
+        </div>
+			  <div class='row'>
 					<div class='col-3'>
             <label>Estatus</label>
             <input id='id' name='id' class='form-control form-control-sm' value='<?php echo $resp->estatus; ?>' readonly>
@@ -41,6 +45,12 @@
 					<div class='col-3'>
             <label>Precio</label>
             <input id='id' name='id' class='form-control form-control-sm' value='<?php echo $resp->precio; ?>' readonly>
+          </div>
+        </div>
+				<div class='row'>
+					<div class='col-6'>
+            <label>Nombre</label>
+            <input id='id' name='id' class='form-control form-control-sm' value='<?php echo $cliente->nombre; ?>' readonly>
           </div>
         </div>
      </div>

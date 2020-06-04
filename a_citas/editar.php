@@ -2,11 +2,11 @@
 	require_once("db_.php");
   $id=$_REQUEST['id'];
   $fecha=date("d-m-Y");
-	$hora=0;
+	$hora=12;
 	$minuto=0;
 
-	$hora_fin=0;
-	$minuto_fin=0;
+	$hora_fin=12;
+	$minuto_fin=59;
 
 	$cubiculo=0;
 	$atiende=0;
@@ -54,7 +54,6 @@
 		$telefono_cli=$cliente->telefono;
   }
 
-  echo "<div class='container'>";
     echo "<form id='form_comision' action='' data-lugar='a_citas/db_' data-destino='a_citas/editar' data-funcion='guardar_cita'>";
       echo "<input type='hidden' class='form-control' id='id' name='id' value='$id' placeholder='id'>";
       echo "<input type='hidden' class='form-control' id='idcliente' name='idcliente' value='$idcliente' placeholder='idcliente'>";
@@ -83,7 +82,7 @@
 						echo "<div class='col-2'>";
 			        echo "<label>Minuto</label>";
 			        echo "<select class='form-control form-control-sm' name='minuto' id='minuto'>";
-								for($i=0;$i<59;$i++){
+								for($i=0;$i<=59;$i++){
 									echo  "<option value='$i' "; if($minuto==$i){ echo " selected";} echo ">$i</option>";
 								}
 			        echo  "</select>";
@@ -101,7 +100,7 @@
 						echo "<div class='col-2'>";
 			        echo "<label>Minuto</label>";
 			        echo "<select class='form-control form-control-sm' name='minuto_fin' id='minuto_fin'>";
-								for($i=0;$i<59;$i++){
+								for($i=0;$i<=59;$i++){
 									echo  "<option value='$i' "; if($minuto_fin==$i){ echo " selected";} echo ">$i</option>";
 								}
 			        echo  "</select>";
@@ -113,6 +112,7 @@
 								echo "<option value='PENDIENTE'"; if($estatus=='PENDIENTE'){ echo " selected"; } echo ">PENDIENTE</option>";
 								echo "<option value='PROGRAMADA'"; if($estatus=='PROGRAMADA'){ echo " selected"; } echo ">PROGRAMADA</option>";
 								echo "<option value='REALIZADA'"; if($estatus=='REALIZADA'){ echo " selected"; } echo ">REALIZADA</option>";
+								echo "<option value='CANCELADA'"; if($estatus=='CANCELADA'){ echo " selected"; } echo ">CANCELADA</option>";
 							echo "</select>";
 						echo "</div>";
 
@@ -210,7 +210,7 @@
 
       echo "</div>";
     echo "</form>";
-  echo "</div>";
+
  ?>
 
  <script>
