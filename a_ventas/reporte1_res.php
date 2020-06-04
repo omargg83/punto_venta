@@ -32,7 +32,6 @@
   						</td>
   						<td  ><?php echo $pd[$i]["idventa"]; ?></td>
   						<td><?php echo $pd[$i]["fecha"]; ?></td>
-  						<td><?php echo $pd[$i]["razon_social_prove"]; ?></td>
   						<td><?php echo $pd[$i]["nombre"]; ?></td>
   						<td align="right"><?php echo number_format($pd[$i]["total"],2); ?></td>
   						<td align="right"><?php echo number_format($pd[$i]["gtotal"],2); ?></td>
