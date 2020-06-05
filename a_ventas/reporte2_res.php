@@ -36,7 +36,6 @@
   						</td>
   						<td><?php echo $key->idventa; ?></td>
   						<td><?php echo $key->fecha; ?></td>
-  						<td><?php echo $key->razon_social_prove; ?></td>
   						<td><?php echo $key->nombre; ?></td>
   						<td align="right"><?php echo number_format($key->total,2); ?></td>
   						<td align="right"><?php echo number_format($key->gtotal,2); ?></td>
