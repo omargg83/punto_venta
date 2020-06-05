@@ -21,9 +21,9 @@
 
 				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_comision' data-lugar='a_ventas/lista'><i class='fas fa-list-ul'></i><span>Abiertas</span></a></li>
 
-				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte' data-lugar='a_ventas/reporte1'><i class='fas fa-list-ul'></i><span>Reporte</span></a></li>
+				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte' data-lugar='a_ventas/reporte1'><i class='fas fa-list-ul'></i><span>Ventas Emitidas</span></a></li>
 
-			<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte2' data-lugar='a_ventas/reporte2'><i class='fas fa-list-ul'></i><span>Reporte 2</span></a></li>
+			<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte2' data-lugar='a_ventas/reporte2'><i class='fas fa-list-ul'></i><span>Reporte venta por productos</span></a></li>
 
 			</ul>
 	  </div>
