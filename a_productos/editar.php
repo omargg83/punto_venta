@@ -74,8 +74,8 @@
 								 <label>Tipo de producto</label>
 									<select class="form-control form-control-sm" name="tipo" id="tipo" <?php if ($id>0){ echo "disabled";}  ?> onchange='tipo_cambio()' required>
 										<option value='' disabled selected>Seleccione una opción</option>
-										<option value="3"<?php if($tipo=="3") echo "selected"; ?> > Volúmen (Se controla el inventario por volúmen)</option>
-										<option value="4"<?php if($tipo=="4") echo "selected"; ?> > Unico (se controla inventario por pieza única)</option>
+										<option value="3"<?php if($tipo=="3") echo "selected"; ?> > Producto (Se controla el inventario por volúmen)</option>
+										<!--<option value="4"<?php if($tipo=="4") echo "selected"; ?> > Unico (se controla inventario por pieza única)</option> -->
 										<!-- <option value="1"<?php if($tipo=="1") echo "selected"; ?> > Pago de linea</option> -->
 										<!-- <option value="2"<?php if($tipo=="2") echo "selected"; ?> > Reparación</option> -->
 										<option value="0"<?php if($tipo=="0") echo "selected"; ?> > Servicio (solo registra ventas, no es necesario registrar entrada)</option>
