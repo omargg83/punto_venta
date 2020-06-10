@@ -61,9 +61,7 @@
 					<li class='nav-item'>
 						<a class='nav-link active' id='ssh-tab' data-toggle='tab' href='#ssh' role='ssh' aria-controls='home' aria-selected='true'>Editar producto</a>
 					</li>
-					<li class='nav-item'>
-						<a class='nav-link $disabled' id='home-tab' data-toggle='tab' href='#home' role='tab' aria-controls='home' aria-selected='true'>Registro</a>
-					</li>
+
 				</ul>
 			</div>
 			<div class='card-body'>
@@ -94,12 +92,12 @@
 								 <label>Busqueda rapida</label>
 								 <input type="text" class="form-control form-control-sm" id="rapido" name='rapido' placeholder="rapido" value="<?php echo $rapido; ?>" maxlength=4>
 								</div>
-								<div class="col-2">
+							<!-- 	<div class="col-2">
 								 <label>Unidad</label>
 								 <select class='form-control form-control-sm' name='unidad' id='unidad'>
 								 	<option value='pieza'  <?php if($unidad=="pieza"){ echo "selected ";} ?> >Pieza</option>
 								 </select>
-								</div>
+								</div> -->
 								<div class="col-5">
 								 <label>Nombre</label>
 								 <input type="text" class="form-control form-control-sm" id="nombre" name='nombre' placeholder="Descripción" value="<?php echo $nombre; ?>" required>
@@ -135,39 +133,6 @@
 							</div>
 							<hr>
 
-							<div class='row'>
-								<div class="col-3" id='div_marca'>
-								 <label>Marca</label>
-								 <input type="text" class="form-control form-control-sm" id="marca" name='marca' placeholder="Marca" value="<?php echo $marca; ?>">
-								</div>
-
-								<div class="col-3"  id='div_modelo'>
-								 <label>Modelo</label>
-								 <input type="text" class="form-control form-control-sm" id="modelo" name='modelo' placeholder="Modelo" value="<?php echo $modelo; ?>">
-								</div>
-
-								<div class="col-3"  id='div_color'>
-					        <label>Color</label>
-					        <input type="text" class="form-control form-control-sm" name="color" id='color' placeholder="Color" value='<?php echo $color; ?>'>
-					      </div>
-
-								<div class='col-3' id='div_material'>
-				          <label>Material</label>
-				          <select class='form-control form-control-sm' name='material' id='material'>
-				          <option value='' <?php if($material==""){ echo "selected ";} ?> ></option>
-				          <option value='PREPAGO'  <?php if($material=="PREPAGO"){ echo "selected ";} ?> >PREPAGO</option>
-				          <option value='TARIFARIO'  <?php if($material=="TARIFARIO"){ echo "selected ";} ?> >TARIFARIO</option>
-				          <option value='AMIGO CHIP' <?php  if($material=="AMIGO CHIP"){ echo "selected ";} ?> >AMIGO CHIP</option>
-				          <option value='LIBRES'  <?php if($material=="LIBRES"){ echo "selected ";} ?> >LIBRES</option>
-				          <option value='CONSIGNA'  <?php if($material=="CONSIGNA"){ echo "selected ";} ?> >CONSIGNA</option>
-				          </select>
-				        </div>
-
-								<div class="col-3" id='div_imei'>
-									<label>IMEI</label>
-									<input type="text" class="form-control form-control-sm" name="imei" id='imei' placeholder="IMEI" value='<?php echo $imei; ?>'>
-								</div>
-							</div>
 
 							<hr>
 

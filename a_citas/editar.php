@@ -116,13 +116,7 @@
 							echo "</select>";
 						echo "</div>";
 
-						echo "<div class='col-3'>";
-							echo "<label>Factura</label>";
-							echo "<select id='factura' name='factura' class='form-control form-control-sm'>";
-								echo "<option value='0'"; if($factura=='0'){ echo " selected"; } echo ">No</option>";
-								echo "<option value='1'"; if($factura=='1'){ echo " selected"; } echo ">Si</option>";
-							echo "</select>";
-						echo "</div>";
+
 					echo "</div>";
 
 					echo "<hr>";
