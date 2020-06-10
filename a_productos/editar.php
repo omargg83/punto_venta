@@ -84,10 +84,10 @@
 							</div>
 							<hr>
 							<div class='row'>
-								<div class="col-3">
+							<!-- 	<div class="col-3">
 								 <label>Codigo Barras</label>
 								 <input type="text" class="form-control form-control-sm" id="codigo" name='codigo' placeholder="Codigo" value="<?php echo $codigo; ?>" readonly>
-								</div>
+								</div>-->
 								<div class="col-2">
 								 <label>Busqueda rapida</label>
 								 <input type="text" class="form-control form-control-sm" id="rapido" name='rapido' placeholder="rapido" value="<?php echo $rapido; ?>" maxlength=4>
@@ -146,7 +146,7 @@
 
 											if($id>0){
 												echo "<button type='button' class='btn btn-outline-primary btn-sm' onclick='clonar_nuevo()'><i class='far fa-clone'></i>Nuevo</button>";
-												echo "<button type='button' class='btn btn-outline-primary btn-sm' id='imprime_comision' title='Imprimir' data-lugar='a_productos/imprimir' data-tipo='1' type='button'><i class='fas fa-barcode'></i>Imprimir</button>";
+												//echo "<button type='button' class='btn btn-outline-primary btn-sm' id='imprime_comision' title='Imprimir' data-lugar='a_productos/imprimir' data-tipo='1' type='button'><i class='fas fa-barcode'></i>Imprimir</button>";
 
 												if($tipo==3){
 													echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_pass' data-id='0' data-id2='$id' data-lugar='a_productos/form_agrega' title='Agregar existencias' ><i class='far fa-plus-square'></i></i>Agregar existencias</button>";
