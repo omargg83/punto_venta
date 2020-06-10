@@ -15,8 +15,7 @@
 		<th>Numero</th>
 		<th>Fecha</th>
 		<th>Cliente</th>
-		<th>Factura</th>
-		<th>Forma de pago</th>
+
 		<th>Tienda</th>
 		<th>Total</th>
 		<th>Gran total</th>
@@ -36,11 +35,10 @@
 						<td  ><?php echo $key->idventa; ?></td>
 						<td><?php echo $key->fecha; ?></td>
 						<td><?php echo $key->nombre; ?></td>
-						<td><?php echo $key->factura; ?></td>
-						<td><?php echo $key->descuento; ?></td>
+
 						<td><?php echo $key->tienda; ?></td>
-						<td align="right"><?php echo number_format($key->total,2); ?></td>
-						<td align="right"><?php echo number_format($key->gtotal,2); ?></td>
+						<td align="center"><?php echo number_format($key->total,2); ?></td>
+						<td align="center"><?php echo number_format($key->gtotal,2); ?></td>
 						<td><?php echo $key->estado; ?></td>
 
 					</tr>

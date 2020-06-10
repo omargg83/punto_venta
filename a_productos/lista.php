@@ -12,12 +12,9 @@
 					<th>#</th>
 					<th>#</th>
 					<th>Tipo</th>
-					<th>C. barras</th>
+
 					<th>Busqueda rápida</th>
-					<th>IMEI</th>
 					<th>Nombre</th>
-					<th>Marca</th>
-					<th>Modelo</th>
 					<th>Cantidad</th>
 					<th>Precio compra</th>
 					<th>Precio venta</th>
@@ -48,15 +45,12 @@
 							if($key["tipo"]=="4") echo "Unico";
 						echo "</td>";
 
-						echo "<td>".$key["codigo"]."</td>";
+
 						echo "<td>".$key["rapido"]."</td>";
-						echo "<td>".$key["imei"]."</td>";
 						echo "<td>".$key["nombre"]."</td>";
-						echo "<td>".$key["marca"]."</td>";
-						echo "<td>".$key["modelo"]."</td>";
 						echo "<td>".$key["cantidad"]."</td>";
-						echo "<td class='text-right'>".moneda($key["preciocompra"])."</td>";
-						echo "<td class='text-right'>".moneda($key["precio"])."</td>";
+						echo "<td >".moneda($key["preciocompra"])."</td>";
+						echo "<td >".moneda($key["precio"])."</td>";
 						echo "</tr>";
 					}
 				}
