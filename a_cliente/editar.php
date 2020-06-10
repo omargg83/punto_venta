@@ -44,17 +44,17 @@
 					</div>
 					<div class="col-3">
 						<label>Apellido materno:</label>
-							<input type="text" class="form-control form-control-sm" name="apellidom" id="apellidom" value="<?php echo $apellidom;?>" placeholder="Apellido materno" required>
+							<input type="text" class="form-control form-control-sm" name="apellidom" id="apellidom" value="<?php echo $apellidom;?>" placeholder="Apellido materno" >
 					</div>
 				</div>
 				<div class='row'>
 					<div class="col-3">
 						<label>Teléfono:</label>
-							<input type="text" class="form-control form-control-sm" name="telefono" id="telefono" value="<?php echo $telefono;?>" placeholder="Teléfono" required>
+							<input type="text" class="form-control form-control-sm" name="telefono" id="telefono" value="<?php echo $telefono;?>" placeholder="Teléfono" >
 					</div>
 					<div class="col-3">
 						<label>Correo:</label>
-							<input type="text" class="form-control form-control-sm" name="correo" id="correo" value="<?php echo $correo;?>" placeholder="Correo" required>
+							<input type="text" class="form-control form-control-sm" name="correo" id="correo" value="<?php echo $correo;?>" placeholder="Correo" >
 					</div>
 				</div>
 			</div>
