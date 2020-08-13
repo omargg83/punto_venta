@@ -167,6 +167,7 @@
 						echo "<div class='col-4'>";
 							echo "<label>Servicio</label>";
 							echo "<select id='servicio' name='servicio' class='form-control form-control-sm'>";
+								echo "<option value='CURACIÓN'"; if($servicio=='CURACIÓN'){ echo " selected"; } echo ">CURACIÓN</option>";
 								echo "<option value='PODOLOGICO PREVENTIVO'"; if($servicio=='PODOLOGICO PREVENTIVO'){ echo " selected"; } echo ">PODOLOGICO PREVENTIVO</option>";
 								echo "<option value='ONICOCRIPTOSIS'"; if($servicio=='ONICOCRIPTOSIS'){ echo " selected"; } echo ">ONICOCRIPTOSIS</option>";
 								echo "<option value='MASAJE RELAJANTE PODAL'"; if($servicio=='MASAJE RELAJANTE PODAL'){ echo " selected"; } echo ">MASAJE RELAJANTE PODAL</option>";
