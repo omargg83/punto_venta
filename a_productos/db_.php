@@ -2,6 +2,13 @@
 require_once("../control_db.php");
 if (isset($_REQUEST['function'])){$function=$_REQUEST['function'];}	else{ $function="";}
 
+if($_SESSION['des']==1 and strlen($function)==0)
+{
+	echo "<div class='alert alert-primary' role='alert'>";
+	$arrayx=explode('/', $_SERVER['SCRIPT_NAME']);
+	echo print_r($arrayx);
+	echo "</div>";
+}
 class Productos extends Sagyc{
 
 	public function __construct(){
@@ -178,6 +185,15 @@ class Productos extends Sagyc{
 	public function existencia_agrega(){
 		try{
 			parent::set_names();
+			if($_REQUEST['cantidad']<1){
+				$arreglo =array();
+				$arreglo+=array('id'=>$idproducto);
+				$arreglo+=array('error'=>1);
+				$arreglo+=array('terror'=>"Error de cantidad, favor de verificar");
+				return json_encode($arreglo);
+			}
+
+
 			$id=$_REQUEST['id'];
 			$idproducto=$_REQUEST['idproducto'];
 			$arreglo =array();
@@ -223,7 +239,7 @@ class Productos extends Sagyc{
 	public function productos_inventario($id){
 		try{
 			parent::set_names();
-			$sql="select * from bodega where idproducto=:id order by fecha desc";
+			$sql="select * from bodega where idproducto=:id order by id desc";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(':id', "$id");
 			$sth->execute();

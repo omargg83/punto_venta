@@ -1,4 +1,5 @@
 <?php
+	require_once("db_.php");
 	$id=$_REQUEST['id'];
 	$id2=$_REQUEST['id2'];
 

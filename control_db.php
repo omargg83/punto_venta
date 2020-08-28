@@ -7,7 +7,7 @@
 	ini_set('display_errors', '1');
 
 	date_default_timezone_set("America/Mexico_City");
-
+	$_SESSION['des']=1;
 	class Sagyc{
 		public $nivel_personal;
 		public $nivel_captura;

@@ -61,7 +61,9 @@
 					<li class='nav-item'>
 						<a class='nav-link active' id='ssh-tab' data-toggle='tab' href='#ssh' role='ssh' aria-controls='home' aria-selected='true'>Editar producto</a>
 					</li>
-
+					<li class='nav-item'>
+						<a class='nav-link' id='inven-tab' data-toggle='tab' href='#inven' role='inven' aria-controls='home' aria-selected='true'>Editar producto</a>
+					</li>
 				</ul>
 			</div>
 			<div class='card-body'>
@@ -159,13 +161,15 @@
 							</div>
 						</form>
 					</div>
-					<div class='tab-pane fade show' id='home' role='tabpanel' aria-labelledby='home-tab'>
+
+					<div class='tab-pane fade show' id='inven' role='tabpanel' aria-labelledby='inven-tab'>
+
 						<?php
-						if($id>0){
+						//if($id>0){
 							if($tipo==3){
 								echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_pass' data-id='0' data-id2='$id' data-lugar='a_productos/form_agrega' title='Agregar existencias' ><i class='far fa-plus-square'></i></i>Agregar existencias</button>";
 							}
-							$row=$db->productos_inventario($id);
+								$row=$db->productos_inventario($id);
 								echo "<table class='table table-sm' style='font-size:12px'>";
 								echo "<tr><th>-</th><th>Fecha</th><th>Cantidad</th><th>Nota de compra</th>
 								<th># Venta</th>
@@ -211,7 +215,7 @@
 									echo "</tr>";
 								}
 								echo "</table>";
-							}
+							//}
 						 ?>
 					</div>
 				</div>

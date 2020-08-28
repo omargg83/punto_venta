@@ -31,6 +31,17 @@ else{
   <div class="modal-body" style='max-height:580px;overflow: auto;'>
     <div clas='row'>
       <div class='col-12'>
+        <label>Efectivo</label>
+        <select class="form-control" name="tipo_pago" id="tipo_pago">
+          <option value="Efectivo">Efectivo</option>
+          <option value="Debito">Tarjeta debito</option>
+          <option value="Credito">Credito</option>
+          <option value="Cupon">Cupon</option>
+        </select>
+      </div>
+
+
+      <div class='col-12'>
         <label>Total</label>
         <input type='text' name='total_g' id='total_g' style='text-align:right' placeholder='Total' value='<?php echo $total; ?>' class='form-control' readonly>
       </div>

@@ -2,6 +2,16 @@
 require_once("../control_db.php");
 if (isset($_REQUEST['function'])){$function=$_REQUEST['function'];}	else{ $function="";}
 
+
+if($_SESSION['des']==1 and strlen($function)==0)
+{
+	echo "<div class='alert alert-primary' role='alert'>";
+	$arrayx=explode('/', $_SERVER['SCRIPT_NAME']);
+	echo print_r($arrayx);
+	echo "</div>";
+}
+
+
 class Venta extends Sagyc{
 	public $nivel_personal;
 	public $nivel_captura;
@@ -750,11 +760,13 @@ class Venta extends Sagyc{
 		$total_g=$_REQUEST['total_g'];
 		$efectivo_g=$_REQUEST['efectivo_g'];
 		$cambio_g=$_REQUEST['cambio_g'];
+		$tipo_pago=$_REQUEST['tipo_pago'];
 
 		if($total_g>0){
 			if($total_g<=$efectivo_g){
 				if (isset($_REQUEST['id'])){$id=$_REQUEST['id'];}
 				$arreglo =array();
+				$arreglo+=array('tipo_pago'=>$tipo_pago);
 				$arreglo+=array('estado'=>"Pagada");
 				return $this->update('et_venta',array('idventa'=>$id), $arreglo);
 			}
