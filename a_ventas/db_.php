@@ -240,7 +240,10 @@ class Venta extends Sagyc{
 						echo "<input type='text' class='form-control form-control-sm' name='imei' id='imei' value='".$res->imei."' readonly>";
 					echo "</div>";
 				}
-
+				echo "<div class='col-2'>";
+					echo "<label>Existencia:</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='existencia' id='existencia' value='".$res->cantidad."' readonly>";
+				echo "</div>";
 				if($res->tipo==0 or $res->tipo==1 or $res->tipo==2 or $res->tipo==3 or $res->tipo==4){
 					echo "<div class='col-3'>";
 						echo "<label>Cantidad</label>";
@@ -445,22 +448,36 @@ class Venta extends Sagyc{
 	public function agregaventa(){
 		parent::set_names();
 		$x="";
-		$idventa=$_REQUEST['idventa'];
-		if (isset($_REQUEST['idproducto'])){
-			$idproducto=$_REQUEST['idproducto'];
-		}
 		$cliente="";
 		$observaciones="";
 		$cantidad="0";
 		$precio="0";
 		$tipo="0";
 
+		$idventa=$_REQUEST['idventa'];
+		$idproducto=$_REQUEST['idproducto'];
+		$cantidad=$_REQUEST['cantidad'];
+
+		$sql="select * from productos where id='$idproducto'";
+		$sth = $this->dbh->prepare($sql);
+		$sth->execute();
+		$res=$sth->fetch(PDO::FETCH_OBJ);
+		if($res->cantidad<$cantidad){
+			$arreglo =array();
+			$arreglo+=array('id'=>0);
+			$arreglo+=array('error'=>1);
+			$arreglo+=array('terror'=>"No hay suficientes productos en el inventario");
+			return json_encode($arreglo);
+		}
+
+
+
 		if (isset($_REQUEST['observaciones'])){
 			$observaciones=$_REQUEST['observaciones'];
 		}
-		if (isset($_REQUEST['cantidad'])){
-			$cantidad=$_REQUEST['cantidad'];
-		}
+
+
+
 		if (isset($_REQUEST['precio'])){
 			$precio=$_REQUEST['precio'];
 		}

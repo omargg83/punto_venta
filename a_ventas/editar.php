@@ -98,6 +98,7 @@ else{
                 }
 								if($estado=="Pagada"){
 									echo "<button type='button' class='btn btn-outline-primary btn-sm' onclick='imprime($id)'><i class='fas fa-print'></i>Imprimir</button>";
+									echo "<button type='button' class='btn btn-outline-primary btn-sm' onclick='imprime_pdf($id)'><i class='fas fa-print'></i>Imprimir PDF</button>";
 									echo "<button type='button' class='btn btn-outline-primary btn-sm' title='Nuevo' id='new_personal' data-lugar='a_ventas/editar'><i class='fas fa-plus'></i><span>Nuevo</span></a></button>";
 								}
               ?>

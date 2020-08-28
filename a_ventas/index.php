@@ -177,7 +177,6 @@ function sel_prod(idproducto,idventa){
 	});
 }
 
-
 function ventraprod(idx,tipo){
 	var idventa =$("#id").val();
 	var idcliente =$("#idcliente").val();
@@ -273,6 +272,21 @@ function imprime(id){
 		}
 	});
 }
+function imprime_pdf(id){
+	$.confirm({
+		title: 'Producto',
+		content: '¿Desea imprimir la venta seleccionada?',
+		buttons: {
+			Aceptar: function () {
+				VentanaCentrada("a_ventas/imprimir.php"+'?id='+id,'Impresion','','1024','768','true');
+			},
+			Cancelar: function () {
+
+			}
+		}
+	});
+}
+
 function cambio_total(){
 	var total_g=$("#total_g").val();
 	var efectivo_g=$("#efectivo_g").val();

@@ -8,6 +8,8 @@
 
 	date_default_timezone_set("America/Mexico_City");
 	$_SESSION['des']=1;
+
+	require_once("init.php");
 	class Sagyc{
 		public $nivel_personal;
 		public $nivel_captura;
@@ -17,8 +19,7 @@
 			date_default_timezone_set("America/Mexico_City");
 			try{
 				$this->Salud = array();
-				$this->dbh = new PDO('mysql:host=sagyc.com.mx;dbname=sagycrmr_piesventa', "sagyccom_esponda", "esponda123$");
-
+				$this->dbh = new PDO("mysql:host=".SERVIDOR.";dbname=".BDD, MYSQLUSER, MYSQLPASS);
 				$sql="select * from datosemp";
 				$sth=$this->dbh->query($sql);
 				$resp=$sth->fetch(PDO::FETCH_OBJ);
