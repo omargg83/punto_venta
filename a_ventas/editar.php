@@ -97,7 +97,7 @@ else{
 									echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_finalizar' data-id='$id' data-lugar='a_ventas/finalizar'><i class='fas fa-cash-register'></i> Finalizar Venta</button>";
                 }
 								if($estado=="Pagada"){
-									echo "<button type='button' class='btn btn-outline-primary btn-sm' onclick='imprime($id)'><i class='fas fa-print'></i>Imprimir</button>";
+								//	echo "<button type='button' class='btn btn-outline-primary btn-sm' onclick='imprime($id)'><i class='fas fa-print'></i>Imprimir</button>";
 									echo "<button type='button' class='btn btn-outline-primary btn-sm' onclick='imprime_pdf($id)'><i class='fas fa-print'></i>Imprimir PDF</button>";
 									echo "<button type='button' class='btn btn-outline-primary btn-sm' title='Nuevo' id='new_personal' data-lugar='a_ventas/editar'><i class='fas fa-plus'></i><span>Nuevo</span></a></button>";
 								}

@@ -32,7 +32,7 @@
 				<div class='row'>
 					<div class="col-3">
 						<label>Profesión:</label>
-							<input type="text" class="form-control form-control-sm" name="profesion" id="profesion" value="<?php echo $profesion;?>" placeholder="Profesión" required>
+							<input type="text" class="form-control form-control-sm" name="profesion" id="profesion" value="<?php echo $profesion;?>" placeholder="Profesión" >
 					</div>
 					<div class="col-3">
 						<label>Nombre:</label>
@@ -40,7 +40,7 @@
 					</div>
 					<div class="col-3">
 						<label>Apellido Paterno:</label>
-							<input type="text" class="form-control form-control-sm" name="apellidop" id="apellidop" value="<?php echo $apellidop;?>" placeholder="Apellido Paterno" required>
+							<input type="text" class="form-control form-control-sm" name="apellidop" id="apellidop" value="<?php echo $apellidop;?>" placeholder="Apellido Paterno" >
 					</div>
 					<div class="col-3">
 						<label>Apellido materno:</label>
