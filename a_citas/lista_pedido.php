@@ -1,20 +1,14 @@
 <?php
 	require_once("db_.php");
 	$id=$_REQUEST['id'];
-	$venta="";
-	$pedido="";
-	$estado="";
-	$gtotal="0";
-	$subtotal="0";
-	$iva="0";
 
-	if($id>0){
-		$pedido = $db->ventas_pedido($id);
-		$estado=$pd['estado'];
-		$gtotal=$pd['total'];
-		$subtotal=$pd['subtotal'];
-		$iva=$pd['iva'];
-	}
+	$sql="select * from bodega where idcitas='$id' order by id desc";
+	$sth = $db->dbh->prepare($sql);
+	$sth->execute();
+	$pedido=$sth->fetchAll();
+	$subtotal=0;
+	$iva=0;
+	$gtotal=0;
 
 	echo "<div id='tablax'>";
 		echo "<div class='row' >";
@@ -48,9 +42,9 @@
 
 				echo "<div class='row' id='div_".$key['id']."'>";
 					echo "<div class='col-1'>";
-						if($estado=="Activa"){
-							echo "<button class='btn btn-outline-primary btn-sm' id='eliminar_pedido' data-lugar='a_ventas/db_' data-destino='a_ventas/editar' data-id='".$key['id']."' data-iddest='$id' data-funcion='borrar_venta' data-div='trabajo'><i class='far fa-trash-alt'></i></i></button>";
-						}
+
+						echo "<button class='btn btn-outline-primary btn-sm' id='eliminar_pedido' data-lugar='a_citas/db_' data-destino='a_citas/editar' data-id='".$key['id']."' data-iddest='$id' data-funcion='borrar_venta' data-div='trabajo'><i class='far fa-trash-alt'></i></i></button>";
+
 					echo "</div>";
 					echo "<div class='col-2'>";
 						echo $key['codigo'];
@@ -79,7 +73,7 @@
 						echo number_format($key['v_precio'],2);
 					echo "</div>";
 
-					$total=$key['v_total'];
+					$gtotal=$key['v_total'];
 					echo "<div class='col-2 text-right'>";
 						echo number_format($key['v_total'],2);
 					echo "</div>";
@@ -88,23 +82,11 @@
 			}
 		}
 
+		$values = array('total'=>$gtotal);
+		$db->update('citas',array('idcitas'=>$id), $values);
+
+
 ?>
-<div class='row'>
-	<div class='col-10 text-right'>
-		<b>SUBTOTAL $</b>
-	</div>
-	<div class='col-2'>
-	  <span class="pull-right"><input class="form-control" id="sub_x" name="sub_x" value='<?php echo number_format($subtotal,2); ?>' disabled readonly style="direction: rtl;" />
-	</div>
-</div>
-<div class='row'>
-	<div class='col-10 text-right'>
-		<b>IVA 16 %</b>
-	</div>
-	<div class='col-2'>
-		<input class="form-control" id="iva_x" name="iva_x" value='<?php echo number_format($iva,2); ?>' disabled readonly style="direction: rtl;" />
-	</div>
-</div>
 <div class='row'>
 	<div class='col-10 text-right'>
 		<b>TOTAL $</b>
