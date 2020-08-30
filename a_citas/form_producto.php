@@ -4,7 +4,7 @@
 ?>
 <?php
 echo "<input  type='hidden' id='idproducto' NAME='idproducto' value='$id'>";
-echo "<input  type='hidden' id='idpedido' NAME='idpedido' value='$id2'>";
+echo "<input  type='hidden' id='idcitas' NAME='idcitas' value='$id2'>";
 ?>
   <div class='modal-header'>
   	<h5 class='modal-title'>Buscar producto</h5>
@@ -24,5 +24,5 @@ echo "<input  type='hidden' id='idpedido' NAME='idpedido' value='$id2'>";
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal"><i class="fas fa-sign-out-alt"></i>Cerrar</button>
-		
+
   </div>

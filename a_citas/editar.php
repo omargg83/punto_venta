@@ -54,10 +54,11 @@
 		$telefono_cli=$cliente->telefono;
   }
 
-    echo "<form id='form_comision' action='' data-lugar='a_citas/db_' data-destino='a_citas/editar' data-funcion='guardar_cita'>";
-      echo "<input type='hidden' class='form-control' id='id' name='id' value='$id' placeholder='id'>";
-      echo "<input type='hidden' class='form-control' id='idcliente' name='idcliente' value='$idcliente' placeholder='idcliente'>";
+	echo "<div class='container'>";
       echo "<div class='card'>";
+			echo "<form id='form_comision' action='' data-lugar='a_citas/db_' data-destino='a_citas/editar' data-funcion='guardar_cita'>";
+			echo "<input type='hidden' class='form-control' id='idcliente' name='idcliente' value='$idcliente' placeholder='idcliente'>";
+			echo "<input type='hidden' class='form-control' id='id' name='id' value='$id' placeholder='id'>";
         echo "<div class='card-header'>";
           echo "Cita # $id";
         echo "</div>";
@@ -194,17 +195,24 @@
 	            	echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='winmodal_cli' data-id='$idcliente' data-id2='$id' data-lugar='a_citas/form_cliente' title='Agregar Cliente' ><i class='fas fa-user-tag'></i>+ Cliente</button>";
 
 							}
+							if($id>0){
+								echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_producto' data-id='0' data-id2='$id' data-lugar='a_citas/form_producto'>+ <i class='fab fa-product-hunt'></i>Producto</button>";
 
+							}
 
             echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='lista_cat' data-lugar='a_citas/lista' title='Regresar'><i class='fas fa-undo-alt'></i>Regresar</button>";
           echo "</div>";
         echo "</div>";
-
-
-
-
+				echo "</form>";
       echo "</div>";
-    echo "</form>";
+
+		echo "<div class='card-body' id='compras'>";
+			include 'lista_pedido.php';
+		echo "</div>";
+
+	echo "</div>";
+
+
 
  ?>
 

@@ -32,7 +32,7 @@
  	</nav>
 <?php
 
-   echo "<div id='trabajo' style='background-color:".$_SESSION['cfondo']."; '>";
+   echo "<div id='trabajo'  style='background-color:".$_SESSION['cfondo']."; '>";
     include 'lista.php';
    echo "</div>";
 
@@ -275,13 +275,13 @@
   function buscar_prodpedido(){
   	var texto=$("#prod_venta").val();
   	var idproducto=$("#idproducto").val();
-  	var idpedido=$("#idpedido").val();
+  	var idcitas=$("#idcitas").val();
   	if(texto.length>=-1){
   		$.ajax({
   			data:  {
   				"texto":texto,
   				"idproducto":idproducto,
-  				"idpedido":idpedido,
+  				"idcitas":idcitas,
   				"function":"busca_producto"
   			},
   			url:   "a_citas/db_.php",
@@ -295,6 +295,20 @@
   			}
   		});
   	}
+  }
+  function sel_prod(idproducto,idcitas){
+  	$.ajax({
+  		data:  {
+  			"idproducto":idproducto,
+  			"idcitas":idcitas,
+  			"function":"selecciona_producto"
+  		},
+  		url:   "a_citas/db_.php",
+  		type:  'post',
+  		success:  function (response) {
+  			$("#resultadosx").html(response);
+  		}
+  	});
   }
   function prod_add(id,idpedido){
     var cantidad=$("#cantidad_"+id).val();

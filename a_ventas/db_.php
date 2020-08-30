@@ -308,7 +308,7 @@ class Venta extends Sagyc{
 				$sth = $this->dbh->prepare($sql);
 				$sth->execute();
 				echo "<table class='table table-sm'>";
-				echo "<tr><th>-</th><th>#</th><th>Nombre </th><th>Fecha</th><th>Estatus</th><th>Precio</th></tr>";
+				echo "<tr><th>-</th><th>#</th><th>Nombre </th><th>Fecha</th><th>Estatus</th><th>Precio</th><th>Articulos</th></tr>";
 				foreach($sth->fetchAll(PDO::FETCH_OBJ) as $key){
 					echo "<tr>";
 						echo "<td>";
@@ -330,6 +330,9 @@ class Venta extends Sagyc{
 						echo "</td>";
 						echo "<td>";
 								echo moneda($key->precio);
+						echo "</td>";
+						echo "<td>";
+								echo moneda($key->total);
 						echo "</td>";
 					echo "</tr>";
 				}
@@ -444,7 +447,6 @@ class Venta extends Sagyc{
 		}
 	}
 
-
 	public function agregaventa(){
 		parent::set_names();
 		$x="";
@@ -453,30 +455,30 @@ class Venta extends Sagyc{
 		$cantidad="0";
 		$precio="0";
 		$tipo="0";
-
 		$idventa=$_REQUEST['idventa'];
-		$idproducto=$_REQUEST['idproducto'];
-		$cantidad=$_REQUEST['cantidad'];
 
-		$sql="select * from productos where id='$idproducto'";
-		$sth = $this->dbh->prepare($sql);
-		$sth->execute();
-		$res=$sth->fetch(PDO::FETCH_OBJ);
-		if($res->cantidad<$cantidad){
-			$arreglo =array();
-			$arreglo+=array('id'=>0);
-			$arreglo+=array('error'=>1);
-			$arreglo+=array('terror'=>"No hay suficientes productos en el inventario");
-			return json_encode($arreglo);
+		if(isset($_REQUEST['idproducto'])){
+			$idproducto=$_REQUEST['idproducto'];
+			$cantidad=$_REQUEST['cantidad'];
+
+			$sql="select * from productos where id='$idproducto'";
+			$sth = $this->dbh->prepare($sql);
+			$sth->execute();
+			$res=$sth->fetch(PDO::FETCH_OBJ);
+			if($res->cantidad<$cantidad){
+				$arreglo =array();
+				$arreglo+=array('id'=>0);
+				$arreglo+=array('error'=>1);
+				$arreglo+=array('terror'=>"No hay suficientes productos en el inventario");
+				return json_encode($arreglo);
+			}
 		}
-
-
-
+		else{
+			$cantidad=0;
+		}
 		if (isset($_REQUEST['observaciones'])){
 			$observaciones=$_REQUEST['observaciones'];
 		}
-
-
 
 		if (isset($_REQUEST['precio'])){
 			$precio=$_REQUEST['precio'];
@@ -504,6 +506,14 @@ class Venta extends Sagyc{
 				else{
 						return $x;
 				}
+			}
+
+
+			if(isset($_REQUEST['idcita'])){
+				$idcitas=$_REQUEST['idcita'];
+				$sql="update bodega set idventa=$idventa where idcitas=$idcitas";
+				$sth = $this->dbh->prepare($sql);
+				$sth->execute();
 			}
 
 			if($tipo<80){
@@ -545,7 +555,6 @@ class Venta extends Sagyc{
 						$this->total_venta($idventa);
 					}
 
-
 					///////////////////////////////////////////////////actualiza producto tipo idn_to_unicode
 					if($tipo==4){
 						$sql="update productos set idventa=:idventa where id=:id";
@@ -559,6 +568,8 @@ class Venta extends Sagyc{
 						/////////////para
 					 $this->cantidad_update($idproducto);
 					}
+
+
 
 
 					$arreglo =array();
@@ -617,6 +628,7 @@ class Venta extends Sagyc{
 				$arreglo+=array('param3'=>"");
 				return json_encode($arreglo);
 			}
+
 
 
 

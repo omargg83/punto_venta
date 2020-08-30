@@ -2,6 +2,15 @@
 require_once("../control_db.php");
 if (isset($_REQUEST['function'])){$function=$_REQUEST['function'];}	else{ $function="";}
 
+
+if($_SESSION['des']==1 and strlen($function)==0)
+{
+	echo "<div class='alert alert-primary' role='alert'>";
+	$arrayx=explode('/', $_SERVER['SCRIPT_NAME']);
+	echo print_r($arrayx);
+	echo "</div>";
+}
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
@@ -281,6 +290,378 @@ class Pedidos extends Sagyc{
 		}
 	}
 
+	public function busca_producto(){
+		try{
+			$texto=$_REQUEST['texto'];
+			$idcitas=$_REQUEST['idcitas'];
+
+			$sql="SELECT * from productos where idtienda=:tienda and cantidad>0 and
+			(nombre like :texto or
+				descripcion like :texto or
+				codigo like :texto  or
+				imei like :texto or
+				rapido like :texto or
+				marca like :texto or
+				modelo like :texto
+			) order by tipo limit 20";
+
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":texto","%$texto%");
+			$sth->bindValue(":tienda",$_SESSION['idtienda']);
+			$sth->execute();
+			$res=$sth->fetchAll();
+
+			echo "<div class='row'>";
+			echo "<table class='table table-sm' style='font-size:14px'>";
+			echo  "<tr>";
+			echo  "<th>-</th>";
+			echo  "<th>Código</th>";
+			echo  "<th>Nombre</th>";
+			echo  "<th>Marca</th>";
+			echo  "<th>Modelo</th>";
+			echo  "<th>Existencias</th>";
+			echo  "<th>Precio</th>";
+			echo "</tr>";
+			if(count($res)>0){
+				foreach ($res as $key) {
+					echo  "<tr id=".$key['id']." class='edit-t'>";
+					echo  "<td>";
+					echo  "<div class='btn-group'>";
+					if($key['tipo']==0 or $key['tipo']==2 or ($key['tipo']==3 and $key['cantidad']>0) or ($key['tipo']==4 and strlen($key['idventa'])==0)){
+							echo  "<button type='button' onclick='sel_prod(".$key['id'].",$idcitas)' class='btn btn-outline-secondary btn-sm' title='Seleccionar articulo'><i class='far fa-hand-pointer'></i></button>";
+					}
+					echo  "</div>";
+					echo  "</td>";
+
+					echo  "<td>";
+						echo  "<span style='font-size:12px'>";
+						echo  "<B>BARRAS: </B>".$key["codigo"]."  ";
+						echo  "<br><B>RAPIDO: </B>".$key["rapido"];
+						echo  "</span>";
+					echo  "</td>";
+
+					echo  "<td>";
+					echo  $key["nombre"];
+					echo  "</td>";
+
+					echo  "<td>";
+					echo  $key["marca"];
+					echo  "</td>";
+
+					echo  "<td>";
+					echo  $key["modelo"];
+					echo  "</td>";
+
+					echo  "<td class='text-center'>";
+					echo  $key["cantidad"];
+					echo  "</td>";
+
+					echo  "<td align='right'>";
+						echo 	moneda($key["precio"]);
+					echo  "</td>";
+
+					echo  "</tr>";
+				}
+			}
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+	public function selecciona_producto(){
+		try{
+			parent::set_names();
+			$idproducto=$_REQUEST['idproducto'];
+			$idcitas=$_REQUEST['idcitas'];
+
+			$sql="SELECT * from productos where id=:id";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":id",$idproducto);
+			$sth->execute();
+			$res=$sth->fetch(PDO::FETCH_OBJ);
+
+			echo "<form id='form_producto' action='' data-lugar='a_citas/db_' data-destino='a_citas/editar' data-funcion='agregaventa'>";
+			echo "<input type='hidden' name='idcitas' id='idcitas' value='$idcitas' readonly>";
+			echo "<input type='hidden' name='idproducto' id='idproducto' value='$idproducto' readonly>";
+			echo "<input type='hidden' name='tipo' id='tipo' value='".$res->tipo."' readonly>";
+			echo "<div class='row'>";
+
+				echo "<div class='col-12'>";
+					echo "<label>Tipo:</label>";
+						if($res->tipo=="0") echo " Registro (solo registra ventas, no es necesario registrar entrada)";
+						if($res->tipo=="1") echo " Pago de linea";
+						if($res->tipo=="2") echo " Reparación";
+						if($res->tipo=="3") echo " Volúmen (Se controla el inventario por volúmen)";
+						if($res->tipo=="4") echo " Unico (se controla inventario por pieza única)";
+					echo "</select>";
+				echo "</div>";
+
+				echo "<div class='col-12'>";
+					echo "<label>Nombre:</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='nombre' id='nombre' value='".$res->nombre."' readonly>";
+				echo "</div>";
+
+				if($res->tipo==1 or $res->tipo==3 or $res->tipo==4){
+					echo "<div class='col-3'>";
+						echo "<label>Barras</label>";
+						echo "<input type='text' class='form-control form-control-sm' name='codigo' id='codigo' value='".$res->codigo."' readonly>";
+					echo "</div>";
+				}
+				if($res->tipo==1 or $res->tipo==3 or $res->tipo==4){
+					echo "<div class='col-3'>";
+						echo "<label>Marca</label>";
+						echo "<input type='text' class='form-control form-control-sm' name='marca' id='marca' value='".$res->marca."' readonly>";
+					echo "</div>";
+				}
+
+				if($res->tipo==1 or $res->tipo==3 or $res->tipo==4){
+					echo "<div class='col-3'>";
+						echo "<label>Modelo</label>";
+						echo "<input type='text' class='form-control form-control-sm' name='modelo' id='modelo' value='".$res->nombre."' readonly>";
+					echo "</div>";
+				}
+
+				if($res->tipo==1 or $res->tipo==3 or $res->tipo==4){
+					echo "<div class='col-3'>";
+						echo "<label>IMEI</label>";
+						echo "<input type='text' class='form-control form-control-sm' name='imei' id='imei' value='".$res->imei."' readonly>";
+					echo "</div>";
+				}
+				echo "<div class='col-2'>";
+					echo "<label>Existencia:</label>";
+					echo "<input type='text' class='form-control form-control-sm' name='existencia' id='existencia' value='".$res->cantidad."' readonly>";
+				echo "</div>";
+				if($res->tipo==0 or $res->tipo==1 or $res->tipo==2 or $res->tipo==3 or $res->tipo==4){
+					echo "<div class='col-3'>";
+						echo "<label>Cantidad</label>";
+						echo "<input type='text' class='form-control form-control-sm' name='cantidad' id='cantidad' value='1'";
+							if($res->tipo==0 or $res->tipo==2 or $res->tipo==4){
+								echo " readonly";
+							}
+						echo ">";
+					echo "</div>";
+				}
+				if($res->tipo==0 or $res->tipo==1 or $res->tipo==2 or $res->tipo==3 or $res->tipo==4){
+					echo "<div class='col-3'>";
+						echo "<label>Precio</label>";
+						echo "<input type='text' class='form-control form-control-sm' name='precio' id='precio' value='".$res->precio."' ";
+							if($res->tipo==0){
+								echo "";
+							}
+						echo ">";
+					echo "</div>";
+				}
+				if($res->tipo==0 or $res->tipo==1 or $res->tipo==2 or $res->tipo==3 or $res->tipo==4){
+					echo "<div class='col-12'>";
+						echo "<label>Observaciones</label>";
+						echo "<input type='text' class='form-control form-control-sm' name='observaciones' id='observaciones' value='' placeholder='Observaciones'>";
+					echo "</div>";
+				}
+				if($res->tipo==2){
+					echo "<div class='col-12'>";
+						echo "<label>Cliente:</label>";
+						echo "<input type='text' class='form-control form-control-sm' name='cliente' id='cliente' value='' placeholder='Cliente'>";
+					echo "</div>";
+				}
+
+			echo "</div>";
+			echo "<hr>";
+			echo "<div class='row'>";
+				echo "<div class='col-12'>";
+					echo "<div class='btn-group'>";
+						echo "<button type='submit' class='btn btn-outline-info btn-sm'><i class='fas fa-cart-plus'></i>Agregar</button>";
+						echo "<button type='button' class='btn btn-outline-primary btn-sm' data-dismiss='modal'><i class='fas fa-sign-out-alt'></i>Cerrar</button>";
+					echo "</div>";
+				echo "</div>";
+			echo "</div>";
+			echo "</form>";
+
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+
+	public function agregaventa(){
+		$x="";
+		$cliente="";
+		$observaciones="";
+		$cantidad="0";
+		$precio="0";
+		$tipo="0";
+
+		$idcitas=$_REQUEST['idcitas'];
+		$idproducto=$_REQUEST['idproducto'];
+		$cantidad=$_REQUEST['cantidad'];
+
+		$sql="select * from productos where id='$idproducto'";
+		$sth = $this->dbh->prepare($sql);
+		$sth->execute();
+		$res=$sth->fetch(PDO::FETCH_OBJ);
+		if($res->cantidad<$cantidad){
+			$arreglo =array();
+			$arreglo+=array('id'=>0);
+			$arreglo+=array('error'=>1);
+			$arreglo+=array('terror'=>"No hay suficientes productos en el inventario");
+			return json_encode($arreglo);
+		}
+		if (isset($_REQUEST['observaciones'])){
+			$observaciones=$_REQUEST['observaciones'];
+		}
+		if (isset($_REQUEST['precio'])){
+			$precio=$_REQUEST['precio'];
+		}
+		if (isset($_REQUEST['cliente'])){
+			$cliente=$_REQUEST['cliente'];
+		}
+		$tipo=$_REQUEST['tipo'];
+
+		try{
+			if($tipo<80){
+				$sql="SELECT * from productos where id=:id";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":id",$idproducto);
+				$sth->execute();
+				$res=$sth->fetch(PDO::FETCH_OBJ);
+
+				////////////////////////////////////////////////////////
+				$arreglo=array();
+				$arreglo+=array('idcitas'=>$idcitas);
+				$arreglo+=array('idproducto'=>$idproducto);
+				$arreglo+=array('idpersona'=>$_SESSION['idpersona']);
+				$arreglo+=array('idtienda'=>$_SESSION['idtienda']);
+				$arreglo+=array('codigo'=>$res->codigo);
+				$arreglo+=array('tipo'=>$tipo);
+				$arreglo+=array('nombre'=>$res->nombre);
+				$arreglo+=array('observaciones'=>$observaciones);
+				$arreglo+=array('cliente'=>$cliente);
+				if($tipo==3){
+					$arreglo+=array('cantidad'=>$cantidad*-1);
+				}
+				$arreglo+=array('v_cantidad'=>$cantidad);
+				$arreglo+=array('v_precio'=>$precio);
+				$total=$precio*$cantidad;
+				$arreglo+=array('v_total'=>$total);
+				if($tipo==4){
+					$arreglo+=array('v_marca'=>$res->marca);
+					$arreglo+=array('v_modelo'=>$res->modelo);
+					$arreglo+=array('v_imei'=>$res->imei);
+				}
+				//$arreglo+=array('v_total'=>$total);
+				$x=$this->insert('bodega', $arreglo);
+				$ped=json_decode($x);
+
+				if($ped->error==0){
+					{
+						$this->total_venta($idcitas);
+					}
+
+
+					///////////////////////////////////////////////////actualiza producto tipo idn_to_unicode
+					if($tipo==4){
+						$sql="update productos set idcitas=:idcitas where id=:id";
+						$sth = $this->dbh->prepare($sql);
+						$sth->bindValue(":idcitas",$idcitas);
+						$sth->bindValue(":id",$idproducto);
+						$sth->execute();
+					}
+
+					if($tipo==3){
+						/////////////para
+					 $this->cantidad_update($idproducto);
+					}
+
+
+					$arreglo =array();
+					$arreglo+=array('id'=>$idcitas);
+					$arreglo+=array('error'=>0);
+					$arreglo+=array('terror'=>0);
+					$arreglo+=array('param1'=>"");
+					$arreglo+=array('param2'=>"");
+					$arreglo+=array('param3'=>"");
+					return json_encode($arreglo);
+				}
+				else{
+						return $x;
+				}
+			}
+			else{
+
+				$fechac=$_REQUEST['fechac'];
+				$horac=$_REQUEST['horac'];
+				$estadoc=$_REQUEST['estadoc'];
+				$nombrec=$_REQUEST['nombrec'];
+				$correoc=$_REQUEST['correoc'];
+				$cubiculoc=$_REQUEST['cubiculoc'];
+				$atiendec=$_REQUEST['atiendec'];
+				$servicioc=$_REQUEST['servicioc'];
+
+
+				$arreglo=array();
+				$arreglo+=array('observaciones'=>$observaciones);
+
+				$nombre=$servicioc;
+				$cantidad=1;
+
+				$arreglo=array();
+				$arreglo+=array('idcitas'=>$idcitas);
+				$arreglo+=array('idpersona'=>$_SESSION['idpersona']);
+				$arreglo+=array('idtienda'=>$_SESSION['idtienda']);
+				$arreglo+=array('tipo'=>$tipo);
+				$arreglo+=array('nombre'=>$nombre);
+				$arreglo+=array('observaciones'=>$observaciones);
+				$arreglo+=array('cliente'=>$cliente);
+				$arreglo+=array('cantidad'=>$cantidad);
+				$arreglo+=array('v_cantidad'=>$cantidad);
+				$arreglo+=array('v_precio'=>$precio);
+				$total=$precio*$cantidad;
+				$arreglo+=array('v_total'=>$total);
+				$x=$this->insert('bodega', $arreglo);
+
+
+				$arreglo =array();
+				$arreglo+=array('id'=>$idcitas);
+				$arreglo+=array('error'=>0);
+				$arreglo+=array('terror'=>0);
+				$arreglo+=array('param1'=>"");
+				$arreglo+=array('param2'=>"");
+				$arreglo+=array('param3'=>"");
+				return json_encode($arreglo);
+			}
+
+
+
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+	public function borrar_venta(){
+		self::set_names();
+		$id=$_REQUEST['id'];
+
+		$sql="SELECT * from bodega where id=:id";
+		$sth = $this->dbh->prepare($sql);
+		$sth->bindValue(":id",$id);
+		$sth->execute();
+		$res=$sth->fetch(PDO::FETCH_OBJ);
+
+		$x=$this->borrar('bodega',"id",$id);
+
+		if($res->tipo==4){
+			$sql="update productos set idventa=NULL where id=:id";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":id",$res->idproducto);
+			$sth->execute();
+		}
+
+		if($res->tipo==3){
+			$this->cantidad_update($res->idproducto);
+		}
+
+		$this->total_venta($res->idventa);
+		return $x;
+	}
 }
 $db = new Pedidos();
 if(strlen($function)>0){
