@@ -1,7 +1,7 @@
 <?php
 $server=3;
 $_SESSION['des']=0;
-if($server==1){
+if($server==3){
   /////////remoto
   define("MYSQLUSER", "saludpublica");
   define("MYSQLPASS", "saludp123$");
