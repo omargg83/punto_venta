@@ -56,7 +56,7 @@
 	'Cantidad'=>array('width'=>50),
 	'Precio'=>array('width'=>40)
 	),'fontSize' => 8));
-
+ 
 	$pdf->ezText("Tipo de pago: ".$tipo_pago,10);
 	$pdf->ezText(" ",10);
 	$pdf->ezText("Sub-Total: $".$subtotal,10,array('justification' => 'right'));
