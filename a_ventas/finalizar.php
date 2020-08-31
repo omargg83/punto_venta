@@ -31,12 +31,12 @@ else{
   <div class="modal-body" style='max-height:580px;overflow: auto;'>
     <div clas='row'>
       <div class='col-12'>
-        <label>Efectivo</label>
+        <label>Metodo de pago</label>
         <select class="form-control" name="tipo_pago" id="tipo_pago">
           <option value="Efectivo">Efectivo</option>
           <option value="Debito">Tarjeta debito</option>
           <option value="Credito">Credito</option>
-          <option value="Cupon">Cupon</option>
+          <option value="Cupon">Cupón</option>
         </select>
       </div>
 
@@ -47,7 +47,7 @@ else{
       </div>
 
       <div class='col-12'>
-        <label>Efectivo</label>
+        <label>Recibido</label>
         <input type='text' name='efectivo_g' id='efectivo_g' style='text-align:right' placeholder='efectivo' value='' class='form-control' required onchange='cambio_total()'>
       </div>
 

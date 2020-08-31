@@ -303,7 +303,7 @@ class Venta extends Sagyc{
 				$idventa=$_REQUEST['idventa'];
 
 				$sql="SELECT * from citas left outer join clientes on clientes.idcliente=citas.idcliente
-				where citas.estatus='REALIZADA' and (clientes.nombre like '%$texto%' or clientes.apellidop like '%$texto%' or clientes.apellidom like '%$texto%' or citas.idcitas like '%$texto%')";
+				where citas.estatus='PENDIENTE' and (clientes.nombre like '%$texto%' or clientes.apellidop like '%$texto%' or clientes.apellidom like '%$texto%' or citas.idcitas like '%$texto%')";
 
 				$sth = $this->dbh->prepare($sql);
 				$sth->execute();
