@@ -2,7 +2,7 @@
   require_once("db_.php");
   $pd=$db->emitidas();
 	echo "<div class='container-fluid' style='background-color:".$_SESSION['cfondo']."; '>";
-	echo "<br><h5>Ventas abiertas</h5>";
+	echo "<br><h5>Ventas emitidas</h5>";
 	echo "<hr>";
 ?>
 
@@ -32,9 +32,10 @@
   						</td>
   						<td  ><?php echo $pd[$i]["idventa"]; ?></td>
   						<td><?php echo $pd[$i]["fecha"]; ?></td>
-  						<td><?php echo $pd[$i]["nombre"]; ?></td>
-  						<td align="right"><?php echo number_format($pd[$i]["total"],2); ?></td>
-  						<td align="right"><?php echo number_format($pd[$i]["gtotal"],2); ?></td>
+  						<td><?php echo $pd[$i]["nombrecli"]; ?></td>
+              <td><?php echo $pd[$i]["nombre"]; ?></td>
+  						<td align="left"><?php echo number_format($pd[$i]["total"],2); ?></td>
+  						<td align="left"><?php echo number_format($pd[$i]["gtotal"],2); ?></td>
   						<td><?php echo $pd[$i]["estado"]; ?></td>
 
   					</tr>

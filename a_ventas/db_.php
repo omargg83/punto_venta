@@ -817,7 +817,7 @@ class Venta extends Sagyc{
 			$desde = date("Y-m-d", strtotime($desde))." 00:00:00";
 			$hasta = date("Y-m-d", strtotime($hasta))." 23:59:59";
 
-			$sql="select et_venta.idventa, et_venta.idtienda, et_venta.iddescuento, et_venta.factura, clientes.nombre, et_tienda.nombre, et_venta.total, et_venta.fecha, et_venta.gtotal, et_venta.estado from et_venta
+			$sql="select et_venta.idventa, et_venta.idtienda, et_venta.iddescuento, et_venta.factura, clientes.nombre as nombrecli, et_tienda.nombre, et_venta.total, et_venta.fecha, et_venta.gtotal, et_venta.estado from et_venta
 			left outer join clientes on clientes.idcliente=et_venta.idcliente
 			left outer join et_tienda on et_tienda.id=et_venta.idtienda where (et_venta.fecha BETWEEN :fecha1 AND :fecha2)";
 			$sth = $this->dbh->prepare($sql);
