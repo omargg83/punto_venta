@@ -29,9 +29,13 @@
 	$pdf = new Cezpdf('C7','portrait','color',array(255,255,255));
 	$pdf->selectFont('Helvetica');
 	// la imagen solo aparecera si antes del codigo ezStream se pone ob_end_clean como se muestra al final men
-	$pdf->ezImage("../img/logoimp.jpg", 0, 60, 'none', 'center');
-	$pdf->ezText("TODO PARA TUS PIES",10,array('justification' => 'center'));
-	$pdf->ezText(" Blvd. Valle de San Javier 202, 42086 Pachuca de Soto, Hgo.",10,array('justification' => 'center'));
+	$pdf->ezImage("../img/logoimp.jpg", 0, 100, 'none', 'center');
+//	$pdf->ezText("UN MUNDO PARA TUS PIES",10,array('justification' => 'center'));
+	$pdf->ezText("OPERADORA PLATHEA SA DE CV",10,array('justification' => 'center'));
+	$pdf->ezText("Rfc: OPL180514RA2",10,array('justification' => 'center'));
+	$pdf->ezText("Blvd. Valle de San Javier # 202, Local 10 C.P.: 42086 Pachuca de Soto, Hgo.",10,array('justification' => 'center'));
+	$pdf->ezText("Tel. 7716884592",10,array('justification' => 'center'));
+	$pdf->ezText("Cel. 7712602184",10,array('justification' => 'center'));
 	$pdf->ezText(" ",10);
 	$pdf->ezText("Cliente: ".$nombre_cli,10);
 	$pdf->ezText("Fecha y hora: ".$fecha,10);
