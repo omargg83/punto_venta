@@ -850,12 +850,17 @@ class Venta extends Sagyc{
 					et_venta.fecha,
 					et_venta.gtotal,
 					et_venta.estado,
+					bodega.v_cantidad,
+					bodega.v_precio,
+					bodega.v_total,
 					bodega.nombre,
 					bodega.observaciones,
-				bodega.cliente
+					bodega.cliente,
+					usuarios.nombre as vendedor
 				FROM
 					bodega
 				LEFT OUTER JOIN et_venta ON et_venta.idventa = bodega.idventa
+				LEFT OUTER JOIN usuarios ON usuarios.idusuario = et_venta.idusuario
 				left outer join productos on productos.id=bodega.idproducto
 				LEFT OUTER JOIN clientes ON clientes.idcliente = et_venta.idcliente
 				LEFT OUTER JOIN et_tienda ON et_tienda.id = et_venta.idtienda

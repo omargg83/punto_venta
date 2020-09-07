@@ -12,16 +12,15 @@
   		<thead>
   		<tr>
   		<th>-</th>
-  		<th>Venta</th>
+  		<th>Ticket #</th>
   		<th>Fecha</th>
-  		<th>Cliente</th>
-  		<th>Tienda</th>
+  		<th>Porducto</th>
+      <th>Cantidad</th>
+  		<th>Precio U.</th>
   		<th>Total</th>
-  		<th>Gran total</th>
   		<th>Estado</th>
-  		<th>Nombre</th>
-  		<th>Observaciones</th>
-  		<th>Observaciones 2</th>
+  		<th>Vendedor</th>
+
   		</tr>
   		</thead>
   		<tbody>
@@ -37,12 +36,11 @@
   						<td><?php echo $key->idventa; ?></td>
   						<td><?php echo $key->fecha; ?></td>
   						<td><?php echo $key->nombre; ?></td>
-  						<td align="right"><?php echo number_format($key->total,2); ?></td>
-  						<td align="right"><?php echo number_format($key->gtotal,2); ?></td>
+              <td align="center"><?php echo $key->v_cantidad; ?></td>
+  						<td align="left"><?php echo number_format($key->v_precio,2); ?></td>
+  						<td align="left"><?php echo number_format($key->v_total,2); ?></td>
   						<td><?php echo $key->estado; ?></td>
-  						<td><?php echo $key->nombre; ?></td>
-  						<td><?php echo $key->observaciones; ?></td>
-  						<td><?php echo $key->cliente; ?></td>
+  						<td><?php echo $key->vendedor; ?></td>
 
   					</tr>
   		<?php
