@@ -2,7 +2,7 @@
 
 
 :root {
-  --main-bg-color: #3e4676;
+  --main-bg-color: #2e4053;
 }
 
 body {
@@ -73,22 +73,22 @@ body {
 	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
 i{
-	color:#3e4676;
+	color:#2e4053;
 	width: 21px;
 }
 i:hover{
 	color:#8f9d80;
 }
 .btn i{
-	color: #3e4676;
+	color: #2e4053;
 	width: 21px;
 }
 .btn:hover i{
   color:white;
 }
 .btn{
-  color: #3e4676 !important;
-  border: 1px solid #3e4676 !important;
+  color: #2e4053 !important;
+  border: 1px solid #2e4053 !important;
 }
 .btn:hover{
   color: #fff !important;
@@ -177,7 +177,7 @@ label{
 
 /* Add an active class to the active dropdown button */
 .activeside {
-	background-color: #3e4676 !important;
+	background-color: #2e4053 !important;
 	color: white !important;
 }
 .activeside i{

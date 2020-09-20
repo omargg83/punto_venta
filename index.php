@@ -7,7 +7,7 @@
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
-	<title>Todo para sus pies</title>
+	<title> Un mundo para tus pies</title>
 	<link rel="icon" type="image/png" href="img/favicon.ico">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
