@@ -48,12 +48,12 @@ else{
 
       <div class='col-12'>
         <label>Recibido</label>
-        <input type='text' name='efectivo_g' id='efectivo_g' style='text-align:right' placeholder='efectivo' value='' class='form-control' required onchange='cambio_total()'>
+        <input type='text' name='efectivo_g' id='efectivo_g' style='text-align:right' placeholder='Recibido' value='' class='form-control' required onchange='cambio_total()'>
       </div>
 
       <div class='col-12'>
         <label>Cambio</label>
-        <input type='text' name='cambio_g' id='cambio_g' style='text-align:right' placeholder='cambio' value='' class='form-control' required readonly>
+        <input type='text' name='cambio_g' id='cambio_g' style='text-align:right' placeholder='Cambio' value='' class='form-control' required readonly>
       </div>
     </div>
   </div>
