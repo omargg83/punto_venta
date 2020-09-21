@@ -77,11 +77,13 @@ function sel_cita(idcita,idventa){
 function buscar_clientev(){
 	var texto=$("#prod_venta").val();
 	var idcliente=$("#idcliente").val();
+	var idventa=$("#id").val();
 	if(texto.length>=-1){
 		$.ajax({
 			data:  {
 				"texto":texto,
 				"idcliente":idcliente,
+				"idventa":idventa,
 				"function":"busca_cliente"
 			},
 			url:   "a_ventas/db_.php",
@@ -96,7 +98,7 @@ function buscar_clientev(){
 		});
 	}
 }
-function cliente_addv(idcliente,idcita){
+function cliente_addv(idcliente,idventa){
 	$.confirm({
 		title: 'Cliente',
 		content: '¿Desea agregar el cliente seleccionado?',
@@ -105,30 +107,25 @@ function cliente_addv(idcliente,idcita){
 				$.ajax({
 					data:  {
 						"idcliente":idcliente,
-						"idcita":idcita,
+						"idventa":idventa,
 						"function":"agrega_cliente"
 					},
 					url:   "a_ventas/db_.php",
 					type:  'post',
 					success:  function (response) {
-						console.log(response);
-						var datos = JSON.parse(response);
-						if (datos.idcliente>0){
-							$("#idcliente").val(datos.idcliente);
-							$("#nombre").val(datos.profesion+" "+datos.nombre+" "+datos.apellidop+" "+datos.apellidom);
-							$("#correo").val(datos.correo);
-							$("#telefono").val(datos.telefono);
-							Swal.fire({
-								type: 'success',
-								title: "Se agregó correctamente",
-								showConfirmButton: false,
-								timer: 1000
-							});
-							$('#myModal').modal('hide');
-						}
-						else{
-							$.alert(datos.terror);
-						}
+						$.ajax({
+							data:  {
+								"id":response
+							},
+							url:   "a_ventas/editar.php",
+							type:  'post',
+							beforeSend: function () {
+							},
+							success:  function (response) {
+								$('#myModal').modal('hide');
+								$("#trabajo").html(response);
+							}
+						});
 					}
 				});
 			},

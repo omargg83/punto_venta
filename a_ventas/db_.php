@@ -44,6 +44,7 @@ class Venta extends Sagyc{
 			parent::set_names();
 			$texto=$_REQUEST['texto'];
 			$idcliente=$_REQUEST['idcliente'];
+			$idventa=$_REQUEST['idventa'];
 
 			$sql="SELECT * from clientes where nombre like '%$texto%' limit 100";
 			$sth = $this->dbh->prepare($sql);
@@ -54,7 +55,7 @@ class Venta extends Sagyc{
 				echo "<tr>";
 					echo "<td>";
 						echo "<div class='btn-group'>";
-						echo "<button type='button' onclick='cliente_addv(".$key->idcliente.")' class='btn btn-outline-secondary btn-sm' title='Seleccionar cliente'><i class='fas fa-plus'></i></button>";
+						echo "<button type='button' onclick='cliente_addv(".$key->idcliente.",$idventa)' class='btn btn-outline-secondary btn-sm' title='Seleccionar cliente'><i class='fas fa-plus'></i></button>";
 						echo "</div>";
 					echo "</td>";
 					echo "<td>";
@@ -77,16 +78,37 @@ class Venta extends Sagyc{
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
+
+
 	public function agrega_cliente(){
 		try{
 			parent::set_names();
-			$x="";
+			$idventa=$_REQUEST['idventa'];
 			$idcliente=$_REQUEST['idcliente'];
-			$sql="select * from clientes where idcliente=:id";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":id",$idcliente);
-			$sth->execute();
-			return json_encode($sth->fetch(PDO::FETCH_OBJ));
+
+			if($idventa==0){
+				$arreglo=array();
+				$arreglo+=array('idcliente'=>$idcliente);
+				$arreglo+=array('estado'=>"Activa");
+				$date=date("Y-m-d H:i:s");
+				$arreglo+=array('fecha'=>$date);
+				$arreglo+=array('idusuario'=>$_SESSION['idpersona']);
+				$arreglo+=array('idtienda'=>$_SESSION['idtienda']);
+				$x=$this->insert('et_venta', $arreglo);
+				$ped=json_decode($x);
+				if($ped->error==0){
+					$idventa=$ped->id;
+				}
+				else{
+						return $x;
+				}
+			}
+			else{
+				$arreglo=array();
+				$arreglo+=array('idcliente'=>$idcliente);
+				$this->update('et_venta',array('idventa'=>$idventa), $arreglo);
+			}
+			return $idventa;
 		}
 		catch(PDOException $e){
 			return "Database access FAILED! ".$e->getMessage();
@@ -833,41 +855,31 @@ class Venta extends Sagyc{
 	public function productos_vendidos(){
 		try{
 			parent::set_names();
+
+			$idusuario=$_REQUEST['idusuario'];
 			$desde=$_REQUEST['desde'];
 			$hasta=$_REQUEST['hasta'];
 
 			$desde = date("Y-m-d", strtotime($desde))." 00:00:00";
 			$hasta = date("Y-m-d", strtotime($hasta))." 23:59:59";
 
-			$sql="SELECT
-					et_venta.idventa,
-					et_venta.idtienda,
-					et_venta.iddescuento,
-					et_venta.factura,
-					clientes.nombre,
-					et_tienda.nombre,
-					et_venta.total,
-					et_venta.fecha,
-					et_venta.gtotal,
-					et_venta.estado,
-					bodega.v_cantidad,
-					bodega.v_precio,
-					bodega.v_total,
-					bodega.nombre,
-					bodega.observaciones,
-					bodega.cliente,
-					usuarios.nombre as vendedor
-				FROM
-					bodega
+			$sql="SELECT et_venta.idventa, et_venta.idtienda,	et_venta.iddescuento,	et_venta.factura, clientes.nombre, et_tienda.nombre, et_venta.total, et_venta.fecha, et_venta.gtotal, et_venta.estado,			bodega.v_cantidad, bodega.v_precio,	bodega.v_total,	bodega.nombre, bodega.observaciones, bodega.cliente, usuarios.nombre as vendedor FROM	bodega
 				LEFT OUTER JOIN et_venta ON et_venta.idventa = bodega.idventa
 				LEFT OUTER JOIN usuarios ON usuarios.idusuario = et_venta.idusuario
 				left outer join productos on productos.id=bodega.idproducto
 				LEFT OUTER JOIN clientes ON clientes.idcliente = et_venta.idcliente
 				LEFT OUTER JOIN et_tienda ON et_tienda.id = et_venta.idtienda
-				where bodega.idventa and (et_venta.fecha BETWEEN :fecha1 AND :fecha2) order by idventa desc";
+				where bodega.idventa and (et_venta.fecha BETWEEN :fecha1 AND :fecha2)";
+				if(strlen($idusuario)>0){
+					$sql.=" and et_venta.idusuario=:idusuario";
+				}
+				$sql.=" order by idventa desc";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":fecha1",$desde);
 			$sth->bindValue(":fecha2",$hasta);
+			if(strlen($idusuario)>0){
+				$sth->bindValue(":idusuario",$idusuario);
+			}
 			$sth->execute();
 			return $sth->fetchAll(PDO::FETCH_OBJ);
 		}

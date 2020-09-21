@@ -110,11 +110,9 @@ else{
 		</form>
 
 		<?php
-
 			echo "<div class='card-body' id='compras'>";
 				include 'lista_pedido.php';
 			echo "</div>";
-
 		?>
 	</div>
 </div>
