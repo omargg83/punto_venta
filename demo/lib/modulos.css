@@ -1,9 +1,42 @@
 :root {
-  --main-bg-color: #3e4676;
+  --main-bg-color: #fff;
+  --menu-bg-color: #fff;
+  --sidebar-color-font: #1f2d41;
+  --sidebar-bg-hover:#e7e7e3;
+  --sidebar-bg-active:#bcbcb9;
+  --icon-fontawesome:#000;
+
+  --button-bg-color:#bcbcb9;
 }
+
 .principal_menu{
-  background-color: black;
-  opacity:.8;
+  background-color: var(--menu-bg-color);
+  color:black !important;
+
+  -webkit-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
+}
+.fijaproceso{
+  background-color: #dbe0e9;
+}
+
+.tabla_css{
+  font-family: 'Roboto', sans-serif;
+}
+.tabla_css > .header-row{
+  background-color:silver;
+  font-weight: bold;
+  text-align: center;
+}
+.tabla_css > .body-row{
+  border-bottom: .5px solid #e3e5e4;
+}
+.tabla_css > .body-row:hover{
+
+  -webkit-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
 }
 
 body {
@@ -36,7 +69,7 @@ body {
 	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.12);
 }
 .logincard{
-    font-family: 'Baloo Paaji 2', cursive;
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 100;
 
@@ -57,9 +90,7 @@ body {
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
-:root {
-  --main-bg-color: #343a40;
-}
+
 .flotante{
 	border: 1px solid silver;
     position: absolute;
@@ -73,27 +104,21 @@ body {
 	-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
-i{
-	color:#3e4676;
-	width: 21px;
-}
-i:hover{
-	color:#8f9d80;
-}
+
 .btn i{
-	color: #3e4676;
+	/*color: var(--button-bg-color);*/
 	width: 21px;
 }
 .btn:hover i{
-  color:white;
+  /*color:white;*/
 }
 .btn{
-  color: #3e4676 !important;
-  border: 1px solid #3e4676 !important;
+/*  color: var(--button-bg-color) !important;
+  border: 1px solid var(--button-bg-color) !important;*/
 }
 .btn:hover{
-  color: #fff !important;
-  background-color: #5e628c !important;
+  /*color: #fff !important;
+  background-color: var(--main-bg-color) !important;*/
 }
 .nav-link{
 
@@ -101,42 +126,46 @@ i:hover{
 .nav-link:hover{
   background-color: #e3e3eb !important;
 }
-
+.nav a{
+  color:black !important;
+}
 label{
-	font-family: 'Baloo Paaji 2', cursive;
-	font-weight: bold;
+	font-family: 'Roboto', sans-serif;
 }
 
 /*Comienza la SIDEBAR*/
 /*//////////////////////////////////////////////////////////////////////////*/
 .sidebar{
-	font-family: 'Baloo Paaji 2', cursive;
+	font-family: 'Roboto', sans-serif;
+	font-size: 15px;
 	position: fixed;
 	z-index: 10;
-  width: 65px;
+  width: 50px;
 	top: 56px;
-	/*background-color: var(--main-bg-color);*/
-	background-color: #fff;
-	color:black;
+	background-color: var(--main-bg-color);
+	color: var(--sidebar-color-font);
 	overflow-x: hidden;
 	left: 0;
 	height: 100%;
-	transition: 0.5s all;
-	padding-top: 20px;
-
+	transition: 0.2s all;
 	-webkit-box-shadow: 2px 0px 5px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: 2px 0px 5px 0px rgba(0,0,0,0.75);
 	box-shadow: 2px 0px 5px 0px rgba(0,0,0,0.75);
+  overflow: hidden;
 }
 .sidebar a, .dropdown-btn {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  position: relative;
+  width: 300px;
+  display: table;
+  color: var(--sidebar-color-font);
+  border-collapse: collapse;
+  border-spacing: 0;
 	padding: 6px 8px 6px 16px;
 	text-decoration: none;
-	font-size: 15px;
-	color: #000;
-	display: block;
 	border: none;
 	background: none;
-	width: 100%;
 	text-align: left;
 	cursor: pointer;
 	outline: none;
@@ -147,19 +176,22 @@ label{
 }
 /* On mouse-over */
 .sidebar a:hover, .dropdown-btn:hover {
-	color: #fff;
 	border-left: 6px solid #909090;
-	background-color: #5e628c;
+	background-color: var(--sidebar-bg-hover);
+}
+.sidebar i{
+  margin-left: 16px;
+  margin-right: 10px;
+  margin-bottom: 8px;
+  color:var(--icon-fontawesome);
+	width: 25px;
+}
+.sidebar:hover{
+  width: 300px;
 }
 
-.sidebar:hover{
-  width: 180px;
-}
-.sidebar:hover span{
-  display: inline-block;
-}
 .table, .input{
-  font-family: 'Baloo Paaji 2', cursive;
+  font-family: 'Roboto', sans-serif;
 }
 /* Main content */
 .main {
@@ -185,8 +217,7 @@ label{
 
 /* Add an active class to the active dropdown button */
 .activeside {
-	background-color: #3e4676 !important;
-	color: white !important;
+	background-color: var(--sidebar-bg-active) !important;
 }
 .activeside i{
 	color: white !important;
@@ -206,58 +237,61 @@ label{
 }
 
 .card {
-	font-family: 'Baloo Paaji 2', cursive;
+	font-family: 'Roboto', sans-serif;
 	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.12);
 	-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.12);
 	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.12);
 }
 .card-header{
-	font-weight: bold;
 	text-align: center;
-  background-color: #d4d7e8 !important;
+  background-color: var(--sidebar-color_font) !important;
 }
 
 @media (max-width: 575.98px) {
-	.sidebar span{
+	/*.sidebar span{
 		display: none;
-	}
+	}*/
 	.main{
 		margin-left: 0px;
 	}
 	.fijaproceso{
-		padding-left: 80px; /* Same as the width of the sidenav */
+		padding-left: 50px;
 		width: 100%;
 	}
 }
 @media (min-width: 576px) and (max-width: 1199.98px) {
+  /*
 	.sidebar span{
 		display: none;
 	}
 	.sidenav span{
 		display: inline-block;
 	}
-	.main {
+  */
+  .main {
 		margin-left: 56px;
 	}
 	.fijaproceso{
 		margin-left: 1px; /* Same as the width of the sidenav */
-		padding-left: 80px; /* Same as the width of the sidenav */
+		padding-left: 50px; /* Same as the width of the sidenav */
 	}
 }
 @media (min-width: 1200px) {
-	.sidebar span{
+  /*
+  .sidebar span{
 		display: none;
 	}
 	.sidenav span{
 		display: inline-block;
 	}
+  */
 
 	.main {
 		margin-left: px;
 	}
 	.fijaproceso{
 		margin-left: 1px; /* Same as the width of the sidenav */
-		padding-left: 80px;
+		padding-left: 50px;
 	}
 
 }

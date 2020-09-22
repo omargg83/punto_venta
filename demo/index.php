@@ -18,28 +18,12 @@
 	<meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
 	<meta http-equiv="Pragma" content="no-cache">
 
-	<link rel="stylesheet" href="librerias15/load/css-loader.css">
+	<link rel="stylesheet" href="lib/load/css-loader.css">
+	<link rel="stylesheet" type="text/css" href="lib/modulos.css"/>
 </head>
-<?php
-	if(isset($_SESSION['idpersona']) and $_SESSION['autoriza'] == 1) {
-		$valor=$_SESSION['idfondo'];
-	}
-	else{
-		$arreglo=array();
-		$directory="fondo/";
-		$dirint = dir($directory);
-		$contar=0;
-		while (($archivo = $dirint->read()) !== false){
-			if ($archivo != "." && $archivo != ".." && $archivo != "" && substr($archivo,-4)==".jpg"){
-				$arreglo[$contar]=$directory.$archivo;
-				$contar++;
-			}
-		}
-		$valor=$arreglo[rand(1,$contar-1)];
-		$_SESSION['idfondo']=$valor;
-	}
-	echo "<body style='background-image: url(\"$valor\")'>";
-?>
+
+<body>
+
 
 <header class="d-block p-2" id='header'>
 	<nav class='navbar navbar-expand-sm fixed-top navbar-light bg-light text-'  style='background-color: #2e4053 !important; color: white !important;'>
@@ -64,6 +48,24 @@
 </header>
 
 <div class="page-wrapper d-block p-2" id='bodyx'>
+	<div class='wrapper' >
+	  <div class='content navbar-default'>
+	    <div class='container-fluid'>
+	      <div class='sidebar sidenav' id='navx'>
+	        <a href='#dash/index' is='menu-link' class='activeside'><i class='fas fa-home'></i><span>Inicio</span></a>
+	        <a href='#a_ventas/index' is='menu-link' title='Pedidos'><i class='fas fa-shopping-basket'></i><span>Ventas</span></a>
+	        <a href='#a_productos/index' is='menu-link' title='Productos'><i class='fab fa-product-hunt'></i><span>Productos</span></a>
+	        <a href='#a_citas/index' is='menu-link' title='Citas'><i class='fas fa-user-tag'></i><span>Citas</span></a>
+	        <hr>
+	        <a href='#a_usuarios/index' is='menu-link' title='Usuarios'><i class='fas fa-users'></i> <span>Usuarios</span></a>
+	        <a href='#a_cliente/index' is='menu-link' title='Clientes'><i class='fas fa-user-tag'></i><span>Clientes</span></a>
+	        <a href='#a_datosemp/index' is='menu-link' title='Datosemp'><i class='fas fa-user-tag'></i><span>Datos Emp.</span></a>
+	      </div>
+	    </div>
+	    <div class='fijaproceso main' id='contenido'>
+	    </div>
+	  </div>
+	</div>
 </div>
 
 <div class="modal animated fadeInDown" tabindex="-1" role="dialog" id="myModal">
@@ -74,84 +76,66 @@
 	</div>
 </div>
 
-<div class="loader loader-default is-active" id='cargando' data-text="Cargando">
+<div class="loader loader-default is-active" id='cargando_div' data-text="Cargando">
 	<h2><span style='font-color:white'></span></h2>
 </div>
 
 </body>
 	<!--   Core JS Files   -->
-	<script src="librerias15/jquery-3.4.1.min.js" type="text/javascript"></script>
+	<script src="lib/jquery-3.5.1.js" type="text/javascript"></script>
 
 	<!--   url   -->
-	<script src="librerias15/jquery/jquery-ui.js"></script>
-	<link rel="stylesheet" type="text/css" href="librerias15/jquery/jquery-ui.min.css" />
+	<script src="lib/jquery/jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" href="lib/jquery/jquery-ui.min.css" />
 
 	<!-- Animation library for notifications   -->
-  <link href="librerias15/animate.css" rel="stylesheet"/>
+  <link href="lib/animate.css" rel="stylesheet"/>
 
 	<!-- WYSWYG   -->
-	<link href="librerias15/summernote8.12/summernote-lite.css" rel="stylesheet" type="text/css">
-  <script src="librerias15/summernote8.12/summernote-lite.js"></script>
-	<script src="librerias15/summernote8.12/lang/summernote-es-ES.js"></script>
+	<link href="lib/summernote8.12/summernote-lite.css" rel="stylesheet" type="text/css">
+  <script src="lib/summernote8.12/summernote-lite.js"></script>
+	<script src="lib/summernote8.12/lang/summernote-es-ES.js"></script>
 
 	<!--   Alertas   -->
-	<script src="librerias15/swal/dist/sweetalert2.min.js"></script>
-	<link rel="stylesheet" href="librerias15/swal/dist/sweetalert2.min.css">
+	<script src="lib/swal/dist/sweetalert2.min.js"></script>
+	<link rel="stylesheet" href="lib/swal/dist/sweetalert2.min.css">
 
 	<!--   para imprimir   -->
-	<script src="librerias15/VentanaCentrada.js" type="text/javascript"></script>
+	<script src="lib/VentanaCentrada.js" type="text/javascript"></script>
 
 	<!--   Cuadros de confirmación y dialogo   -->
-	<link rel="stylesheet" href="librerias15/jqueryconfirm/css/jquery-confirm.css">
-	<script src="librerias15/jqueryconfirm/js/jquery-confirm.js"></script>
+	<link rel="stylesheet" href="lib/jqueryconfirm/css/jquery-confirm.css">
+	<script src="lib/jqueryconfirm/js/jquery-confirm.js"></script>
 
 	<!--   iconos   -->
-	<link rel="stylesheet" href="librerias15/fontawesome-free-5.12.1-web/css/all.css">
+	<link rel="stylesheet" href="lib/fontawesome-free-5.12.1-web/css/all.css">
 
 	<!--   carrusel de imagenes   -->
-	<link rel="stylesheet" href="librerias15/baguetteBox.js-dev/baguetteBox.css">
-	<script src="librerias15/baguetteBox.js-dev/baguetteBox.js" async></script>
-	<script src="librerias15/baguetteBox.js-dev/highlight.min.js" async></script>
+	<link rel="stylesheet" href="lib/baguetteBox.js-dev/baguetteBox.css">
+	<script src="lib/baguetteBox.js-dev/baguetteBox.js" async></script>
+	<script src="lib/baguetteBox.js-dev/highlight.min.js" async></script>
 
-	<script src="librerias15/popper.js"></script>
-	<script src="librerias15/tooltip.js"></script>
+	<script src="lib/popper.js"></script>
+	<script src="lib/tooltip.js"></script>
 
-	<!--   Chat   -->
-	<!--<script src="chat/chat.js" type="text/javascript"></script>
-	<link rel="stylesheet" type="text/css" href="chat/chat.css"/>
--->
 	<!--   Propios   -->
 	<script src="sagyc.js"></script>
 
 	<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="librerias15/modulos.css"/>
+	<link rel="stylesheet" type="text/css" href="lib/modulos.css"/>
 
 	<!--- calendario -->
-	<link href='librerias15/fullcalendar-4.0.1/packages/core/main.css' rel='stylesheet' />
-	<link href='librerias15/fullcalendar-4.0.1/packages/daygrid/main.css' rel='stylesheet' />
-	<link href='librerias15/fullcalendar-4.0.1/packages/timegrid/main.css' rel='stylesheet' />
+	<link href='lib/fullcalendar-4.0.1/packages/core/main.css' rel='stylesheet' />
+	<link href='lib/fullcalendar-4.0.1/packages/daygrid/main.css' rel='stylesheet' />
+	<link href='lib/fullcalendar-4.0.1/packages/timegrid/main.css' rel='stylesheet' />
 
-	<script src='librerias15/fullcalendar-4.0.1/packages/core/main.js'></script>
-	<script src='librerias15/fullcalendar-4.0.1/packages/interaction/main.js'></script>
-	<script src='librerias15/fullcalendar-4.0.1/packages/daygrid/main.js'></script>
-	<script src='librerias15/fullcalendar-4.0.1/packages/timegrid/main.js'></script>
-	<script src='librerias15/fullcalendar-4.0.1/packages/core/locales/es.js'></script>
-
-	<!--   Tablas  -->
-	<script type="text/javascript" src="librerias15/DataTables/datatables.js"></script>
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/dataTables.bootstrap4.min.js"></script>
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/dataTables.buttons.min.js"></script>
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/buttons.flash.min.js"></script>
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/jszip.min.js"></script>
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/pdfmake.min.js"></script>
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/vfs_fonts.js"></script>
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/buttons.html5.min.js"></script>
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/buttons.print.min.js"></script>
-
-	<link rel="stylesheet" type="text/css" href="librerias15/DataTables/datatables.min.css"/>
-	<link rel="stylesheet" type="text/css" href="librerias15/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.css"/>
+	<script src='lib/fullcalendar-4.0.1/packages/core/main.js'></script>
+	<script src='lib/fullcalendar-4.0.1/packages/interaction/main.js'></script>
+	<script src='lib/fullcalendar-4.0.1/packages/daygrid/main.js'></script>
+	<script src='lib/fullcalendar-4.0.1/packages/timegrid/main.js'></script>
+	<script src='lib/fullcalendar-4.0.1/packages/core/locales/es.js'></script>
 
 	<!--   Boostrap   -->
-	<link rel="stylesheet" href="librerias15/css/bootstrap.min.css">
-	<script src="librerias15/js/bootstrap.js"></script>
+	<link rel="stylesheet" href="lib/boostrap/css/bootstrap.min.css">
+	<script src="lib/boostrap/js/bootstrap.js"></script>
 </html>

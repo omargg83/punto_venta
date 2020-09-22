@@ -50,6 +50,18 @@
 			$_SESSION['autoriza'] = 0;
 			$_SESSION['idpersona']="";
 		}
+		public function ses(){
+			if($_SESSION['autoriza']==1){
+				$arr=array();
+				$arr=array('sess'=>"abierta");
+				return json_encode($arr);
+			}
+			else{
+				$arr=array();
+				$arr=array('sess'=>"cerrada");
+				return json_encode($arr);
+			}
+		}
 
 		public function insert($DbTableName, $values = array()){
 			$arreglo=array();
