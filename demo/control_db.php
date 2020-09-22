@@ -1,5 +1,5 @@
 <?php
-	if (!isset($_SESSION)) { session_start(); }
+	@session_start();
 	if (isset($_REQUEST['function'])){$function=$_REQUEST['function'];}	else{ $function="";}
 	if (isset($_REQUEST['ctrl'])){$ctrl=$_REQUEST['ctrl'];}	else{ $ctrl="";}
 
