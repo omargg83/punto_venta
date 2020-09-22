@@ -43,7 +43,6 @@ class Datosemp extends Sagyc{
 	}
 	public function guardar_datosemp(){
 		$x="";
-		parent::set_names();
 		$arreglo =array();
 
 		$id=$_REQUEST['id'];

@@ -2,10 +2,9 @@
 	require_once("db_.php");
 	$pd = $db->datosemp_lista();
 	echo "<div class='container' style='background-color:".$_SESSION['cfondo']."; '>";
-	echo "<br>";
 ?>
 
-	<table id='x_cliente' class='dataTable compact hover row-border' style='font-size:10pt;'>
+	<table id='x_cliente' class='table table-sm' style='font-size:10pt;'>
 	<thead>
 	<th>#</th>
 	<th>Razon</th>
@@ -15,10 +14,10 @@
 	<tbody>
 		<?php
 			foreach($pd as $key){
-				echo "<tr id='".$key->idemp."'' class='edit-t'>";
+				echo "<tr>";
 					echo "<td>";
 					echo "<div class='btn-group'>";
-					echo "<button class='btn btn-outline-primary btn-sm' id='edit_persona' title='Editar' data-lugar='a_datosemp/editar'><i class='fas fa-pencil-alt'></i></button>";
+					echo "<button class='btn btn-warning btn-sm' type='button' is='b-link' des='a_datosemp/editar' dix='trabajo' v_id='$key->idemp'><i class='fas fa-pencil-alt'></i></button>";
 					echo "</div>";
 					echo "</td>";
 					echo "<td>".$key->razon."</td>";
@@ -27,15 +26,7 @@
 				echo "</tr>";
 			}
 		?>
-
-
-
 	</div>
 	</tbody>
 	</table>
 </div>
-<script>
-	$(document).ready( function () {
-		lista("x_datosemp");
-	});
-</script>

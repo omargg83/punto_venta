@@ -1,6 +1,6 @@
 <?php
 	require_once("db_.php");
-	if (isset($_POST['id'])){$id=$_POST['id'];} else{ $id=0;}
+	if (isset($_REQUEST['id'])){$id=$_REQUEST['id'];} else{ $id=0;}
 
 	$razon="";
 	$calle="";
@@ -22,7 +22,7 @@
 ?>
 
 <div class="container">
-	<form action="" id="form_cliente" data-lugar="a_datosemp/db_" data-funcion="guardar_datosemp" data-destino='a_datosemp/editar'>
+	<form is="f-submit" id="form_cliente" db="a_datosemp/db_" fun="guardar_datosemp" des="a_datosemp/editar" desid='id'>
 		<input type="hidden" name="id" id="id" value="<?php echo $id;?>">
 		<div class='card'>
 			<div class='card-header'>
@@ -61,10 +61,8 @@
 			<div class='card-footer'>
 				<div class="row">
 					<div class="col-sm-12">
-						<div class="btn-group">
-						<button class="btn btn-outline-primary btn-sm" type="submit"><i class='far fa-save'></i>Guardar</button>
-						<button class='btn btn-outline-primary btn-sm' id='lista_penarea' data-lugar='a_datosemp/lista' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>
-						</div>
+						<button class="btn btn-warning btn-sm" type="submit"><i class='far fa-save'></i>Guardar</button>
+						<button type='button' class='btn btn-warning btn-sm' id='lista_penarea' is='b-link' des='a_datosemp/lista' dix='trabajo' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>
 					</div>
 				</div>
 			</div>
