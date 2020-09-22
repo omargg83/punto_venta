@@ -4,7 +4,7 @@
 	echo "<div class='container' style='background-color:".$_SESSION['cfondo']."; '>";
 ?>
 
-	<table id='x_user' class='table' style='font-size:10pt;'>
+	<table class='table table-sm' style='font-size:10pt;'>
 	<thead>
 	<th>Numero</th>
 	<th>Nombre</th>
@@ -16,7 +16,7 @@
 	<tbody>
 		<?php
 			foreach($pd as $key){
-				echo '<tr id="'.$key->idusuario.'" class="edit-t">';
+				echo '<tr>';
 					echo "<td>";
 					echo "<button class='btn btn-warning btn-sm' is='b-link' des='a_usuarios/editar' dix='trabajo' v_id='$key->idusuario' id='edit_persona'><i class='fas fa-pencil-alt'></i></button>";
 					echo "</td>";
