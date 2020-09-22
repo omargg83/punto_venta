@@ -80,17 +80,16 @@
 					$sth->bindValue(':' . $f, $v);
 				}
 				if ($sth->execute()){
-					$arreglo+=array('id'=>$this->lastId = $this->dbh->lastInsertId());
+					$arreglo+=array('id1'=>$this->lastId = $this->dbh->lastInsertId());
+					$arreglo+=array('id2'=>'');
+					$arreglo+=array('id3'=>'');
 					$arreglo+=array('error'=>0);
 					$arreglo+=array('terror'=>'');
-					$arreglo+=array('param1'=>'');
-					$arreglo+=array('param2'=>'');
-					$arreglo+=array('param3'=>'');
 					return json_encode($arreglo);
 				}
 			}
 			catch(PDOException $e){
-				$arreglo+=array('id'=>0);
+				$arreglo+=array('id1'=>0);
 				$arreglo+=array('error'=>1);
 				$arreglo+=array('terror'=>$e->getMessage());
 				return json_encode($arreglo);
@@ -124,17 +123,16 @@
 					$sth->bindValue(':' . $f."_c", $v);
 				}
 				if($sth->execute()){
-					$arreglo+=array('id'=>$idx);
+					$arreglo+=array('id1'=>$idx);
 					$arreglo+=array('error'=>0);
 					$arreglo+=array('terror'=>'');
-					$arreglo+=array('param1'=>'');
-					$arreglo+=array('param2'=>'');
-					$arreglo+=array('param3'=>'');
+					$arreglo+=array('id2'=>'');
+					$arreglo+=array('id3'=>'');
 					return json_encode($arreglo);
 				}
 			}
 			catch(PDOException $e){
-				$arreglo+=array('id'=>0);
+				$arreglo+=array('id1'=>0);
 				$arreglo+=array('error'=>1);
 				$arreglo+=array('terror'=>$e->getMessage());
 				return json_encode($arreglo);

@@ -51,8 +51,7 @@ class Cliente extends Sagyc{
 	public function guardar_cliente(){
 		$x="";
 		$arreglo =array();
-
-		$id=$_REQUEST['id'];
+		$idcliente=$_REQUEST['idcliente'];
 		if (isset($_REQUEST['profesion'])){
 			$arreglo+=array('profesion'=>$_REQUEST['profesion']);
 		}
@@ -71,12 +70,11 @@ class Cliente extends Sagyc{
 		if (isset($_REQUEST['correo'])){
 			$arreglo+=array('correo'=>$_REQUEST['correo']);
 		}
-
-		if($id==0){
+		if($idcliente==0){
 			$x=$this->insert('clientes', $arreglo);
 		}
 		else{
-			$x=$this->update('clientes',array('idcliente'=>$id), $arreglo);
+			$x=$this->update('clientes',array('idcliente'=>$idcliente), $arreglo);
 		}
 		return $x;
 	}

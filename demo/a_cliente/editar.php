@@ -22,8 +22,8 @@
 ?>
 
 <div class="container">
-		<form is="f-submit" id="form_editar" db="a_cliente/db_" fun="guardar_cliente" lug="" iddest='id'>
-		<input type="hidden" name="id" id="id" value="<?php echo $id;?>">
+		<form is="f-submit" id="form_editar" db="a_cliente/db_" fun="guardar_cliente" lug="a_cliente/editar" desid='idcliente'>
+		<input type="hidden" name="idcliente" id="idcliente" value="<?php echo $id;?>">
 		<div class='card'>
 			<div class='card-header'>
 				Editar cliente

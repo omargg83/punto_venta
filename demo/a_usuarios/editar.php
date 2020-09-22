@@ -24,7 +24,7 @@
 
 	}
 ?>
-<form is="f-submit" id="form_personal" db="a_usuarios/db_" fun="guardar_usuario">
+<form is="f-submit" id="form_personal" db="a_usuarios/db_" fun="guardar_usuario" des='a_usuarios/editar' desid='id'>
 <div class="container">
 	<div class='card'>
 		<div class='card-header'>
