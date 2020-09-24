@@ -21,7 +21,6 @@
 		$nivel="1";
 		$nombre="";
 		$estado="1";
-
 	}
 ?>
 <form is="f-submit" id="form_personal" db="a_usuarios/db_" fun="guardar_usuario" des='a_usuarios/editar' desid='id'>

@@ -361,7 +361,7 @@
 										document.getElementById(datos.desid).value=respon.id1;
 										formDestino.append(datos.desid, respon.id1);
 									}
-									if (datos.des !== undefined && datos.des.length>4) {
+									if (datos.des !== undefined && datos.des.length>4) {							
 										redirige_div(formDestino,datos);
 									}
 									if(datos.cmodal==1){
@@ -602,7 +602,9 @@
 						});
 						return;
 					}
+
 					var respon = JSON.parse(data.target.response);
+
 					if (respon.error==0){
 						Swal.fire({
 							type: 'success',

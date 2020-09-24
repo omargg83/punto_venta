@@ -52,7 +52,7 @@ class Usuario extends Sagyc{
 	public function guardar_usuario(){
 		$x="";
 		$arreglo =array();
-		if (isset($_POST['id'])){$id=$_POST['id'];}
+		if (isset($_REQUEST['id'])){$id=$_REQUEST['id'];}
 		if (isset($_REQUEST['nombre'])){
 			$arreglo+=array('nombre'=>$_REQUEST['nombre']);
 		}
@@ -70,10 +70,10 @@ class Usuario extends Sagyc{
 		}
 
 		if($id==0){
-			$x.=$this->insert('usuarios', $arreglo);
+			$x=$this->insert('usuarios', $arreglo, array('idusuario'=>'keyID','otro'=>"otro campo"));
 		}
 		else{
-			$x.=$this->update('usuarios',array('idusuario'=>$id), $arreglo);
+			$x=$this->update('usuarios',array('idusuario'=>$id), $arreglo, array('idusuario'=>'keyID','otro'=>"otro campo"));
 		}
 		return $x;
 	}
