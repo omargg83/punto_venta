@@ -36,6 +36,17 @@ class Cliente extends Sagyc{
 			return "Database access FAILED!".$e->getMessage();
 		}
 	}
+	public function clientes_buscar($texto){
+		try{
+			$sql="SELECT * FROM clientes where clientes.nombre like '%$texto%'";
+			$sth = $this->dbh->prepare($sql);
+			$sth->execute();
+			return $sth->fetchAll(PDO::FETCH_OBJ);
+		}
+		catch(PDOException $e){
+			return "Database access FAILED!".$e->getMessage();
+		}
+	}
 	public function cliente($id){
 		try{
 		  $sql="select * from clientes where idcliente=:id";
@@ -77,6 +88,10 @@ class Cliente extends Sagyc{
 			$x=$this->update('clientes',array('idcliente'=>$idcliente), $arreglo);
 		}
 		return $x;
+	}
+	public function borrar_cliente(){
+		if (isset($_REQUEST['id'])){ $id=$_REQUEST['id']; }
+		return $this->borrar('clientes',"idcliente",$id);
 	}
 }
 

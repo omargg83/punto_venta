@@ -25,27 +25,30 @@ class Usuario extends Sagyc{
 			die();
 		}
 	}
-
 	public function usuario($id){
 		$sql="select * from usuarios where idusuario='$id'";
 		$sth = $this->dbh->prepare($sql);
 		$sth->execute();
 		return $sth->fetch(PDO::FETCH_OBJ);
 	}
+	public function usuario_buscar($texto){
+		$sql="select usuarios.idusuario, usuarios.idtienda, usuarios.nombre, usuarios.user, usuarios.pass, usuarios.nivel, usuarios.activo, et_tienda.nombre as tienda  from usuarios left outer join et_tienda on et_tienda.id=usuarios.idtienda where usuarios.nombre like '%$texto%'";
+		$sth = $this->dbh->prepare($sql);
+		$sth->execute();
+		return $sth->fetchAll(PDO::FETCH_OBJ);
+  }
 	public function usuario_lista(){
 		$sql="select usuarios.idusuario, usuarios.idtienda, usuarios.nombre, usuarios.user, usuarios.pass, usuarios.nivel, usuarios.activo, et_tienda.nombre as tienda  from usuarios left outer join et_tienda on et_tienda.id=usuarios.idtienda";
 		$sth = $this->dbh->prepare($sql);
 		$sth->execute();
 		return $sth->fetchAll(PDO::FETCH_OBJ);
   }
-
   public function tiendas_lista(){
 		$sql="SELECT * FROM et_tienda";
 		$sth = $this->dbh->prepare($sql);
 		$sth->execute();
 		return $sth->fetchAll(PDO::FETCH_OBJ);
 	}
-
 	public function guardar_usuario(){
 		$x="";
 		$arreglo =array();
@@ -74,7 +77,6 @@ class Usuario extends Sagyc{
 		}
 		return $x;
 	}
-
 	public function lista_acceso(){
 		$sql="select *  from usuariosreg left outer join usuarios on usuarios.idusuario=usuariosreg.idpersonal order by fecha desc limit 1000";
 		$sth = $this->dbh->prepare($sql);
@@ -95,6 +97,10 @@ class Usuario extends Sagyc{
 		else{
 			return "La contraseña no coincide";
 		}
+	}
+	public function borrar_usuario(){
+		if (isset($_REQUEST['id'])){ $id=$_REQUEST['id']; }
+		return $this->borrar('usuarios',"idusuario",$id);
 	}
 }
 

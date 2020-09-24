@@ -108,7 +108,6 @@
 			});
 	})(jQuery);
 
-
 	class MenuLink extends HTMLAnchorElement {
 		connectedCallback() {
 			this.addEventListener('click', (e) => {cargando(true);
@@ -153,6 +152,7 @@
 	}
 	customElements.define("li-link", CiLink, { extends: "li" });
 
+	////////////////////boton normal
 	class Buttonlink extends HTMLButtonElement  {
 		connectedCallback() {
 			this.addEventListener('click', (e) => {
@@ -162,7 +162,7 @@
 	}
 	customElements.define("b-link", Buttonlink, { extends: "button" });
 
-	//////////////////////////especial submit
+	//////////////////////////especial submit para control
 	class Sublink extends HTMLInputElement   {
 		connectedCallback() {
 			this.addEventListener('change', (e) => {
@@ -273,6 +273,7 @@
 	}
 	customElements.define("s-submit", Sublink, { extends: "input" });
 
+	////////////////////submit general
 	class Formsubmit extends HTMLFormElement {
 		connectedCallback() {
 		 this.addEventListener('submit', (e) => {
@@ -410,7 +411,8 @@
 	}
 	customElements.define("f-submit", Formsubmit, { extends: "form" });
 
-	class Formlogin extends HTMLFormElement {
+	////////////////////submit de busqueda
+	class Formbuscar extends HTMLFormElement {
 		connectedCallback() {
 		 this.addEventListener('submit', (e) => {
 				e.preventDefault();
@@ -419,52 +421,59 @@
 				let id=e.currentTarget.attributes.id.nodeValue;
 				let elemento = document.getElementById(id);
 
-				/////////API que procesa el form
-				let db;
-				(elemento.attributes.db !== undefined) ? db=elemento.attributes.db.nodeValue : db="";
-
 				/////////funcion del api que procesa el form
 				let fun;
 				(elemento.attributes.fun !== undefined) ? fun=elemento.attributes.fun.nodeValue : fun="";
 
+				/////////Div de destino despues de guardar
+				let dix;
+				(elemento.attributes.dix !== undefined) ? dix=elemento.attributes.dix.nodeValue : dix="trabajo";
+
 				/////////div destino despues de guardar
-				let des;
+		 		let des;
 				(elemento.attributes.des !== undefined) ? des=elemento.attributes.des.nodeValue : des="";
 
-				let datos = new Object();
-				datos.db=db+".php";
-				datos.fun=fun;
-				datos.des=des+".php";
+				////////FORM pertenece a ventanamodal
+		 		let cmodal;
+				(elemento.attributes.cmodal !== undefined) ? cmodal=elemento.attributes.cmodal.nodeValue : cmodal="";
 
+				let datos = new Object();
+				datos.des=des+".php";
+				datos.dix=dix;
+				datos.fun=fun;
+
+				datos.cmodal=cmodal;
+				var formDestino = new FormData();
 
 				var formData = new FormData(elemento);
 				formData.append("function", datos.fun);
 
+				/////////esto es para todas las variables
+				let variables = new Object();
+				for(let contar=0;contar<elemento.attributes.length; contar++){
+					let arrayDeCadenas = elemento.attributes[contar].name.split("_");
+					if(arrayDeCadenas.length>1){
+						formData.append(arrayDeCadenas[1], elemento.attributes[contar].value);
+						formDestino.append(arrayDeCadenas[1], elemento.attributes[contar].value);
+					}
+				}
+
+				cargando(true);
 				let xhr = new XMLHttpRequest();
-				xhr.open('POST',datos.db);
-				xhr.addEventListener('load',(resp)=>{
-					var data = JSON.parse(resp.target.response);
-		      if (data.acceso==1){
-						location.href="../";
-		      }
-		      else{
-		        Swal.fire({
-		            type: 'error',
-		            title: 'Usuario o contraseña incorrecta',
-		            showConfirmButton: false,
-		            timer: 1000
-		        })
-		      }
+				xhr.open('POST',datos.des);
+				xhr.addEventListener('load',(data)=>{
+					document.getElementById(datos.dix).innerHTML = data.target.response;
 				});
 				xhr.onerror =  ()=>{
 					console.log("error");
 				};
 				xhr.send(formData);
+				cargando(false);
 
 		 })
 		}
 	}
-	customElements.define("f-login", Formlogin, { extends: "form" });
+	customElements.define("b-submit", Formbuscar, { extends: "form" });
 
 	//////////////////////////Solo para un proceso antes del flujo ejem. al borrar que primero borre y luego redirive_div
 	function proceso_db(e){

@@ -1,11 +1,13 @@
 <?php
+	require_once("db_.php");
 	$id=$_REQUEST['id'];
 ?>
+<form is="f-submit" id="form_personal" db="a_usuarios/db_" fun="password" lug="">
+
 <div class='modal-header'>
 	<h5 class='modal-title'>Cambiar contraseña</h5>
 </div>
   <div class='modal-body' >
-	<form id='form_personal' data-lugar='a_usuarios/db_' data-funcion='password'>
 	<?php
 		echo "<input  type='hidden' id='id' NAME='id' value='$id'>";
 	?>
@@ -24,9 +26,10 @@
 			</div>
 			<input class='form-control' placeholder='pass2' type='password'  id='pass2' name='pass2' required>
 		</div>
-		<div class='btn-group'>
-		<button class='btn btn-outline-primary btn-sm' type='submit' id='acceso' title='Guardar'><i class='far fa-save'></i>Guardar</button>
-		<button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal" title='Cancelar'><i class="fas fa-sign-out-alt"></i>Cancelar</button>
-		</div>
-		</form>
+	</div>
+	<div class='modal-footer' >
+
+		<button class='btn btn-warning btn-sm' type='submit' id='acceso' title='Guardar'><i class='far fa-save'></i>Guardar</button>
+		<button class="btn btn-warning btn-sm" type="button" is="b-link" cmodal='1' ><i class="fas fa-sign-out-alt"></i>Regresar</button>
   </div>
+</form>

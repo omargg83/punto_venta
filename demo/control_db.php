@@ -141,31 +141,29 @@
 		public function borrar($DbTableName, $key, $id){
 			$arreglo=array();
 			try{
-
 				$sql="delete from $DbTableName where $key=$id";
 				$sth = $this->dbh->prepare($sql);
 				$a=$sth->execute();
 				if($a){
-					$arreglo+=array('id'=>$id);
+					$arreglo+=array('id1'=>$id);
 					$arreglo+=array('error'=>0);
 					$arreglo+=array('terror'=>'');
-					$arreglo+=array('param1'=>'');
-					$arreglo+=array('param2'=>'');
-					$arreglo+=array('param3'=>'');
+					$arreglo+=array('id2'=>'');
+					$arreglo+=array('id3'=>'');
 					return json_encode($arreglo);
 				}
 				else{
-					$arreglo+=array('id'=>$id);
+					$arreglo+=array('id1'=>$id);
 					$arreglo+=array('error'=>1);
-					$arreglo+=array('terror'=>$sql.$sth->errorInfo());
-					$arreglo+=array('param1'=>'');
-					$arreglo+=array('param2'=>'');
-					$arreglo+=array('param3'=>'');
+					$b=$sth->errorInfo();
+					$arreglo+=array('terror'=>$b[2]);
+					$arreglo+=array('id2'=>'');
+					$arreglo+=array('id3'=>'');
 					return json_encode($arreglo);
 				}
 			}
 			catch(PDOException $e){
-				$arreglo+=array('id'=>0);
+				$arreglo+=array('id1'=>0);
 				$arreglo+=array('error'=>1);
 				$arreglo+=array('terror'=>$e->getMessage());
 				return json_encode($arreglo);
