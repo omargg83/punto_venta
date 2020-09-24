@@ -1,7 +1,5 @@
 <?php
 require_once("../control_db.php");
-if (isset($_REQUEST['function'])){$function=$_REQUEST['function'];}	else{ $function="";}
-
 
 if($_SESSION['des']==1 and strlen($function)==0)
 {
@@ -39,53 +37,11 @@ class Venta extends Sagyc{
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
-	public function busca_cliente(){
-		try{
-			parent::set_names();
-			$texto=$_REQUEST['texto'];
-			$idcliente=$_REQUEST['idcliente'];
-			$idventa=$_REQUEST['idventa'];
-
-			$sql="SELECT * from clientes where nombre like '%$texto%' limit 100";
-			$sth = $this->dbh->prepare($sql);
-			$sth->execute();
-			echo "<table class='table table-sm'>";
-			echo "<tr><th>-</th><th>Prof.</th><th>Nombre </th><th>Correo</th><th>Teléfono</th></tr>";
-			foreach($sth->fetchAll(PDO::FETCH_OBJ) as $key){
-				echo "<tr>";
-					echo "<td>";
-						echo "<div class='btn-group'>";
-						echo "<button type='button' onclick='cliente_addv(".$key->idcliente.",$idventa)' class='btn btn-outline-secondary btn-sm' title='Seleccionar cliente'><i class='fas fa-plus'></i></button>";
-						echo "</div>";
-					echo "</td>";
-					echo "<td>";
-							echo $key->profesion;
-					echo "</td>";
-					echo "<td>";
-							echo $key->nombre." ".$key->apellidop." ".$key->apellidom;
-					echo "</td>";
-					echo "<td>";
-							echo $key->correo;
-					echo "</td>";
-					echo "<td>";
-							echo $key->telefono;
-					echo "</td>";
-				echo "</tr>";
-			}
-			echo "</table>";
-		}
-		catch(PDOException $e){
-			return "Database access FAILED! ".$e->getMessage();
-		}
-	}
-
 
 	public function agrega_cliente(){
 		try{
-			parent::set_names();
 			$idventa=$_REQUEST['idventa'];
 			$idcliente=$_REQUEST['idcliente'];
-
 			if($idventa==0){
 				$arreglo=array();
 				$arreglo+=array('idcliente'=>$idcliente);
@@ -95,20 +51,13 @@ class Venta extends Sagyc{
 				$arreglo+=array('idusuario'=>$_SESSION['idpersona']);
 				$arreglo+=array('idtienda'=>$_SESSION['idtienda']);
 				$x=$this->insert('et_venta', $arreglo);
-				$ped=json_decode($x);
-				if($ped->error==0){
-					$idventa=$ped->id;
-				}
-				else{
-						return $x;
-				}
 			}
 			else{
 				$arreglo=array();
 				$arreglo+=array('idcliente'=>$idcliente);
-				$this->update('et_venta',array('idventa'=>$idventa), $arreglo);
+				$x=$this->update('et_venta',array('idventa'=>$idventa), $arreglo);
 			}
-			return $idventa;
+			return $x;
 		}
 		catch(PDOException $e){
 			return "Database access FAILED! ".$e->getMessage();
@@ -116,7 +65,7 @@ class Venta extends Sagyc{
 	}
 
 	public function venta($id){
-		self::set_names();
+
 		$this->total_venta($id);
 
 		$sql="select * from et_venta where idventa='$id'";
@@ -205,7 +154,7 @@ class Venta extends Sagyc{
 	}
 	public function selecciona_producto(){
 		try{
-			parent::set_names();
+
 			$idproducto=$_REQUEST['idproducto'];
 			$idventa=$_REQUEST['idventa'];
 
@@ -319,7 +268,7 @@ class Venta extends Sagyc{
 
 	public function busca_cita(){
 			try{
-				parent::set_names();
+
 				$texto=$_REQUEST['texto'];
 				$idcliente=$_REQUEST['idcliente'];
 				$idventa=$_REQUEST['idventa'];
@@ -366,7 +315,7 @@ class Venta extends Sagyc{
 	}
 	public function selecciona_cita(){
 		try{
-			parent::set_names();
+
 			$idcita=$_REQUEST['idcita'];
 			$idventa=$_REQUEST['idventa'];
 
@@ -470,7 +419,7 @@ class Venta extends Sagyc{
 	}
 
 	public function agregaventa(){
-		parent::set_names();
+
 		$x="";
 		$cliente="";
 		$observaciones="";
@@ -511,7 +460,7 @@ class Venta extends Sagyc{
 		$tipo=$_REQUEST['tipo'];
 
 		try{
-			parent::set_names();
+
 			if($idventa==0){
 				$arreglo=array();
 				$arreglo+=array('idcliente'=>1);
@@ -660,7 +609,7 @@ class Venta extends Sagyc{
 		}
 	}
 	public function borrar_venta(){
-		self::set_names();
+
 		$id=$_REQUEST['id'];
 
 		$sql="SELECT * from bodega where id=:id";
@@ -686,7 +635,7 @@ class Venta extends Sagyc{
 		return $x;
 	}
 	public function ventas_pedido($id){
-		self::set_names();
+
 		$sql="select * from bodega where idventa='$id' order by id desc";
 		$sth = $this->dbh->prepare($sql);
 		$sth->execute();
@@ -694,7 +643,7 @@ class Venta extends Sagyc{
 	}
 
 	public function ventas_lista(){
-		self::set_names();
+
 		$sql="select et_venta.idventa, et_venta.idtienda, et_venta.iddescuento, et_venta.factura, clientes.nombre, et_tienda.nombre as tienda, et_venta.total, et_venta.fecha, et_venta.gtotal, et_venta.estado, et_descuento.nombre as descuento from et_venta
 		left outer join clientes on clientes.idcliente=et_venta.idcliente
 		left outer join et_descuento on et_descuento.iddescuento=et_venta.iddescuento
@@ -704,7 +653,7 @@ class Venta extends Sagyc{
 		return $sth->fetchAll(PDO::FETCH_OBJ);
 	}
 	public function buscar($texto){
-		self::set_names();
+
 		$texto=trim($texto);
 		if(strlen($texto)>0){
 			$sql="select et_venta.idventa, et_venta.idtienda, et_venta.iddescuento, et_venta.factura, clientes.nombre, et_tienda.nombre, et_venta.total, et_venta.fecha, et_venta.gtotal, et_venta.estado, et_descuento.nombre as descuento from et_venta
@@ -717,21 +666,21 @@ class Venta extends Sagyc{
 		}
 	}
 	public function clientes_lista(){
-		self::set_names();
+
 		$sql="SELECT * FROM clientes";
 		$sth = $this->dbh->prepare($sql);
 		$sth->execute();
 		return $sth->fetchAll();
 	}
 	public function tiendas_lista(){
-		self::set_names();
+
 		$sql="SELECT * FROM et_tienda where id='".$_SESSION['idtienda']."'";
 		$sth = $this->dbh->prepare($sql);
 		$sth->execute();
 		return $sth->fetchAll();
 	}
 	public function descuento_lista(){
-		self::set_names();
+
 		$sql="SELECT * FROM et_descuento";
 		$sth = $this->dbh->prepare($sql);
 		$sth->execute();
@@ -739,7 +688,7 @@ class Venta extends Sagyc{
 	}
 	public function guardar_venta(){
 		$x="";
-		parent::set_names();
+
 		$arreglo =array();
 		$id=$_REQUEST['id'];
 		if (isset($_REQUEST['idcliente'])){
@@ -799,14 +748,14 @@ class Venta extends Sagyc{
 	}
 
 	public function imprimir(){
-		self::set_names();
+
 		if (isset($_REQUEST['id'])){$id=$_REQUEST['id'];}
 		$arreglo =array();
 		$arreglo+=array('imprimir'=>1);
 		return $this->update('et_venta',array('idventa'=>$id), $arreglo);
 	}
 	public function finalizar_venta(){
-		self::set_names();
+
 
 		$total_g=$_REQUEST['total_g'];
 		$efectivo_g=$_REQUEST['efectivo_g'];
@@ -832,7 +781,7 @@ class Venta extends Sagyc{
 
 	public function emitidas(){
 		try{
-			parent::set_names();
+
 			$desde=$_REQUEST['desde'];
 			$hasta=$_REQUEST['hasta'];
 
@@ -854,7 +803,7 @@ class Venta extends Sagyc{
 	}
 	public function productos_vendidos(){
 		try{
-			parent::set_names();
+
 
 			$idusuario=$_REQUEST['idusuario'];
 			$desde=$_REQUEST['desde'];

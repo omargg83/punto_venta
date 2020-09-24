@@ -534,8 +534,10 @@
 		}
 		//////////////poner aqui proceso en caso de existir funcion
 		if(fun.length>0){
-			if(datos.tp.length>0){
+			if(datos.fun.length>0){
 				formData.append("function", datos.fun);
+			}
+			if(datos.tp.length>0){
 				Swal.fire({
 					title: datos.tp,
 					showCancelButton: true,
@@ -581,11 +583,49 @@
 							}
 						});
 						xhr.onerror = (e)=>{
-
 						};
 						xhr.send(formData);
 					}
 				});
+			}
+			else{
+				let variable=0;
+				let xhr = new XMLHttpRequest();
+				xhr.open('POST',datos.db);
+				xhr.addEventListener('load',(data)=>{
+					if (!isJSON(data.target.response)){
+						Swal.fire({
+							type: 'error',
+							title: "Error favor de verificar",
+							showConfirmButton: false,
+							timer: 1000
+						});
+						return;
+					}
+					var respon = JSON.parse(data.target.response);
+					if (respon.error==0){
+						Swal.fire({
+							type: 'success',
+							title: "Listo",
+							showConfirmButton: false,
+							timer: 1000
+						});
+						if (des.length>0){
+							redirige_div(variables,datos);
+						}
+					}
+					else{
+						Swal.fire({
+							type: 'info',
+							title: respon.terror,
+							showConfirmButton: false,
+							timer: 1000
+						});
+					}
+				});
+				xhr.onerror = (e)=>{
+				};
+				xhr.send(formData);
 			}
 		}
 		else{

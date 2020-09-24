@@ -1,19 +1,23 @@
 <?php
-	$id=$_REQUEST['id'];
-	$id2=$_REQUEST['id2'];
+	require_once("db_.php");
+	$idcliente=$_REQUEST['idcliente'];
+	$idventa=$_REQUEST['idventa'];
 ?>
+<form is="b-submit" id="form_busca" des="a_ventas/buscar_clientev" dix='resultadosx' >
+
 <?php
-echo "<input  type='hidden' id='idcliente' NAME='idcliente' value='$id'>";
+echo "<input  type='hidden' id='idcliente' NAME='idcliente' value='$idcliente'>";
+echo "<input  type='hidden' id='idventa' NAME='idventa' value='$idventa'>";
 ?>
   <div class='modal-header'>
   	<h5 class='modal-title'>Agregar cliente</h5>
   </div>
   <div class="modal-body" style='max-height:580px;overflow: auto;'>
     <div clas='row'>
-        <div class="input-group mb-3">
-        <input type="text" class="form-control" name="prod_venta" id='prod_venta' placeholder='buscar cliente' aria-label="buscar cliente" aria-describedby="basic-addon2" onkeyup='Javascript: if (event.keyCode==13) buscar_clientev()'>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" name="texto" id='texto' placeholder='buscar cliente' aria-label="buscar cliente" aria-describedby="basic-addon2" >
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary btn-sm" type="button" onclick='buscar_clientev()'><i class='fas fa-search'></i>Buscar</button>
+          <button class="btn btn-warning btn-sm" type="submit"><i class='fas fa-search'></i>Buscar</button>
         </div>
       </div>
     </div>
@@ -22,5 +26,6 @@ echo "<input  type='hidden' id='idcliente' NAME='idcliente' value='$id'>";
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal"><i class="fas fa-sign-out-alt"></i>Cerrar</button>
+    <button type="button" class="btn btn-warning btn-sm" is='b-link' cmodal='1'><i class="fas fa-sign-out-alt"></i>Cerrar</button>
   </div>
+</form>

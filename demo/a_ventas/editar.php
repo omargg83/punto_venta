@@ -86,23 +86,23 @@ else{
 						<div class='btn-group'>
 							<?php
 								if($estado=="Activa"){
-									//echo "<button class='btn btn-outline-primary btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
+									//echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
 
-									echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='winmodal_cli' data-id='$idcliente' data-id2='$id' data-lugar='a_ventas/form_cliente' title='Agregar Cliente' >+<i class='fas fa-user-tag'></i>Cliente</button>";
+									echo "<button type='button' class='btn btn-warning btn-sm' id='winmodal_cli' v_idcliente='$idcliente' is='b-link' v_idventa='$id' des='a_ventas/form_cliente' omodal='1' title='Agregar Cliente'><i class='fas fa-user-tag'></i>Cliente</button>";
 
-									echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_producto' data-id='0' data-id2='$id' data-lugar='a_ventas/form_producto'>+ <i class='fab fa-product-hunt'></i>Producto</button>";
+									echo "<button type='button' class='btn btn-warning btn-sm' id='winmodal_producto' data-id='0' data-id2='$id' data-lugar='a_ventas/form_producto'>+ <i class='fab fa-product-hunt'></i>Producto</button>";
 
-									echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_citas' data-id='0' data-id2='$id' data-lugar='a_ventas/form_citas'>+ <i class='far fa-calendar-check'></i>Citas</button>";
+									echo "<button type='button' class='btn btn-warning btn-sm' id='winmodal_citas' data-id='0' data-id2='$id' data-lugar='a_ventas/form_citas'>+ <i class='far fa-calendar-check'></i>Citas</button>";
 
-									echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_finalizar' data-id='$id' data-lugar='a_ventas/finalizar'><i class='fas fa-cash-register'></i> Finalizar Venta</button>";
+									echo "<button type='button' class='btn btn-warning btn-sm' id='winmodal_finalizar' data-id='$id' data-lugar='a_ventas/finalizar'><i class='fas fa-cash-register'></i> Finalizar Venta</button>";
                 }
 								if($estado=="Pagada"){
-								//	echo "<button type='button' class='btn btn-outline-primary btn-sm' onclick='imprime($id)'><i class='fas fa-print'></i>Imprimir</button>";
-									echo "<button type='button' class='btn btn-outline-primary btn-sm' onclick='imprime_pdf($id)'><i class='fas fa-print'></i>Imprimir PDF</button>";
-									echo "<button type='button' class='btn btn-outline-primary btn-sm' title='Nuevo' id='new_personal' data-lugar='a_ventas/editar'><i class='fas fa-plus'></i><span>Nuevo</span></a></button>";
+								//	echo "<button type='button' class='btn btn-warning btn-sm' onclick='imprime($id)'><i class='fas fa-print'></i>Imprimir</button>";
+									echo "<button type='button' class='btn btn-warning btn-sm' onclick='imprime_pdf($id)'><i class='fas fa-print'></i>Imprimir PDF</button>";
+									echo "<button type='button' class='btn btn-warning btn-sm' title='Nuevo' id='new_personal' data-lugar='a_ventas/editar'><i class='fas fa-plus'></i><span>Nuevo</span></a></button>";
 								}
               ?>
-							<button class='btn btn-outline-primary btn-sm' id='lista_penarea' data-lugar='a_ventas/lista' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>
+							<button type='button' class='btn btn-warning btn-sm' id='lista_penarea' is='b-link' des='a_ventas/lista' dix='trabajo' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>
 						</div>
 					</div>
 				</div>

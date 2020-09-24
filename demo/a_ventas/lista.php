@@ -26,10 +26,10 @@
 		<?php
 			foreach($pd as $key){
 		?>
-					<tr id="<?php echo $key->idventa; ?>" class="edit-t">
+					<tr>
 						<td>
 							<div class="btn-group">
-								<button class='btn btn-outline-primary btn-sm'  id='edit_persona' title='Editar' data-lugar='a_ventas/editar'><i class="fas fa-pencil-alt"></i></button>
+								<button class='btn btn-warning btn-sm'  id='edit_persona' is='b-link' id='nueva_venta' des='a_ventas/editar' dix='trabajo'  v_id='<?php echo $key->idventa; ?> ' ><i class="fas fa-pencil-alt"></i></button>
 							</div>
 						</td>
 						<td  ><?php echo $key->idventa; ?></td>
@@ -48,10 +48,3 @@
 		</tbody>
 	</table>
 </div>
-
-
-<script>
-	$(document).ready( function () {
-		lista("x_venta");
-	});
-</script>
