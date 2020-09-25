@@ -7,7 +7,8 @@
 	$fecha=date("d-m-Y");
 	$nota="";
 ?>
-<form id='form_inventario' action='' data-lugar='a_productos/db_' data-destino='a_productos/editar' data-funcion='existencia_agrega'>
+
+<form is="f-submit" id="form_agrega" db="a_productos/db_" fun="existencia_agrega" lug="">
 <div class='modal-header'>
 	<h5 class='modal-title'>Agregar existencia</h5>
 </div>
@@ -33,11 +34,12 @@
 	</div>
 	<div class='modal-footer' >
 
+		<div class='modal-footer' >
 
-		<div class='btn-group'>
-		<button type='submit' class='btn btn-outline-primary btn-sm'  id='acceso' title='Guardar'><i class='far fa-save'></i>Guardar</button>
-		<button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal" title='Cancelar'><i class="fas fa-sign-out-alt"></i>Cancelar</button>
+			<button class='btn btn-warning btn-sm' type='submit' id='acceso' title='Guardar'><i class='far fa-save'></i>Guardar</button>
+			<button class="btn btn-warning btn-sm" type="button" is="b-link" cmodal='1' ><i class="fas fa-sign-out-alt"></i>Cancelar</button>
 		</div>
+		
   </div>
 </form>
 

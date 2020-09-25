@@ -153,8 +153,8 @@
 												//echo "<button type='button' class='btn btn-outline-primary btn-sm' id='imprime_comision' title='Imprimir' data-lugar='a_productos/imprimir' data-tipo='1' type='button'><i class='fas fa-barcode'></i>Imprimir</button>";
 
 												if($tipo==3){
-
-													echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_pass' is='b-link' data-id='0' des='a_productos/form_agrega' data-id2='$id' title='Agregar existencias' ><i class='far fa-plus-square'></i></i>Agregar existencias</button>";
+													echo "<button class='btn btn-warning btn-sm' type='button' is='b-link' des='a_productos/form_agrega' omodal='1' v_id='$id'><i class='fas fa-key'></i>Agregar existencias</button>";
+												//	echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_pass' is='b-link' data-id='0' des='a_productos/form_agrega' data-id2='$id' title='Agregar existencias' ><i class='far fa-plus-square'></i></i>Agregar existencias</button>";
 												}
 											}
 										?>

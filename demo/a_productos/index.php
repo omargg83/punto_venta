@@ -10,6 +10,18 @@
  		  </button>
  		  <div class='collapse navbar-collapse' id='navbarSupportedContent'>
  			<ul class='navbar-nav mr-auto'>
+
+        <form class='form-inline my-2 my-lg-0' is="b-submit" id="form_busca" des="a_productos/lista" dix='trabajo' >
+          <div class="input-group  mr-sm-2">
+            <input type="text" class="form-control form-control-sm" placeholder="Buscar" aria-label="Buscar" aria-describedby="basic-addon2"  name='buscar' id='buscar'>
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary btn-sm" type="submit" ><i class='fas fa-search'></i></button>
+            </div>
+          </div>
+        </form>
+
+
+
         <div class='form-inline my-2 my-lg-0' id='daigual' action='' >
 
 				</div>

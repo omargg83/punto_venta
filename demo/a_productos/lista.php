@@ -1,6 +1,14 @@
 <?php
 	require_once("db_.php");
-	$pd = $db->productos_lista();
+
+	if(isset($_REQUEST['buscar'])){
+		$texto=$_REQUEST['buscar'];
+		$pd = $db->producto_buscar($texto);
+	}
+	else{
+		$pd = $db->productos_lista();
+	}
+
 	echo "<div class='container-fluid' style='background-color:".$_SESSION['cfondo']."; '>";
 ?>
 			<table class='table table-sm' style='font-size:10pt;'>
@@ -21,6 +29,8 @@
 						echo "<td>";
 						echo "<div class='btn-group'>";
 						echo "<button type='button' class='btn btn-warning btn-sm' id='edit_persona' is='b-link' title='Editar' des='a_productos/editar' dix='trabajo' v_id='$key->id'><i class='fas fa-pencil-alt'></i></button>";
+						echo "<button type='button' class='btn btn-warning btn-sm' is='b-link' db='a_productos/db_' des='a_productos/lista' fun='borrar_producto' dix='trabajo' v_id='$key->id' id='eliminar' tp='¿Desea eliminar el Producto seleccionado?'><i class='far fa-trash-alt'></i></button>";
+
 						echo "</div>";
 						echo "</td>";
 

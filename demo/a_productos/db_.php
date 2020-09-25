@@ -25,6 +25,13 @@ class Productos extends Sagyc{
 		}
 
 	}
+	public function producto_buscar($texto){
+		$sql="select * from productos where productos.nombre like '%$texto%'";
+		$sth = $this->dbh->prepare($sql);
+		$sth->execute();
+		return $sth->fetchAll(PDO::FETCH_OBJ);
+  }
+
 	public function productos_lista(){
 		try{
 			$sql="SELECT * from productos where activo=1  and idventa is null order by tipo asc,id asc limit 100";
@@ -35,6 +42,11 @@ class Productos extends Sagyc{
 		catch(PDOException $e){
 			return "Database access FAILED! ".$e->getMessage();
 		}
+	}
+
+	public function borrar_producto(){
+		if (isset($_REQUEST['id'])){ $id=$_REQUEST['id']; }
+		return $this->borrar('productos',"id",$id);
 	}
 
 	public function producto_editar($id){
@@ -52,7 +64,7 @@ class Productos extends Sagyc{
 	}
 	public function guardar_producto(){
 		try{
-			$id=$_REQUEST['id'];
+			if (isset($_REQUEST['id'])){$id=$_REQUEST['id'];}
 			$arreglo =array();
 			$tipo="";
 			$imei="";
