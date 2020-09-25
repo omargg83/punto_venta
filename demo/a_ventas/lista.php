@@ -29,7 +29,7 @@
 					<tr>
 						<td>
 							<div class="btn-group">
-								<button class='btn btn-warning btn-sm'  id='edit_persona' is='b-link' id='nueva_venta' des='a_ventas/editar' dix='trabajo'  v_id='<?php echo $key->idventa; ?> ' ><i class="fas fa-pencil-alt"></i></button>
+								<button class='btn btn-warning btn-sm'  id='edit_persona' is='b-link' id='nueva_venta' des='a_ventas/editar' dix='trabajo'  v_idventa='<?php echo $key->idventa; ?> ' ><i class="fas fa-pencil-alt"></i></button>
 							</div>
 						</td>
 						<td  ><?php echo $key->idventa; ?></td>

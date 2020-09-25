@@ -68,8 +68,8 @@
 	</div>
 </div>
 
-<div class="modal animated fadeInDown" tabindex="-1" role="dialog" id="myModal">
-	<div class="modal-dialog" role="document" id='modal_dispo'>
+<div class="modal animated fadeInDown" tabindex="-1" role="dialog" id="myModal" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-lg" role="document" id='modal_dispo'>
 		<div class="modal-content" id='modal_form'>
 
 		</div>

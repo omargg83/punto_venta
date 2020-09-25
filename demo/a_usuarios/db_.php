@@ -70,10 +70,10 @@ class Usuario extends Sagyc{
 		}
 
 		if($id==0){
-			$x=$this->insert('usuarios', $arreglo, array('idusuario'=>'keyID','otro'=>"otro campo"));
+			$x=$this->insert('usuarios', $arreglo);
 		}
 		else{
-			$x=$this->update('usuarios',array('idusuario'=>$id), $arreglo, array('idusuario'=>'keyID','otro'=>"otro campo"));
+			$x=$this->update('usuarios',array('idusuario'=>$id), $arreglo);
 		}
 		return $x;
 	}

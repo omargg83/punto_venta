@@ -63,7 +63,7 @@
 			}
 		}
 
-		public function insert($DbTableName, $values = array(), $llaves = array()){
+		public function insert($DbTableName, $values = array()){
 			$arreglo=array();
 			try{
 				$this->dbh->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
@@ -79,27 +79,19 @@
 				}
 				if ($sth->execute()){
 					$last=$this->lastId = $this->dbh->lastInsertId();
-					foreach ($llaves as $field => $v){
-						if($v=='keyID'){
-							$arreglo+=array($field=>$last);
-						}
-						else{
-							$arreglo+=array($field=>$v);
-						}
-					}
+					$arreglo+=array('id'=>$last);
 					$arreglo+=array('error'=>0);
 					$arreglo+=array('terror'=>'');
 					return json_encode($arreglo);
 				}
 			}
 			catch(PDOException $e){
-				$arreglo+=array('id1'=>0);
 				$arreglo+=array('error'=>1);
 				$arreglo+=array('terror'=>$e->getMessage());
 				return json_encode($arreglo);
 			}
 		}
-		public function update($DbTableName, $id = array(), $values = array(), $llaves = array()){
+		public function update($DbTableName, $id = array(), $values = array()){
 			$arreglo=array();
 			try{
 				$this->dbh->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
@@ -127,13 +119,9 @@
 					$sth->bindValue(':' . $f."_c", $v);
 				}
 				if($sth->execute()){
+					$arreglo+=array('id'=>$idx);
 					$arreglo+=array('error'=>0);
 					$arreglo+=array('terror'=>'');
-
-					///////////para las llaves a retornar
-					foreach ($llaves as $field => $v){
-						$arreglo+=array($field=>$v);
-					}
 					return json_encode($arreglo);
 				}
 			}

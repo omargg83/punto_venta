@@ -223,7 +223,6 @@
 					xhr.open('POST',datos.db);
 					xhr.addEventListener('load',(data)=>{
 						if (!isJSON(data.target.response)){
-							console.log(data.target.response);
 							Swal.fire({
 								type: 'error',
 								title: "Error favor de verificar",
@@ -345,7 +344,6 @@
 							xhr.open('POST',datos.db);
 							xhr.addEventListener('load',(data)=>{
 								if (!isJSON(data.target.response)){
-									console.log(data.target.response);
 									Swal.fire({
 										type: 'error',
 										title: "Error favor de verificar",
@@ -358,10 +356,10 @@
 								var respon = JSON.parse(data.target.response);
 								if (respon.error==0){
 									if (datos.desid !== undefined && datos.desid.length>0) {
-										document.getElementById(datos.desid).value=respon.id1;
-										formDestino.append(datos.desid, respon.id1);
+										document.getElementById(datos.desid).value=respon.id;
+										formDestino.append(datos.desid, respon.id);
 									}
-									if (datos.des !== undefined && datos.des.length>4) {							
+									if (datos.des !== undefined && datos.des.length>4) {
 										redirige_div(formDestino,datos);
 									}
 									if(datos.cmodal==1){
@@ -494,8 +492,8 @@
 		let tp;	///////////// la funcion a ejecutar
 		e.currentTarget.attributes.tp!==undefined ? tp=e.currentTarget.attributes.tp.nodeValue : tp="";
 
-		let iddest;
-		e.currentTarget.attributes.iddest!==undefined ? iddest=e.currentTarget.attributes.iddest.nodeValue : iddest="";
+		let desid;
+		e.currentTarget.attributes.desid!==undefined ? desid=e.currentTarget.attributes.desid.nodeValue : desid="";
 
 		let omodal;
 		e.currentTarget.attributes.omodal!==undefined ? omodal=e.currentTarget.attributes.omodal.nodeValue : omodal="";
@@ -509,7 +507,7 @@
 		datos.dix=dix;
 		datos.fun=fun;
 		datos.tp=tp;
-		datos.iddest=iddest;
+		datos.desid=desid;
 		datos.omodal=omodal;
 		datos.cmodal=cmodal;
 
@@ -546,94 +544,62 @@
 					confirmButtonText: 'Aceptar'
 				}).then((result) => {
 					if (result.value) {
-						let variable=0;
-						let xhr = new XMLHttpRequest();
-						xhr.open('POST',datos.db);
-						xhr.addEventListener('load',(data)=>{
-							console.log(data.target.response);
-							if (!isJSON(data.target.response)){
-								Swal.fire({
-									type: 'error',
-									title: "Error favor de verificar",
-									showConfirmButton: false,
-									timer: 1000
-								});
-								console.log(data.target.response);
-								return;
-							}
-							var respon = JSON.parse(data.target.response);
-							if (respon.error==0){
-								Swal.fire({
-									type: 'success',
-									title: "Listo",
-									showConfirmButton: false,
-									timer: 1000
-								});
-								if (des.length>0){
-									redirige_div(variables,datos);
-								}
-							}
-							else{
-								Swal.fire({
-									type: 'info',
-									title: respon.terror,
-									showConfirmButton: false,
-									timer: 1000
-								});
-							}
-						});
-						xhr.onerror = (e)=>{
-						};
-						xhr.send(formData);
+						proceso_f(formData,variables,datos);
 					}
 				});
 			}
 			else{
-				let variable=0;
-				let xhr = new XMLHttpRequest();
-				xhr.open('POST',datos.db);
-				xhr.addEventListener('load',(data)=>{
-					if (!isJSON(data.target.response)){
-						Swal.fire({
-							type: 'error',
-							title: "Error favor de verificar",
-							showConfirmButton: false,
-							timer: 1000
-						});
-						return;
-					}
-
-					var respon = JSON.parse(data.target.response);
-
-					if (respon.error==0){
-						Swal.fire({
-							type: 'success',
-							title: "Listo",
-							showConfirmButton: false,
-							timer: 1000
-						});
-						if (des.length>0){
-							redirige_div(variables,datos);
-						}
-					}
-					else{
-						Swal.fire({
-							type: 'info',
-							title: respon.terror,
-							showConfirmButton: false,
-							timer: 1000
-						});
-					}
-				});
-				xhr.onerror = (e)=>{
-				};
-				xhr.send(formData);
+				proceso_f(formData,variables,datos);
 			}
 		}
 		else{
 			redirige_div(formData,datos);
 		}
 		cargando(false);
+	}
+	function proceso_f(formData, variables, datos){
+		let variable=0;
+		let xhr = new XMLHttpRequest();
+		xhr.open('POST',datos.db);
+		xhr.addEventListener('load',(data)=>{
+			if (!isJSON(data.target.response)){
+				Swal.fire({
+					type: 'error',
+					title: "Error favor de verificar",
+					showConfirmButton: false,
+					timer: 1000
+				});
+				return;
+			}
+
+			var respon = JSON.parse(data.target.response);
+			if (datos.desid !== undefined && datos.desid.length>0) {
+				variables.set(datos.desid, respon.id);
+			}
+
+			if (respon.error==0){
+				Swal.fire({
+					type: 'success',
+					title: "Listo",
+					showConfirmButton: false,
+					timer: 1000
+				});
+				if (datos.des.length>0){
+					redirige_div(variables,datos);
+				}
+			}
+			else{
+				Swal.fire({
+					type: 'info',
+					title: respon.terror,
+					showConfirmButton: false,
+					timer: 1000
+				});
+			}
+		});
+		xhr.onerror = (e)=>{
+		};
+		xhr.send(formData);
 	}
 	//////////////////////////redirige si es necesario
 	function redirige_div(formData,datos){

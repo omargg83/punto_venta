@@ -1,6 +1,6 @@
 <?php
 	require_once("db_.php");
-	$id=$_REQUEST['id'];
+	$idventa=$_REQUEST['idventa'];
 	$venta="";
 	$pedido="";
 	$estado="";
@@ -8,8 +8,8 @@
 	$subtotal="0";
 	$iva="0";
 
-	if($id>0){
-		$pedido = $db->ventas_pedido($id);
+	if($idventa>0){
+		$pedido = $db->ventas_pedido($idventa);
 		$estado=$pd['estado'];
 		$gtotal=$pd['total'];
 		$subtotal=$pd['subtotal'];
@@ -38,7 +38,7 @@
 				echo "<B>TOTAL</B>";
 			echo "</div>";
 		echo "</div>";
-		if($id>0){
+		if($idventa>0){
 			foreach($pedido as $key){
 				$sql="SELECT * from productos where id=:id";
 				$sth = $db->dbh->prepare($sql);
@@ -49,7 +49,7 @@
 				echo "<div class='row' id='div_".$key['id']."'>";
 					echo "<div class='col-1'>";
 						if($estado=="Activa"){
-							echo "<button class='btn btn-outline-primary btn-sm' id='eliminar_pedido' data-lugar='a_ventas/db_' data-destino='a_ventas/editar' data-id='".$key['id']."' data-iddest='$id' data-funcion='borrar_venta' data-div='trabajo'><i class='far fa-trash-alt'></i></i></button>";
+							echo "<button class='btn btn-outline-primary btn-sm' id='eliminar_pedido' data-lugar='a_ventas/db_' data-destino='a_ventas/editar' data-id='".$key['id']."' data-iddest='$idventa' data-funcion='borrar_venta' data-div='trabajo'><i class='far fa-trash-alt'></i></i></button>";
 						}
 					echo "</div>";
 					echo "<div class='col-2'>";
