@@ -1,6 +1,6 @@
 <?php
 	require_once("db_.php");
-	$id2=$_REQUEST['id2'];
+	$idventa=$_REQUEST['idventa'];
 ?>
 <div class="modal-header">
   <h5 class="modal-title">Buscar citas</h5>

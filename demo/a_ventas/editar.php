@@ -92,8 +92,11 @@ else{
 									echo "<button type='button' class='btn btn-warning btn-sm' id='producto_add' is='b-link' v_idventa='$idventa' des='a_ventas/form_producto' omodal='1' title='Agregar Producto'><i class='fab fa-product-hunt'></i>Producto</button>";
 
 
+									echo "<button type='button' class='btn btn-warning btn-sm' id='producto_add' is='b-link' v_idventa='$idventa' des='a_ventas/form_citas' omodal='1' title='Agregar cita'><i class='far fa-calendar-check'></i>Citas</button>";
 
-									echo "<button type='button' class='btn btn-warning btn-sm' id='winmodal_citas' data-id='0' data-id2='$idventa' data-lugar='a_ventas/form_citas'>+ <i class='far fa-calendar-check'></i>Citas</button>";
+
+
+									echo "<button type='button' class='btn btn-warning btn-sm' id='winmodal_citas' data-id='0' data-id2='$idventa' data-lugar='a_ventas/form_citas'>+ <i class='far fa-calendar-check'></i></button>";
 
 									echo "<button type='button' class='btn btn-warning btn-sm' id='winmodal_finalizar' data-id='$idventa' data-lugar='a_ventas/finalizar'><i class='fas fa-cash-register'></i> Finalizar Venta</button>";
                 }
@@ -103,7 +106,6 @@ else{
 									echo "<button type='button' class='btn btn-warning btn-sm' title='Nuevo' id='new_personal' data-lugar='a_ventas/editar'><i class='fas fa-plus'></i><span>Nuevo</span></a></button>";
 								}
               ?>
-							<button type='button' class='btn btn-warning btn-sm' id='lista_penarea' is='b-link' des='a_ventas/lista' dix='trabajo' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>
 						</div>
 					</div>
 				</div>
