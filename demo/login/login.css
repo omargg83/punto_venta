@@ -1,7 +1,8 @@
 body, html {
     height: 100%;
     background-repeat: no-repeat;
-    background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+    background-color: #074479;
+    background-image: linear-gradient(rgb(95, 178, 60), rgb(7, 68, 121));
 }
 
 .card-container.card {
@@ -19,7 +20,7 @@ body, html {
 }
 
 .card {
-    background-color: #F7F7F7;
+    background-color: #fff;
     /* just in case there no content*/
     padding: 20px 25px 30px;
     margin: 0 auto 25px;

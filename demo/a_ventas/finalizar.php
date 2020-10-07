@@ -1,6 +1,6 @@
 <?php
 require_once("db_.php");
-$id=$_REQUEST['id'];
+$id=$_REQUEST['idventa'];
 
 $pd = $db->venta($id);
 $total=round($pd['total'],2);
@@ -13,14 +13,16 @@ else{
   echo "<div class='card-body'>";
   echo "</div>";
   echo "<div class='card-footer'>";
-  echo "<button type='button' class='btn btn-outline-primary btn-sm' data-dismiss='modal'><i class='fas fa-sign-out-alt'></i>Cancelar</button>";
+  echo "<button type='button' class='btn btn-warning btn-sm' data-dismiss='modal'><i class='fas fa-sign-out-alt'></i>Cancelar</button>";
   echo "</div>";
   echo "</div>";
   exit();
 }
 ?>
-<form action="" id="form_venta" data-lugar="a_ventas/db_" data-funcion="finalizar_venta" data-destino='a_ventas/editar'>
-  <input type='hidden' name='id' id='id' placeholder='buscar producto' value='<?php echo $id; ?>' class='form-control'>
+
+<form id="form_finalizar" is='f-submit' db="a_ventas/db_" fun="finalizar_venta" des='a_ventas/editar' desid='idventa' dix='trabajo' cmodal='2'>
+  <input type='hidden' name='idventa' id='idventa' value='<?php echo $id; ?>' class='form-control'>
+
   <div class="modal-header">
     <h5 class="modal-title">Finalizar venta</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -59,9 +61,7 @@ else{
   </div>
 
   <div class="modal-footer">
-    <div class='btn-group'>
-      <button type="submit" class="btn btn-outline-primary btn-sm"><i class="fas fa-cash-register"></i>Finalizar</button>
-      <button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal"><i class="fas fa-sign-out-alt"></i>Cancelar</button>
-    </div>
+    <button type="submit" class="btn btn-warning btn-sm"><i class="fas fa-cash-register"></i>Finalizar</button>
+    <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal"><i class="fas fa-sign-out-alt"></i>Cancelar</button>
   </div>
 </form>

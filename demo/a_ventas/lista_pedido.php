@@ -3,7 +3,7 @@
 	$idventa=$_REQUEST['idventa'];
 	$venta="";
 	$pedido="";
-	$estado="";
+	$estado="Activa";
 	$gtotal="0";
 	$subtotal="0";
 	$iva="0";
@@ -38,6 +38,7 @@
 				echo "<B>TOTAL</B>";
 			echo "</div>";
 		echo "</div>";
+		echo "<hr>";
 		if($idventa>0){
 			foreach($pedido as $key){
 				$sql="SELECT * from productos where id=:id";
@@ -49,7 +50,8 @@
 				echo "<div class='row' id='div_".$key['id']."'>";
 					echo "<div class='col-1'>";
 						if($estado=="Activa"){
-							echo "<button class='btn btn-outline-primary btn-sm' id='eliminar_pedido' data-lugar='a_ventas/db_' data-destino='a_ventas/editar' data-id='".$key['id']."' data-iddest='$idventa' data-funcion='borrar_venta' data-div='trabajo'><i class='far fa-trash-alt'></i></i></button>";
+
+							echo "<button class='btn btn-warning btn-sm' type='button' is='b-link' des='a_ventas/editar' dix='trabajo' db='a_ventas/db_' fun='borrar_venta' v_idventa='$idventa' v_id='".$key['id']."' tp='¿Desea eliminar el producto?' title='Borrar'><i class='far fa-trash-alt'></i></button>";
 						}
 					echo "</div>";
 					echo "<div class='col-2'>";
@@ -86,6 +88,10 @@
 				echo "</div>";
 				echo "<hr>";
 			}
+		}
+
+		if($estado=="Activa"){
+			echo "<button type='button' class='btn btn-warning btn-sm' id='producto_add' is='b-link' v_idventa='$idventa' des='a_ventas/form_producto' omodal='1' title='Agregar Producto'><i class='fab fa-product-hunt'></i>+ Producto</button>";
 		}
 
 ?>

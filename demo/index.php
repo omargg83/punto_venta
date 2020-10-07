@@ -26,9 +26,9 @@
 
 
 <header class="d-block p-2" id='header'>
-	<nav class='navbar navbar-expand-sm fixed-top navbar-light bg-light text-'  style='background-color: #2e4053 !important; color: white !important;'>
+	<nav class='barraprincipal navbar navbar-expand-sm fixed-top navbar-light bg-light text-'  style='background-color: #2e4053 !important; color: white !important;'>
 	  <img src='img/sagyc.png' width='60' height='30' alt=''>
-	  <a class='navbar-brand text-white text-center' href='#'> <?php echo $_SESSION['nombre_sis']; ?>  </a>
+	  <a class='navbar-brand text-white text-center ml-3' href='#'> <?php echo $_SESSION['nombre_sis']; ?>  </a>
 	  <button class='navbar-toggler collapsed' type='button' data-toggle='collapse' data-target='#navbarsExample06' aria-controls='navbarsExample06' aria-expanded='false' aria-label='Toggle navigation'>
 	    <span class='navbar-toggler-icon'></span>
 	  </button>
@@ -53,13 +53,13 @@
 	    <div class='container-fluid'>
 	      <div class='sidebar sidenav' id='navx'>
 	        <a href='#dash/index' is='menu-link' class='activeside'><i class='fas fa-home'></i><span>Inicio</span></a>
+					<a href='#a_productos/index' is='menu-link' title='Productos'><i class='fab fa-product-hunt'></i><span>Productos</span></a>
 	        <a href='#a_ventas/index' is='menu-link' title='Pedidos'><i class='fas fa-shopping-basket'></i><span>Ventas</span></a>
-	        <a href='#a_productos/index' is='menu-link' title='Productos'><i class='fab fa-product-hunt'></i><span>Productos</span></a>
-	        <a href='#a_citas/index' is='menu-link' title='Citas'><i class='fas fa-user-tag'></i><span>Citas</span></a>
+					<a href='#a_cliente/index' is='menu-link' title='Clientes'><i class='fas fa-user-tag'></i><span>Clientes</span></a>
+	        <a href='#a_citas/index' is='menu-link' title='Citas'><i class="far fa-calendar-check"></i><span>Citas</span></a>
 	        <hr>
-	        <a href='#a_usuarios/index' is='menu-link' title='Usuarios'><i class='fas fa-users'></i> <span>Usuarios</span></a>
-	        <a href='#a_cliente/index' is='menu-link' title='Clientes'><i class='fas fa-user-tag'></i><span>Clientes</span></a>
-	        <a href='#a_datosemp/index' is='menu-link' title='Datosemp'><i class='fas fa-user-tag'></i><span>Datos Emp.</span></a>
+					<a href='#a_usuarios/index' is='menu-link' title='Usuarios'><i class='fas fa-users'></i> <span>Usuarios</span></a>
+	        <a href='#a_datosemp/index' is='menu-link' title='Datosemp'><i class="fas fa-wrench"></i><span>Datos Emp.</span></a>
 	      </div>
 	    </div>
 	    <div class='fijaproceso main' id='contenido'>
@@ -120,6 +120,7 @@
 
 	<!--   Propios   -->
 	<script src="sagyc.js"></script>
+	<script src="vainilla.js"></script>
 
 	<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="lib/modulos.css"/>

@@ -22,18 +22,21 @@
  	<link rel="stylesheet" href="login.css">
  </head>
  <body>
-   <div class="container">
+   <div class="container" style='overflow: hidden;'>
        <div class="card card-container login">
-         <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+         <img id="profile-img" src="../img/logo.png" width='250px'/>
          <p id="profile-name" class="profile-name-card"></p>
 
         <form is="f-login" id="form_login" db="login" fun="acceso" des="/">
-           <span id="reauth-email" class="reauth-email"></span>
-           <input type="text" id="userAcceso"  name="userAcceso" class="form-control" placeholder="Usuario" required autofocus>
-           <input type="password" id="passAcceso" name="passAcceso" class="form-control" placeholder="Contraseña" required>
-           <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Ingresar</button>
-         </form>
-         <!-- /form -->
+          <div class="input-group mb-3">
+            <input type="text" id="userAcceso"  name="userAcceso" class="form-control" placeholder="Usuario" required autofocus>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" id="passAcceso" name="passAcceso" class="form-control" placeholder="Contraseña" required>
+          </div>
+           <button class="btn btn-warning btn-block" type="submit">Ingresar</button>
+        </form>
+
        </div>
      </div>
  </body>

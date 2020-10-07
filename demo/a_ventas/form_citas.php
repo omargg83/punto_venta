@@ -2,6 +2,12 @@
 	require_once("db_.php");
 	$idventa=$_REQUEST['idventa'];
 ?>
+
+<form is="b-submit" id="form_busca" des="a_ventas/busca_cita" dix='resultadosx' >
+<?php
+	echo "<input  type='hidden' id='idventa' NAME='idventa' value='$idventa'>";
+?>
+
 <div class="modal-header">
   <h5 class="modal-title">Buscar citas</h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -12,15 +18,18 @@
 <div class="modal-body" style='max-height:580px;overflow: auto;'>
 	<div clas='row'>
 			<div class="input-group mb-3">
-			<input type="text" class="form-control" name="prod_venta" id='prod_venta' placeholder='buscar producto' aria-label="buscar producto" aria-describedby="basic-addon2" onkeyup='Javascript: if (event.keyCode==13) buscar_cita(<?php echo $id2;  ?>)'>
+			<input type="text" class="form-control" name="texto_cita" id='texto_cita' placeholder='buscar cita' aria-label="buscar producto" aria-describedby="basic-addon2" >
 			<div class="input-group-append">
-				<button class="btn btn-outline-primary btn-sm" type="button" onclick='buscar_cita(<?php echo $id2;  ?>)'><i class='fas fa-search'></i>Buscar</button>
+				<button class="btn btn-warning btn-sm" type="submit"><i class='fas fa-search'></i>Buscar</button>
 			</div>
 		</div>
 	</div>
 	<div clas='row' id='resultadosx'>
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal"><i class="fas fa-sign-out-alt"></i>Cerrar</button>
-		</div>
+
 	</div>
 </div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-warning btn-sm" data-dismiss="modal"><i class="fas fa-sign-out-alt"></i>Cerrar</button>
+</div>
+
+</form>

@@ -656,7 +656,10 @@
 		}
 	}
 
-
+	function clean_var($val){
+		$val=htmlspecialchars(strip_tags(trim($val)));
+		return $val;
+	}
 	function moneda($valor){
 		return "$ ".number_format( $valor, 2, "." , "," );
 	}

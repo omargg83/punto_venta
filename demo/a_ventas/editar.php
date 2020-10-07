@@ -44,7 +44,7 @@ else{
 		<form action="" id="form_venta" data-lugar="a_ventas/db_" data-funcion="guardar_venta" data-destino='a_ventas/editar'>
 			<input type="hidden" class="form-control form-control-sm" name="llave" id="llave" value="<?php echo $llave ;?>" placeholder="Numero de compra">
 			<input type="hidden" class="form-control form-control-sm" name="idcliente" id="idcliente" value="<?php echo $idcliente ;?>" placeholder="cliente">
-			<div class='card-header'>Venta <?php echo $idventa; ?></div>
+			<div class='card-header'>Venta #<?php echo $idventa; ?></div>
 			<div class='card-body'>
 				<div class='row'>
 					<div class='col-2'>
@@ -53,7 +53,7 @@ else{
 					</div>
 					<div class='col-3'>
 						<label>Fecha:</label>
-						<input type="text" class="form-control form-control-sm" name="fecha" id="fecha" value="<?php echo $fecha ;?>" placeholder="Fecha" readonly>
+						<input type="text" class="form-control form-control-sm" name="fecha" id="fecha" value="<?php echo fecha($fecha,2); ?>" placeholder="Fecha" readonly>
 					</div>
 
 					<div class='col-3'>
@@ -83,22 +83,14 @@ else{
 			<div class='card-footer'>
 				<div class="row">
 					<div class="col-sm-12">
-						<div class='btn-group'>
+
 							<?php
 								if($estado=="Activa"){
-									//echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
-
 									echo "<button type='button' class='btn btn-warning btn-sm' id='cliente_add' v_idcliente='$idcliente' is='b-link' v_idventa='$idventa' des='a_ventas/form_cliente' omodal='1' title='Agregar Cliente'><i class='fas fa-user-tag'></i>Cliente</button>";
-									echo "<button type='button' class='btn btn-warning btn-sm' id='producto_add' is='b-link' v_idventa='$idventa' des='a_ventas/form_producto' omodal='1' title='Agregar Producto'><i class='fab fa-product-hunt'></i>Producto</button>";
-
 
 									echo "<button type='button' class='btn btn-warning btn-sm' id='producto_add' is='b-link' v_idventa='$idventa' des='a_ventas/form_citas' omodal='1' title='Agregar cita'><i class='far fa-calendar-check'></i>Citas</button>";
 
-
-
-									echo "<button type='button' class='btn btn-warning btn-sm' id='winmodal_citas' data-id='0' data-id2='$idventa' data-lugar='a_ventas/form_citas'>+ <i class='far fa-calendar-check'></i></button>";
-
-									echo "<button type='button' class='btn btn-warning btn-sm' id='winmodal_finalizar' data-id='$idventa' data-lugar='a_ventas/finalizar'><i class='fas fa-cash-register'></i> Finalizar Venta</button>";
+									echo "<button type='button' class='btn btn-warning btn-sm' id='finalizar' is='b-link' v_idventa='$idventa' des='a_ventas/finalizar' omodal='1'><i class='fas fa-cash-register'></i> Finalizar Venta</button>";
                 }
 								if($estado=="Pagada"){
 								//	echo "<button type='button' class='btn btn-warning btn-sm' onclick='imprime($idventa)'><i class='fas fa-print'></i>Imprimir</button>";
@@ -106,7 +98,7 @@ else{
 									echo "<button type='button' class='btn btn-warning btn-sm' title='Nuevo' id='new_personal' data-lugar='a_ventas/editar'><i class='fas fa-plus'></i><span>Nuevo</span></a></button>";
 								}
               ?>
-						</div>
+						
 					</div>
 				</div>
 			</div>

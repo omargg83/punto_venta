@@ -37,9 +37,6 @@
       echo  "<div class='btn-group'>";
       if($key->tipo==0 or $key->tipo==2 or ($key->tipo==3 and $key->cantidad>0) or ($key->tipo==4 and strlen($key->idventa)==0)){
         echo "<button type='button' is='b-link' id='sel_producto_$key->id' des='a_ventas/selecciona_producto' dix='resultadosx' v_idproducto='$key->id' v_idventa='$idventa' class='btn btn-warning btn-sm' title='Seleccionar cliente'><i class='fas fa-plus'></i></button>";
-
-
-          //echo  "<button type='button' onclick='sel_prod(".$key['id'].",$idventa)' class='btn btn-outline-secondary btn-sm' title='Seleccionar articulo'><i class='far fa-hand-pointer'></i></button>";
       }
       echo  "</div>";
       echo  "</td>";

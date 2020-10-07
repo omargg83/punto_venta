@@ -9,7 +9,7 @@
 	$sth->execute();
 	$res=$sth->fetch(PDO::FETCH_OBJ);
 
-	echo "<form id='form_producto' is='f-submit' db='a_ventas/db_' fun='agregaventa' des='a_ventas/editar' desid='idventa'>";
+	echo "<form id='form_producto' is='f-submit' db='a_ventas/db_' fun='agregaventa' des='a_ventas/editar' desid='idventa' cmodal='2'>";
 	echo "<input type='hidden' name='idventa' id='idventa' value='$idventa' readonly>";
 	echo "<input type='hidden' name='idproducto' id='idproducto' value='$idproducto' readonly>";
 	echo "<input type='hidden' name='tipo' id='tipo' value='".$res->tipo."' readonly>";

@@ -8,19 +8,20 @@
 	  </button>
 		  <div class='collapse navbar-collapse' id='navbarSupportedContent'>
 			<ul class='navbar-nav mr-auto'>
-				<form  class='form-inline my-2 my-lg-0' id='daigual' action='' >
+
+				<form  class='form-inline my-2 my-lg-0' is="b-submit" id="form_lista" des="a_ventas/lista" dix='trabajo'>
 					<div class="input-group  mr-sm-2">
-						<input type="text" class="form-control form-control-sm" placeholder="Buscar" aria-label="Buscar" aria-describedby="basic-addon2"  id='buscar' onkeyup='Javascript: if (event.keyCode==13) buscarx()'>
+						<input type="text" class="form-control form-control-sm" placeholder="Buscar" aria-label="Buscar" aria-describedby="basic-addon2"  name='buscar' id='buscar'>
 						<div class="input-group-append">
-							<button class="btn btn-outline-primary btn-sm" type="button" onclick='buscarx()'><i class='fas fa-search'></i></button>
+							<button class="btn btn-warning btn-sm" type="submit" ><i class='fas fa-search'></i></button>
 						</div>
 					</div>
 				</form>
 
-				<li class='nav-item active'><a class='nav-link barranav izq' title='Nuevo' is='a-link' id='nueva_venta' des='a_ventas/editar' dix='trabajo'  v_idventa='0'><i class='fas fa-plus'></i><span>Nueva venta</span></a></li>
-				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_comision' is='a-link' des='a_ventas/lista' dix='trabajo' ><i class='fas fa-list-ul'></i><span>Abiertas</span></a></li>
-				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte' is='a-link' des='a_ventas/reporte1' dix='trabajo'><i class='fas fa-list-ul'></i><span>Ventas Emitidas</span></a></li>
-				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte2' is='a-link' des='a_ventas/reporte2' dix='trabajo'><i class='fas fa-list-ul'></i><span>Reporte venta por productos</span></a></li>
+				<li class='nav-item active'><a class='nav-link barranav izq' title='Nuevo' is='a-link' id='nueva_venta' des='a_ventas/editar' dix='trabajo'  v_idventa='0'><i class='fas fa-plus'></i><span>Nueva</span></a></li>
+				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_comision' is='a-link' des='a_ventas/lista' dix='trabajo' ><i class="far fa-folder-open"></i><span>Abiertas</span></a></li>
+				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte' is='a-link' des='a_ventas/reporte1' dix='trabajo'><i class="far fa-folder"></i><span>Emitidas</span></a></li>
+				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte2' is='a-link' des='a_ventas/reporte2' dix='trabajo'><i class='fas fa-list-ul'></i><span>Reporte</span></a></li>
 
 			</ul>
 	  </div>
@@ -33,29 +34,7 @@
 </div>
 
 <script type="text/javascript">
-	function buscar_cita(idventa){
-		var texto=$("#prod_venta").val();
-		var idcliente=$("#idcliente").val();
-		if(texto.length>=-1){
-			$.ajax({
-				data:  {
-					"texto":texto,
-					"idcliente":idcliente,
-					"idventa":idventa,
-					"function":"busca_cita"
-				},
-				url:   "a_ventas/db_.php",
-				type:  'post',
-				beforeSend: function () {
-					$("#resultadosx").html("buscando...");
-				},
-				success:  function (response) {
-					$("#resultadosx").html(response);
-					$("#prod_venta").val();
-				}
-			});
-		}
-	}
+
 	function sel_cita(idcita,idventa){
 		$.ajax({
 			data:  {
@@ -124,10 +103,5 @@
 		});
 	}
 
-	function cambio_total(){
-		var total_g=$("#total_g").val();
-		var efectivo_g=$("#efectivo_g").val();
-		var total=(efectivo_g-total_g)*100;
-		$("#cambio_g").val(Math.round(total)/100);
-	}
+
 </script>

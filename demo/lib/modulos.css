@@ -120,6 +120,13 @@ body {
   /*color: #fff !important;
   background-color: var(--main-bg-color) !important;*/
 }
+
+.barraprincipal{
+  -webkit-box-shadow: 0px 2px 7px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 2px 7px -1px rgba(0,0,0,0.75);
+  box-shadow: 0px 2px 7px -1px rgba(0,0,0,0.75);
+}
+
 .nav-link{
 
 }
@@ -127,7 +134,14 @@ body {
   background-color: #e3e3eb !important;
 }
 .nav a{
-  color:black !important;
+  color: white !important;
+  border: 1px solid #919aa5;
+  border-radius: 10px;
+}
+
+.nav a:hover{
+  color: white !important;
+  background-color: #4e5c6d !important;
 }
 label{
 	font-family: 'Roboto', sans-serif;
@@ -140,7 +154,7 @@ label{
 	font-size: 15px;
 	position: fixed;
 	z-index: 10;
-  width: 50px;
+  width: 57px;
 	top: 56px;
 	background-color: var(--main-bg-color);
 	color: var(--sidebar-color-font);
@@ -152,6 +166,7 @@ label{
 	-moz-box-shadow: 2px 0px 5px 0px rgba(0,0,0,0.75);
 	box-shadow: 2px 0px 5px 0px rgba(0,0,0,0.75);
   overflow: hidden;
+  padding-top: 10px;
 }
 .sidebar a, .dropdown-btn {
   border-top-right-radius: 20px;
@@ -177,13 +192,15 @@ label{
 /* On mouse-over */
 .sidebar a:hover, .dropdown-btn:hover {
 	border-left: 6px solid #909090;
-	background-color: var(--sidebar-bg-hover);
+	/*background-color: var(--sidebar-bg-hover);*/
+  background-color: #fff4dc;
 }
 .sidebar i{
   margin-left: 16px;
   margin-right: 10px;
   margin-bottom: 8px;
-  color:var(--icon-fontawesome);
+  /*color:var(--icon-fontawesome);*/
+  color: #212529;
 	width: 25px;
 }
 .sidebar:hover{
@@ -201,9 +218,9 @@ label{
 	overflow:auto;
 	position: fixed;
 	z-index: 1;
-	top: 65px;
+	top: 56px;
 	bottom: 0px;
-	left: 0px;
+	left: 12px;
 	right: 0px;
 	transition: 0.5s all;
 
@@ -237,6 +254,7 @@ label{
 }
 
 .card {
+
 	font-family: 'Roboto', sans-serif;
 	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.12);
 	-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.12);
@@ -244,7 +262,7 @@ label{
 }
 .card-header{
 	text-align: center;
-  background-color: var(--sidebar-color_font) !important;
+  background-color: #fff4dc !important;
 }
 
 @media (max-width: 575.98px) {
