@@ -90,7 +90,7 @@ else{
 
 									echo "<button type='button' class='btn btn-warning btn-sm' id='producto_add' is='b-link' v_idventa='$idventa' des='a_ventas/form_citas' omodal='1' title='Agregar cita'><i class='far fa-calendar-check'></i>Citas</button>";
 
-									echo "<button type='button' class='btn btn-warning btn-sm' id='finalizar' is='b-link' v_idventa='$idventa' des='a_ventas/finalizar' omodal='1'><i class='fas fa-cash-register'></i> Finalizar Venta</button>";
+									echo "<button type='button' class='btn btn-warning btn-sm' id='finalizar' is='b-link' v_idventa='$idventa' des='a_ventas/finalizar' omodal='1'><i class='fas fa-cash-register'></i>Finalizar</button>";
 
 									echo "<button type='button' class='btn btn-warning btn-sm' id='lista_penarea' is='b-link' des='a_ventas/lista' dix='trabajo'><i class='fas fa-undo-alt'></i>Regresar</button>";
                 }
