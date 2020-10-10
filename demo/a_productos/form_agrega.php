@@ -37,7 +37,7 @@
 
 		<div class='modal-footer' >
 
-			<button class='btn btn-warning btn-sm' type='submit' id='acceso' title='Guardar'><i class='far fa-save'></i>Guardar</button>
+			<button class='btn btn-warning btn-sm' type='submit' is="f-submit" id='acceso' title='Guardar'><i class='far fa-save'></i>Guardar</button>
 			<button class="btn btn-warning btn-sm" type="button" is="b-link" cmodal='1' ><i class="fas fa-sign-out-alt"></i>Cancelar</button>
 		</div>
 
