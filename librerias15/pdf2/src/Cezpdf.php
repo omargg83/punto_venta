@@ -204,7 +204,7 @@ class Cezpdf extends Cpdf
                     $size = array(0, 0, 323.15, 459.21);
                     break;
                 case 'C7':
-                    $size = array(0, 0, 229.61, 420.15);
+                    $size = array(10, 0, 229.61, 420.15);
                     break;
                 case 'C8':
                     $size = array(0, 0, 161.57, 229.61);

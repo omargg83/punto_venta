@@ -24,6 +24,7 @@
         <li class='nav-item active'><a class='nav-link barranav izq' is='a-link' title='Nuevo' id='new_poliza' des='a_citas/editar' v_id='0' dix='trabajo'><i class='fas fa-plus'></i><span>Nuevo</span></a></li>
         <li class='nav-item active'><a class='nav-link barranav' is='a-link' title='Mostrar todo' id='calendario' dix='trabajo'  onclick='calendar_load(1)'><i class='fas fa-list-ul'></i><span>Calendario</span></a></li>
 
+        <li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='calendario' onclick='calendar_load(1)'><i class='fas fa-list-ul'></i><span>Calendario</span></a></li>
 
       </li>
 

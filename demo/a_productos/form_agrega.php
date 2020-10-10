@@ -8,7 +8,8 @@
 	$nota="";
 ?>
 
-<form is="f-submit" id="form_agrega" db="a_productos/db_" fun="existencia_agrega" lug="">
+<form is="f-submit" id="form_inventario" db="a_productos/db_" fun="existencia_agrega" lug="a_productos/editar">
+
 <div class='modal-header'>
 	<h5 class='modal-title'>Agregar existencia</h5>
 </div>
@@ -39,7 +40,7 @@
 			<button class='btn btn-warning btn-sm' type='submit' id='acceso' title='Guardar'><i class='far fa-save'></i>Guardar</button>
 			<button class="btn btn-warning btn-sm" type="button" is="b-link" cmodal='1' ><i class="fas fa-sign-out-alt"></i>Cancelar</button>
 		</div>
-		
+
   </div>
 </form>
 
