@@ -188,7 +188,7 @@
 											echo "<div class='btn-group'>";
 											if(!$key->idventa){
 									//		echo "<button class='btn btn-outline-primary btn-sm' id='eliminar_prodn".$key->id."' data-lugar='a_productos/db_' data-destino='a_productos/editar' data-id='".$key->id."' data-iddest='$id' data-funcion='borrar_ingreso' data-div='trabajo'><i class='far fa-trash-alt'></i></i></button>";
-											echo "<button class='btn btn-warning btn-sm' type='button' is='b-link' des='a_productos/editar' dix='trabajo' db='a_productos/db_' fun='borrar_ingreso' v_id='".$key->id."' tp='¿Desea eliminar el producto?' title='Borrar'><i class='far fa-trash-alt'></i></button>";
+											echo "<button class='btn btn-warning btn-sm' type='button' is='b-link' des='a_productos/editar' desid='id' dix='trabajo' db='a_productos/db_'  fun='borrar_ingreso' v_id='".$key->id."' tp='¿Desea eliminar el inventario?' title='Borrar'><i class='far fa-trash-alt'></i></button>";
 
 
 											}

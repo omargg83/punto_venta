@@ -261,10 +261,25 @@ class Productos extends Sagyc{
 			return "Database access FAILED!".$e->getMessage();
 		}
 	}
+
+
+
+
 	public function borrar_ingreso(){
-		if (isset($_POST['id'])){$id=$_POST['id'];}
-		return $this->borrar('bodega',"id",$id);
+
+		$id=$_REQUEST['id'];
+
+		$sql="SELECT * from bodega where id=:id";
+		$sth = $this->dbh->prepare($sql);
+		$sth->bindValue(":id",$id);
+		$sth->execute();
+		$res=$sth->fetch(PDO::FETCH_OBJ);
+
+		$x=$this->borrar('bodega',"id",$id);
+		return $x;
 	}
+
+
 }
 $db = new Productos();
 if(strlen($function)>0){
