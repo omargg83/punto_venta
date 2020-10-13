@@ -1,6 +1,6 @@
 <?php
 	require_once("db_.php");
-	$id=$_REQUEST['id'];
+	$idcita=$_REQUEST['idcita'];
 
 	$sql="select * from bodega where idcitas='$id' order by id desc";
 	$sth = $db->dbh->prepare($sql);
