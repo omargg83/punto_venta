@@ -2,7 +2,7 @@
 	require_once("db_.php");
 	$idcita=$_REQUEST['idcita'];
 
-	$sql="select * from bodega where idcitas='$id' order by id desc";
+	$sql="select * from bodega where idcitas='$idcita' order by id desc";
 	$sth = $db->dbh->prepare($sql);
 	$sth->execute();
 	$pedido=$sth->fetchAll();
