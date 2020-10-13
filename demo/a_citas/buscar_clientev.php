@@ -13,8 +13,8 @@
     echo "<tr>";
       echo "<td>";
 
-        echo "<button type='button' is='b-link' db='a_citas/db_' fun='agrega_cliente' des='a_citas/editar' desid='idcitas' dix='trabajo' v_idcliente='$key->idcliente' v_idcita='$idcita' cmodal='2' class='btn btn-warning btn-sm' title='Seleccionar cliente'><i class='fas fa-plus'></i></button>";
-				
+        echo "<button type='button' is='b-link' db='a_citas/db_' fun='agrega_cliente' des='a_citas/editar' desid='idcita' dix='trabajo' v_idcliente='$key->idcliente' v_idcita='$idcita' cmodal='2' class='btn btn-warning btn-sm' title='Seleccionar cliente'><i class='fas fa-plus'></i></button>";
+
       echo "</td>";
       echo "<td>";
           echo $key->profesion;

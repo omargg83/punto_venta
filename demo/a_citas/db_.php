@@ -65,6 +65,7 @@ class Pedidos extends Sagyc{
 				$arreglo=array();
 				$arreglo+=array('idcliente'=>$idcliente);
 				$date=date("Y-m-d H:i:s");
+				$arreglo+=array('estatus'=>"PENDIENTE");
 				$arreglo+=array('fecha'=>$date);
 				$x=$this->insert('citas', $arreglo);
 			}
