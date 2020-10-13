@@ -15,16 +15,16 @@
           <div class="input-group  mr-sm-2">
             <input type="text" class="form-control form-control-sm" placeholder="Buscar" aria-label="Buscar" aria-describedby="basic-addon2"  name='buscar' id='buscar'>
             <div class="input-group-append">
-              <button class="btn btn-outline-primary btn-sm" type="submit" ><i class='fas fa-search'></i></button>
+              <button class="btn btn-warning btn-sm" type="submit" ><i class='fas fa-search'></i></button>
             </div>
           </div>
         </form>
 
-        <li class='nav-item active'><a class='nav-link barranav' is='a-link' title='Mostrar todo' id='lista_prod' des='a_citas/lista' dix='trabajo'><i class='fas fa-list-ul'></i><span>Lista</span></a></li>
-        <li class='nav-item active'><a class='nav-link barranav izq' is='a-link' title='Nuevo' id='new_poliza' des='a_citas/editar' v_id='0' dix='trabajo'><i class='fas fa-plus'></i><span>Nuevo</span></a></li>
-        <li class='nav-item active'><a class='nav-link barranav' is='a-link' title='Mostrar todo' id='calendario' dix='trabajo'  onclick='calendar_load(1)'><i class='fas fa-list-ul'></i><span>Calendario</span></a></li>
+        <li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='calendario' onclick='calendar_load(1)'><i class='far fa-calendar-alt'></i><span>Calendario</span></a></li>
 
-        <li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='calendario' onclick='calendar_load(1)'><i class='fas fa-list-ul'></i><span>Calendario</span></a></li>
+        <li class='nav-item active'><a class='nav-link barranav' is='a-link' title='Mostrar todo' id='lista_prod' des='a_citas/lista' dix='trabajo'><i class='fas fa-list-ul'></i><span>Lista</span></a></li>
+
+        <li class='nav-item active'><a class='nav-link barranav izq' is='a-link' title='Nuevo' id='new_poliza' des='a_citas/editar' v_idcita='0' dix='trabajo'><i class='fas fa-plus'></i><span>Nuevo</span></a></li>
 
       </li>
 
@@ -45,142 +45,7 @@
     calendar_load(1);
   });
 
-  function calendar_load(tipo){
-    var fecha = new Date();
-    var final="";
 
-    $('#trabajo').html("");
-    var calendarEl = document.getElementById('trabajo');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
-      editable: true,
-      defaultView: 'dayGridMonth',
-      defaultDate: fecha,
-      buttonText:{
-        today:    'Hoy',
-        month:    'Mes',
-        week:     'Semana',
-        day:      'Dia',
-        list:     'Lista'
-      },
-      locale: 'es',
-      eventColor: '#378006',
-      minTime: "10:00:00",
-      maxTime: "18:00:00",
-      slotDuration: "00:15:00",
-      businessHours: {
-        start: '9:00',
-        end: '16:00',
-      },
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-      },
-      events: {
-        url: 'a_citas/eventos.php?tipo='+tipo,
-        failure: function() {
-          document.getElementById('script-warning').style.display = 'block'
-        }
-      },
-      dateClick: function(info) {
-        console.log('Date: ' + info);
-       },
-      eventClick: function(info) {
-        $('#myModal').modal('show');
-        $("#modal_form").load("a_citas/info.php?id="+info.event.id);
-      },
-      eventDrop: function (info) { // this function is called when something is dropped
-
-        if(info.event.end){
-          final=info.event.end.toLocaleString();
-        }
-
-        $.confirm({
-          title: 'Fechas',
-          content: '¿Desea mover la cita seleccionada?',
-          buttons: {
-            Mover: function () {
-              $.ajax({
-                data:  {
-                  "horario":info.event.start.toLocaleString(),
-                  "horario2":final,
-                  "idcita":info.event.id,
-                  "function":"cambiar_hora"
-                },
-                url:   "a_citas/db_.php",
-                type:  'post',
-                success:  function (response) {
-                  console.log(response);
-                  var datos = JSON.parse(response);
-                  if (datos.error==0){
-                    Swal.fire({
-                      type: 'success',
-                      title: "Se modificó correctamente",
-                      showConfirmButton: false,
-                      timer: 1000
-                    });
-                  }
-                  else{
-                    info.revert();
-                  }
-                }
-              });
-            },
-            Cancelar: function () {
-              info.revert();
-            }
-          }
-        });
-
-      },
-      eventResize: function(info) {
-
-        if(info.event.end){
-          final=info.event.end.toLocaleString();
-        }
-
-        $.confirm({
-          title: 'Fecha',
-          content: '¿Desea mover la cita seleccionada?',
-          buttons: {
-            Mover: function () {
-              $.ajax({
-                data:  {
-                  "horario":info.event.start.toLocaleString(),
-                  "horario2":final,
-                  "idcita":info.event.id,
-                  "function":"cambiar_hora"
-                },
-                url:   "a_citas/db_.php",
-                type:  'post',
-                success:  function (response) {
-                  console.log(response);
-                  var datos = JSON.parse(response);
-                  if (datos.error==0){
-                    Swal.fire({
-                      type: 'success',
-                      title: "Se modificó correctamente",
-                      showConfirmButton: false,
-                      timer: 1000
-                    });
-                  }
-                  else{
-                    info.revert();
-                  }
-                }
-              });
-            },
-            Cancelar: function () {
-              info.revert();
-            }
-          }
-        });
-      }
-    });
-    calendar.render();
-  }
   function editar_cita(id){
     $.ajax({
       data:  {

@@ -1,7 +1,7 @@
 <?php
 	require_once("db_.php");
-  $id=$_REQUEST['id'];
-  $fecha=date("d-m-Y");
+  $id=$_REQUEST['idcita'];
+  $fecha=date("Y-m-d");
 	$hora=12;
 	$minuto=0;
 
@@ -56,7 +56,8 @@
 
 	echo "<div class='container'>";
       echo "<div class='card'>";
-			echo "<form id='form_comision' action='' data-lugar='a_citas/db_' data-destino='a_citas/editar' data-funcion='guardar_cita'>";
+			echo "<form is='f-submit' id='form_comision' db='a_citas/db_' fun='guardar_cita' lug='a_citas/editar'>";
+
 			echo "<input type='hidden' class='form-control' id='idcliente' name='idcliente' value='$idcliente' placeholder='idcliente'>";
 			echo "<input type='hidden' class='form-control' id='id' name='id' value='$id' placeholder='id'>";
         echo "<div class='card-header'>";
@@ -68,7 +69,7 @@
           echo "<div class='row'>";
             echo "<div class='col-2'>";
               echo "<label>Fecha</label>";
-              echo "<input type='text' class='form-control form-control-sm fechaclass' id='fecha' name='fecha' value='$fecha'>";
+              echo "<input type='date' class='form-control form-control-sm fechaclass' id='fecha' name='fecha' value='$fecha'>";
             echo "</div>";
 
 						echo "<div class='col-2'>";
@@ -188,20 +189,19 @@
 
         echo "</div>";
         echo "<div class='card-footer'>";
-          echo "<div class='btn-group'>";
-							echo "<button type='submit' class='btn btn-outline-secondary btn-sm'><i class='far fa-save'></i>Guardar</button>";
+							echo "<button type='submit' class='btn btn-warning btn-sm'><i class='far fa-save'></i>Guardar</button>";
 
 							if($estatus=='PENDIENTE' or $id==0){
-	            	echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='winmodal_cli' data-id='$idcliente' data-id2='$id' data-lugar='a_citas/form_cliente' title='Agregar Cliente' ><i class='fas fa-user-tag'></i>+ Cliente</button>";
+
+								echo "<button type='button' class='btn btn-warning btn-sm' id='cliente_add' v_idcliente='$idcliente' is='b-link' v_idcita='$id' des='a_citas/form_cliente' omodal='1' title='Agregar Cliente'><i class='fas fa-user-tag'></i>Cliente</button>";
 
 							}
 							if($id>0){
-								echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_producto' data-id='0' data-id2='$id' data-lugar='a_citas/form_producto'>+ <i class='fab fa-product-hunt'></i>Producto</button>";
-
+								echo "<button type='button' class='btn btn-warning btn-sm' id='winmodal_producto' data-id='0' data-id2='$id' data-lugar='a_citas/form_producto'>+ <i class='fab fa-product-hunt'></i>Producto</button>";
 							}
 
-            echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='lista_cat' data-lugar='a_citas/lista' title='Regresar'><i class='fas fa-undo-alt'></i>Regresar</button>";
-          echo "</div>";
+            echo "<button type='button' class='btn btn-warning btn-sm' id='lista_cat' data-lugar='a_citas/lista' title='Regresar'><i class='fas fa-undo-alt'></i>Regresar</button>";
+
         echo "</div>";
 				echo "</form>";
       echo "</div>";
@@ -209,15 +209,5 @@
 		echo "<div class='card-body' id='compras'>";
 			include 'lista_pedido.php';
 		echo "</div>";
-
 	echo "</div>";
-
-
-
  ?>
-
- <script>
-   $(function() {
-     fechas();
-   });
- </script>

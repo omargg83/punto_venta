@@ -2,13 +2,13 @@
 	<?php
 		require_once("db_.php");
 		$idcliente=$_REQUEST['idcliente'];
-		$id2=$_REQUEST['id2'];
+		$idcita=$_REQUEST['idcita'];
 	?>
 	<form is="b-submit" id="form_busca" des="a_citas/buscar_clientev" dix='resultadosx' >
 
 	<?php
 	echo "<input  type='hidden' id='idcliente' NAME='idcliente' value='$idcliente'>";
-	echo "<input  type='hidden' id='idventa' NAME='idventa' value='$id2'>";
+	echo "<input  type='hidden' id='idcita' NAME='idcita' value='$idcita'>";
 	?>
 	  <div class='modal-header'>
 	  	<h5 class='modal-title'>Agregar cliente</h5>

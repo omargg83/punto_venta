@@ -58,18 +58,28 @@ class Pedidos extends Sagyc{
 	}
 	public function agrega_cliente(){
 		try{
-			$x="";
+			$idcita=$_REQUEST['idcita'];
 			$idcliente=$_REQUEST['idcliente'];
-			$sql="select * from clientes where idcliente=:id";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":id",$idcliente);
-			$sth->execute();
-			return json_encode($sth->fetch(PDO::FETCH_OBJ));
+
+			if($idcita==0){
+				$arreglo=array();
+				$arreglo+=array('idcliente'=>$idcliente);
+				$date=date("Y-m-d H:i:s");
+				$arreglo+=array('fecha'=>$date);
+				$x=$this->insert('citas', $arreglo);
+			}
+			else{
+				$arreglo=array();
+				$arreglo+=array('idcliente'=>$idcliente);
+				$x=$this->update('citas',array('idcitas'=>$idcita), $arreglo);
+			}
+			return $x;
 		}
 		catch(PDOException $e){
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
+
 	public function citas_lista(){
 		try{
 			if (isset($_REQUEST['buscar']) and strlen(trim($_REQUEST['buscar']))>0){
