@@ -25,6 +25,8 @@
 
 			<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte2' data-lugar='a_ventas/reporte2'><i class='fas fa-list-ul'></i><span>Reporte venta por productos</span></a></li>
 
+			<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte3' data-lugar='a_ventas/reporte3'><i class='fas fa-list-ul'></i><span>Grafica de venta</span></a></li>
+
 			</ul>
 	  </div>
 	</nav>
@@ -35,7 +37,7 @@
 	?>
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript" >
 function buscar_cita(idventa){
 	var texto=$("#prod_venta").val();
 	var idcliente=$("#idcliente").val();
