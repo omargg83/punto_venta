@@ -135,8 +135,6 @@ body {
 }
 .nav a{
   color: white !important;
-  border: 1px solid #919aa5;
-  border-radius: 10px;
 }
 
 .nav a:hover{
@@ -172,7 +170,7 @@ label{
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   position: relative;
-  width: 300px;
+  width: 200px;
   display: table;
   color: var(--sidebar-color-font);
   border-collapse: collapse;
@@ -204,7 +202,7 @@ label{
 	width: 25px;
 }
 .sidebar:hover{
-  width: 300px;
+  width: 200px;
 }
 
 .table, .input{

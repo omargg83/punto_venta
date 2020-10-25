@@ -1,6 +1,11 @@
 <?php
 require_once("db_.php");
-$idventa=$_REQUEST['idventa'];
+if(isset($_REQUEST['idventa'])){
+	$idventa=$_REQUEST['idventa'];
+}
+else{
+	$idventa=0;
+}
 
 $clientes = $db->clientes_lista();
 //$tiendas = $db->tiendas_lista();
@@ -95,8 +100,9 @@ else{
 									echo "<button type='button' class='btn btn-warning btn-sm' id='lista_penarea' is='b-link' des='a_ventas/lista' dix='trabajo'><i class='fas fa-undo-alt'></i>Regresar</button>";
                 }
 								if($estado=="Pagada"){
-								//	echo "<button type='button' class='btn btn-warning btn-sm' onclick='imprime($idventa)'><i class='fas fa-print'></i>Imprimir</button>";
-									echo "<button type='button' class='btn btn-warning btn-sm' onclick='imprime_pdf($idventa)'><i class='fas fa-print'></i>Imprimir PDF</button>";
+
+									echo "<button type='button' class='btn btn-warning btn-sm' id='print_persona' is='b-print' title='Editar' des='a_ventas/imprimir' dix='trabajo' v_idventa='$idventa'><i class='fas fa-print'></i>Imprimir</button>";
+
 									echo "<button type='button' class='btn btn-warning btn-sm' title='Nuevo' id='new_personal' data-lugar='a_ventas/editar'><i class='fas fa-plus'></i><span>Nuevo</span></a></button>";
 								}
               ?>

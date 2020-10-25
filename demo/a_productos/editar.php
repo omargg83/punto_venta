@@ -1,6 +1,7 @@
 <?php
 	require_once("db_.php");
-		if (isset($_POST['id'])){$id=$_POST['id'];} else{ $id=0;}
+	if (isset($_REQUEST['id'])){$id=$_REQUEST['id'];} else{ $id=0;}
+
 	$codigo="";
 	$nombre="";
 	$unidad="";
@@ -59,14 +60,6 @@
 		<div class='card'>
 			<div class='card-header'>
 				<?php echo $nombre;?>
-				<ul class='nav nav-tabs card-header-tabs nav-fill' id='myTab' role='tablist'>
-					<li class='nav-item'>
-						<a class='nav-link active' id='ssh-tab' data-toggle='tab' href='#ssh' role='ssh' aria-controls='home' aria-selected='true'>Editar producto</a>
-					</li>
-					<li class='nav-item'>
-						<a class='nav-link' id='inven-tab' data-toggle='tab' href='#inven' role='inven' aria-controls='home' aria-selected='true'>Editar producto</a>
-					</li>
-				</ul>
 			</div>
 			<div class='card-body'>
 				<div class='tab-content' id='myTabContent'>
@@ -137,15 +130,11 @@
 							</div>
 							<hr>
 
-
-							<hr>
-
 							<div class='row'>
 								<div class="col-12">
-									<div class='btn-group'>
 										<?php
 											if(strlen($idventa)==0){
-												echo "<button type='submit' class='btn btn-outline-primary btn-sm'><i class='far fa-save'></i>Guardar</button>";
+												echo "<button type='submit' class='btn btn-warning btn-sm'><i class='far fa-save'></i>Guardar</button>";
 											}
 
 											if($id>0){
@@ -153,25 +142,21 @@
 												//echo "<button type='button' class='btn btn-outline-primary btn-sm' id='imprime_comision' title='Imprimir' data-lugar='a_productos/imprimir' data-tipo='1' type='button'><i class='fas fa-barcode'></i>Imprimir</button>";
 
 												if($tipo==3){
-													echo "<button class='btn btn-warning btn-sm' type='button' is='b-link' des='a_productos/form_agrega' omodal='1' v_id='0' v_id2='$id' ><i class='fas fa-key'></i>Agregar existencias</button>";
-												//	echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_pass' is='b-link' data-id='0' des='a_productos/form_agrega' data-id2='$id' title='Agregar existencias' ><i class='far fa-plus-square'></i></i>Agregar existencias</button>";
+													echo "<button class='btn btn-warning btn-sm' type='button' is='b-link' des='a_productos/form_agrega' omodal='1' v_id='0' v_idproducto='$id' ><i class='fas fa-key'></i>+ existencias</button>";
+
 												}
 											}
 										?>
 										<button type='button' class='btn btn-warning btn-sm' id='lista_cat' is='b-link'  des='a_productos/lista' dix='trabajo' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>
-									</div>
 								</div>
 							</div>
 						</form>
 					</div>
 
-					<div class='tab-pane fade show' id='inven' role='tabpanel' aria-labelledby='inven-tab'>
 
 						<?php
 						//if($id>0){
-							if($tipo==3){
-								echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_pass' is='b-link' v_id='0' v_id2='$id'  des='a_productos/form_agrega' title='Agregar existencias' ><i class='far fa-plus-square'></i></i>Agregar existencias</button>";
-							}
+
 								$row=$db->productos_inventario($id);
 								echo "<table class='table table-sm' style='font-size:12px'>";
 								echo "<tr><th>-</th><th>Fecha</th><th>Cantidad</th><th>Nota de compra</th>
@@ -187,8 +172,8 @@
 										echo "<td>";
 											echo "<div class='btn-group'>";
 											if(!$key->idventa){
-									//		echo "<button class='btn btn-outline-primary btn-sm' id='eliminar_prodn".$key->id."' data-lugar='a_productos/db_' data-destino='a_productos/editar' data-id='".$key->id."' data-iddest='$id' data-funcion='borrar_ingreso' data-div='trabajo'><i class='far fa-trash-alt'></i></i></button>";
-											echo "<button class='btn btn-warning btn-sm' type='button' is='b-link' des='a_productos/editar' desid='id' dix='trabajo' db='a_productos/db_'  fun='borrar_ingreso' v_id=$key->id tp='¿Desea eliminar la entrada?' title='Borrar'><i class='far fa-trash-alt'></i></button>";
+
+											echo "<button class='btn btn-warning btn-sm' type='button' is='b-link' des='a_productos/editar' desid='id' dix='trabajo' db='a_productos/db_'  fun='borrar_ingreso' v_id='$key->id' v_idproducto='$id' tp='¿Desea eliminar la entrada?' title='Borrar'><i class='far fa-trash-alt'></i></button>";
 
 
 											}
@@ -223,7 +208,7 @@
 								echo "</table>";
 							//}
 						 ?>
-					</div>
+
 				</div>
 			</div>
 		</div>

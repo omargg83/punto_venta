@@ -19,9 +19,8 @@
 				</form>
 
 				<li class='nav-item active'><a class='nav-link barranav izq' title='Nuevo' is='a-link' id='nueva_venta' des='a_ventas/editar' dix='trabajo'  v_idventa='0'><i class='fas fa-plus'></i><span>Nueva</span></a></li>
+				
 				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_comision' is='a-link' des='a_ventas/lista' dix='trabajo' ><i class="far fa-folder-open"></i><span>Abiertas</span></a></li>
-				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte' is='a-link' des='a_ventas/reporte1' dix='trabajo'><i class="far fa-folder"></i><span>Emitidas</span></a></li>
-				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte2' is='a-link' des='a_ventas/reporte2' dix='trabajo'><i class='fas fa-list-ul'></i><span>Reporte</span></a></li>
 
 			</ul>
 	  </div>

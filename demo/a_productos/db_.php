@@ -261,13 +261,9 @@ class Productos extends Sagyc{
 			return "Database access FAILED!".$e->getMessage();
 		}
 	}
-
-
-
-
 	public function borrar_ingreso(){
-
 		$id=$_REQUEST['id'];
+		$idproducto=$_REQUEST['idproducto'];
 
 		$sql="SELECT * from bodega where id=:id";
 		$sth = $this->dbh->prepare($sql);
@@ -276,7 +272,12 @@ class Productos extends Sagyc{
 		$res=$sth->fetch(PDO::FETCH_OBJ);
 
 		$x=$this->borrar('bodega',"id",$id);
-		return $x;
+
+		$arreglo =array();
+		$arreglo+=array('id'=>$idproducto);
+		$arreglo+=array('error'=>0);
+		$arreglo+=array('terror'=>0);
+		return json_encode($arreglo);
 	}
 
 

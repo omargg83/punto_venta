@@ -1,22 +1,21 @@
 <?php
 	require_once("db_.php");
 	$id=$_REQUEST['id'];
-	$id2=$_REQUEST['id2'];
+	$idproducto=$_REQUEST['idproducto'];
 
 	$cantidad="";
 	$fecha=date("d-m-Y");
 	$nota="";
 ?>
 
-<form is="f-submit" id="form_inventario" db="a_productos/db_" fun="existencia_agrega" lug="a_productos/editar">
-
+<form is="f-submit" id="form_inventario" db="a_productos/db_" fun="existencia_agrega" des="a_productos/editar" desid='id'>
 <div class='modal-header'>
 	<h5 class='modal-title'>Agregar existencia</h5>
 </div>
   <div class='modal-body' >
 	<?php
-		echo "<input type='hidden' id='id' NAME='id' value='$id'>";
-		echo "<input type='hidden' id='idproducto' NAME='idproducto' value='$id2'>";
+		echo "<input type='text' id='id' NAME='id' value='$id'>";
+		echo "<input type='text' id='idproducto' NAME='idproducto' value='$idproducto'>";
 	?>
 		<div class='row'>
 			<div class="col-4">

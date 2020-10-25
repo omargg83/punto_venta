@@ -18,7 +18,7 @@
 			date_default_timezone_set("America/Mexico_City");
 			try{
 				$this->Salud = array();
-				$this->dbh = new PDO("mysql:host=".SERVIDOR.";dbname=".BDD, MYSQLUSER, MYSQLPASS);
+				$this->dbh = new PDO("mysql:host=".SERVIDOR.";port=".PORT.";dbname=".BDD, MYSQLUSER, MYSQLPASS);
 				$this->dbh->query("SET NAMES 'utf8'");
 
 				$sql="select * from datosemp";
@@ -413,16 +413,6 @@
 			}
 		}
 
-		////////////////////
-		public function fondo(){
-			if (isset($_REQUEST['imagen'])){$imagen=$_REQUEST['imagen'];}
-			$arreglo=array('idfondo'=>$imagen);
-			$x=$this->update('usuarios',array('idusuario'=>$_SESSION['idpersona']), $arreglo);
-		}
-		public function leerfondo(){
-			return $_SESSION['idfondo'];
-		}
-
 		public function guardar_file(){
 			$arreglo =array();
 			$x="";
@@ -587,6 +577,7 @@
 				return "no coincide";
 			}
 		}
+
 		public function fondo_carga(){
 			$x="";
 			$directory="fondo/";
@@ -595,17 +586,24 @@
 				$x.= "<li class='nav-item dropdown'>";
 					$x.= "<a class='nav-link dropdown-toggle text-white' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='fas fa-desktop'></i>Fondos</a>";
 					$x.= "<div class='dropdown-menu' aria-labelledby='navbarDropdown' style='width: 200px;max-height: 400px !important;overflow: scroll;overflow-x: scroll;overflow-x: hidden;'>";
-						while (($archivo = $dirint->read()) !== false){
-							if ($archivo != "." && $archivo != ".." && $archivo != "" && substr($archivo,-4)==".jpg"){
-								$x.= "<a class='dropdown-item' href='#' id='fondocambia' title='Click para aplicar el fondo'><img src='$directory".$archivo."' alt='Fondo' class='rounded' style='width:140px;height:80px'></a>";
-							}
+					while (($archivo = $dirint->read()) !== false){
+						if ($archivo != "." && $archivo != ".." && $archivo != "" && substr($archivo,-4)==".jpg"){
+							$x.= "<a class='dropdown-item' href='#' id='fondocambia' title='Click para aplicar el fondo' onclick='fondo(\"$directory$archivo\")'><img src='$directory".$archivo."' alt='Fondo' class='rounded' style='width:140px;height:80px'></a>";
 						}
+					}
 					$x.= "</div>";
 				$x.= "</li>";
 			$x.= "</ul>";
 			$dirint->close();
-
 			return $x;
+		}
+		public function fondo(){
+			if (isset($_REQUEST['imagen'])){$imagen=$_REQUEST['imagen'];}
+			$arreglo=array('idfondo'=>$imagen);
+			$x=$this->update('usuarios',array('idusuario'=>$_SESSION['idpersona']), $arreglo);
+		}
+		public function leerfondo(){
+			return $_SESSION['idfondo'];
 		}
 
 		public function cantidad_update($id){

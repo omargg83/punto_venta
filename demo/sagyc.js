@@ -10,6 +10,7 @@
 		if(intval==""){
 			intval=setInterval(function(){ sesion_ver(); }, 10000);
 		}
+		setTimeout(fondos, 2000);
 		cargando(false);
 	};
 
@@ -161,6 +162,27 @@
 		}
 	}
 	customElements.define("b-link", Buttonlink, { extends: "button" });
+
+	////////////////////boton imprimir
+	class Buttonprint extends HTMLButtonElement  {
+		connectedCallback() {
+			this.addEventListener('click', (e) => {
+				let des;	/////////////el destino
+				e.currentTarget.attributes.des!==undefined ? des=e.currentTarget.attributes.des.nodeValue : des="";
+				des+=".php";
+
+				let cadena="?";
+				for(let contar=0;contar<e.currentTarget.attributes.length; contar++){
+					let arrayDeCadenas = e.currentTarget.attributes[contar].name.split("_");
+					if(arrayDeCadenas.length>1){
+						cadena+=arrayDeCadenas[1]+"="+e.currentTarget.attributes[contar].value+"&";
+					}
+				}
+				VentanaCentrada(des+cadena,'Impresion','','1024','768','true');
+			});
+		}
+	}
+	customElements.define("b-print", Buttonprint, { extends: "button" });
 
 	//////////////////////////especial submit para control
 	class Sublink extends HTMLInputElement   {

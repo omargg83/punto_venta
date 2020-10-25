@@ -23,7 +23,7 @@
 
 	$pedido = $db->ventas_pedido($idventa);
 
-	set_include_path('../librerias15/pdf2/src/'.PATH_SEPARATOR.get_include_path());
+	set_include_path('../lib/pdf2/src/'.PATH_SEPARATOR.get_include_path());
 	include 'Cezpdf.php';
 
 	$pdf = new Cezpdf('C7','portrait','color',array(255,255,255));

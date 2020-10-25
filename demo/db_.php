@@ -6,6 +6,7 @@ class dashboard extends Sagyc{
 		parent::__construct();
 
 	}
+	
 }
 
 $db = new dashboard();

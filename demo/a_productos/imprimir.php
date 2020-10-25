@@ -21,7 +21,7 @@
 		$size=40;
 		$archivo=barcode($filepath, $text, $size, $orientation, $code_type, $print, $sizefactor );
 
-		set_include_path('../librerias15/pdf2/src/'.PATH_SEPARATOR.get_include_path());
+		set_include_path('../lib/pdf2/src/'.PATH_SEPARATOR.get_include_path());
 		include 'Cezpdf.php';
 		$pdf = new Cezpdf('letter','portrait','color',array(255,255,255));
 		$pdf->selectFont('Helvetica');

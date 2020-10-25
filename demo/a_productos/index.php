@@ -15,7 +15,7 @@
           <div class="input-group  mr-sm-2">
             <input type="text" class="form-control form-control-sm" placeholder="Buscar" aria-label="Buscar" aria-describedby="basic-addon2"  name='buscar' id='buscar'>
             <div class="input-group-append">
-              <button class="btn btn-outline-primary btn-sm" type="submit" ><i class='fas fa-search'></i></button>
+              <button class="btn btn-warning btn-sm" type="submit" ><i class='fas fa-search'></i></button>
             </div>
           </div>
         </form>

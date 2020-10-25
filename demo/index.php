@@ -33,16 +33,17 @@
 	    <span class='navbar-toggler-icon'></span>
 	  </button>
 	  <div class='navbar-collapse collapse' id='navbarsExample06' style=''>
+
 	    <ul class='navbar-nav mr-auto'>
 	    </ul>
-	      <ul class='nav navbar-nav navbar-right text-white' id='fondo'></ul>
-	      <ul class='nav navbar-nav navbar-right'>
-	        <li class='nav-item'>
-	          <a class='nav-link pull-left text-white' onclick='salir()'>
-	            <i class='fas fa-sign-out-alt'></i> Salir
-	          </a>
-	        </li>
-	      </ul>
+      <ul class='nav navbar-nav navbar-right text-white' id='fondo'></ul>
+      <ul class='nav navbar-nav navbar-right'>
+        <li class='nav-item'>
+          <a class='nav-link pull-left text-white' onclick='salir()'>
+            <i class='fas fa-sign-out-alt'></i> Salir
+          </a>
+        </li>
+      </ul>
 	  </div>
 	</nav>
 </header>
@@ -53,11 +54,21 @@
 	    <div class='container-fluid'>
 	      <div class='sidebar sidenav' id='navx'>
 	        <a href='#dash/index' is='menu-link' class='activeside'><i class='fas fa-home'></i><span>Inicio</span></a>
+
+					<a href='#a_ventas/editar' is='menu-link' title='Pedidos'><i class='fas fa-shopping-basket'></i><span>+ Venta</span></a>
+					<a href='#a_ventas/index' is='menu-link' title='Pedidos'><i class='fas fa-shopping-basket'></i><span>Ventas</span></a>
+					<hr>
+
 					<a href='#a_productos/index' is='menu-link' title='Productos'><i class='fab fa-product-hunt'></i><span>Productos</span></a>
-	        <a href='#a_ventas/index' is='menu-link' title='Pedidos'><i class='fas fa-shopping-basket'></i><span>Ventas</span></a>
+					<hr>
+
 					<a href='#a_cliente/index' is='menu-link' title='Clientes'><i class='fas fa-user-tag'></i><span>Clientes</span></a>
 	        <a href='#a_citas/index' is='menu-link' title='Citas'><i class="far fa-calendar-check"></i><span>Citas</span></a>
+
+					<hr>
+	        <a href='#a_proveedores/index' is='menu-link' title='Proveedores'><i class='fas fa-people-carry'></i><span>Proveedores</span></a>
 	        <hr>
+					<a href='#a_reporte/index' is='menu-link' title='Reportes'><i class='far fa-chart-bar'></i> <span>Reportes</span></a>
 					<a href='#a_usuarios/index' is='menu-link' title='Usuarios'><i class='fas fa-users'></i> <span>Usuarios</span></a>
 	        <a href='#a_datosemp/index' is='menu-link' title='Datosemp'><i class="fas fa-wrench"></i><span>Datos Emp.</span></a>
 	      </div>

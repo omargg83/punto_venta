@@ -1,5 +1,5 @@
 <?php
-$server=3;
+$server=4;
 $_SESSION['des']=3;
 if($server==1){
   /////////remoto
@@ -7,6 +7,7 @@ if($server==1){
   define("MYSQLPASS", "saludp123$");
   define("SERVIDOR", "172.16.0.20");
   define("BDD", "salud");
+  define("PORT", "3306");
 }
 else if($server==2){
   //////////localhost
@@ -14,6 +15,7 @@ else if($server==2){
   define("MYSQLPASS", "root");
   define("SERVIDOR", "localhost");
   define("BDD", "pies");
+  define("PORT", "3306");
 }
 else if($server==3){
   //////////localhost
@@ -21,5 +23,14 @@ else if($server==3){
   define("MYSQLPASS", "esponda123$");
   define("SERVIDOR", "sagyc.com.mx");
   define("BDD", "sagycrmr_piesventa");
+  define("PORT", "3306");
+}
+else if($server==4){
+  //////////localhost 2
+  define("MYSQLUSER", "root");
+  define("MYSQLPASS", "root");
+  define("SERVIDOR", "localhost");
+  define("BDD", "pies_venta");
+  define("PORT", "8889");
 }
 ?>

@@ -1,5 +1,4 @@
 
-
 ////////////// Ventas
 function cambio_total(){
   var total_g=$("#total_g").val();
@@ -7,7 +6,6 @@ function cambio_total(){
   var total=(efectivo_g-total_g)*100;
   $("#cambio_g").val(Math.round(total)/100);
 }
-
 function calendar_load(tipo){
   var fecha = new Date();
   var final="";
@@ -143,4 +141,32 @@ function calendar_load(tipo){
     }
   });
   calendar.render();
+}
+function fondos(){
+  var formData = new FormData();
+  formData.append("function", "fondo_carga");
+  formData.append("ctrl", "control");
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST',"control_db.php");
+  xhr.addEventListener('load',(data)=>{
+    document.getElementById("fondo").innerHTML = data.target.response;
+  });
+  xhr.onerror = (e)=>{
+  };
+  xhr.send(formData);
+}
+function fondo(archivo){
+  alert(archivo);
+  var formData = new FormData();
+  formData.append("function", "fondo");
+  formData.append("ctrl", "control");
+  formData.append("imagen", archivo);
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST',"control_db.php");
+  xhr.addEventListener('load',(data)=>{
+    console.log(data.target.response);
+  });
+  xhr.onerror = (e)=>{
+  };
+  xhr.send(formData);
 }
