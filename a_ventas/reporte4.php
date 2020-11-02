@@ -22,12 +22,7 @@
             <input class="form-control fechaclass" placeholder="Desde...." type="text" id='desde' name='desde' value='<?php echo $fecha1; ?>' autocomplete="off">
         </div>
 
-        <div class='col-sm-3'>
-          <label><b>Al</b></label>
-          <input class="form-control fechaclass" placeholder="Hasta...." type="text" id='hasta' name='hasta' value='<?php echo $fecha; ?>' autocomplete="off">
-        </div>
-
-
+      
       </div>
       <hr>
       <div class='row'>

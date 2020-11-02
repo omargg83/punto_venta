@@ -2,7 +2,7 @@
   require_once("db_.php");
   $pd=$db->corte_caja();
 	echo "<div class='container-fluid' style='background-color:".$_SESSION['cfondo']."; '>";
-	echo "<br><h5>Ventas emitidas</h5>";
+	echo "<br><h5>Corte de caja</h5>";
 	echo "<hr>";
 ?>
 
