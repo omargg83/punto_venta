@@ -887,6 +887,29 @@ class Venta extends Sagyc{
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
+
+	public function corte_caja(){
+		try{
+			parent::set_names();
+			$desde=$_REQUEST['desde'];
+			$hasta=$_REQUEST['hasta'];
+
+			$desde = date("Y-m-d", strtotime($desde))." 00:00:00";
+			$hasta = date("Y-m-d", strtotime($hasta))." 23:59:59";
+
+			$sql="select sum(et_venta.total) as total, et_venta.fecha, sum(et_venta.gtotal) as gtotal, et_venta.estado, et_venta.tipo_pago from et_venta
+			left outer join et_tienda on et_tienda.id=et_venta.idtienda where (et_venta.fecha BETWEEN :fecha1 AND :fecha2) GROUP BY et_venta.tipo_pago";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":fecha1",$desde);
+			$sth->bindValue(":fecha2",$hasta);
+			$sth->execute();
+			return $sth->fetchAll();
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+
 }
 
 $db = new Venta();

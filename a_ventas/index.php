@@ -23,7 +23,9 @@
 
 				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte' data-lugar='a_ventas/reporte1'><i class='fas fa-list-ul'></i><span>Ventas Emitidas</span></a></li>
 
-			<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte2' data-lugar='a_ventas/reporte2'><i class='fas fa-list-ul'></i><span>Reporte venta por productos</span></a></li>
+			<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte2' data-lugar='a_ventas/reporte2'><i class='fas fa-list-ul'></i><span>Reporte venta por Vendedor</span></a></li>
+
+			<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte4' data-lugar='a_ventas/reporte4'><i class='fas fa-list-ul'></i><span>Reporte Corte de caja</span></a></li>
 
 			<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_reporte3' data-lugar='a_ventas/reporte3'><i class='fas fa-list-ul'></i><span>Grafica de venta</span></a></li>
 
