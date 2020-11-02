@@ -288,6 +288,21 @@ function imprime_pdf(id){
 	});
 }
 
+function imprime_pdf_corte(id){
+	$.confirm({
+		title: 'Corte',
+		content: '¿Desea imprimir el corte de caja?',
+		buttons: {
+			Aceptar: function () {
+				VentanaCentrada("a_ventas/corte.php"+'?id='+id,'Impresion','','1024','768','true');
+			},
+			Cancelar: function () {
+
+			}
+		}
+	});
+}
+
 function cambio_total(){
 	var total_g=$("#total_g").val();
 	var efectivo_g=$("#efectivo_g").val();
