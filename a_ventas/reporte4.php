@@ -14,7 +14,7 @@
       <div class='row'>
         <div class='col-sm-3'>
             <label><b>Del</b></label>
-            <input class="form-control fechaclass" placeholder="Desde...." type="text" id='desde' name='desde' value='<?php echo $fecha1; ?>' autocomplete="off">
+            <input class="form-control fechaclass" placeholder="Desde...." type="text" id='desde' name='desde' value='<?php echo $fecha1; ?>' autocomplete="off" >
         </div>
 
 
@@ -24,7 +24,7 @@
         <div class='col-sm-4'>
           <div class='btn-group'>
             <button title='Buscar' class='btn btn-outline-warning btn-sm' id='buscar_canalizado' type='submit' id='lista_buscar'><i class='fa fa-search'></i><span> Consultar</span></button>
-            <button type='button' class='btn btn-outline-primary btn-sm' onclick='imprime_pdf_corte()'><i class='fas fa-print'></i>Imprimir PDF</button>
+          <!--  <button type='button' class='btn btn-outline-primary btn-sm' onclick='imprime_pdf_corte()'><i class='fas fa-print'></i>Imprimir PDF</button> -->
           </div>
         </div>
       </div>

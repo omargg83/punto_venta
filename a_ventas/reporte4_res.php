@@ -4,6 +4,7 @@
 	echo "<div class='container-fluid' style='background-color:".$_SESSION['cfondo']."; '>";
 	echo "<br><h5>Corte de caja</h5>";
 	echo "<hr>";
+
 ?>
 
   <div class="content table-responsive table-full-width">
@@ -31,8 +32,6 @@
   		</tbody>
   	</table>
   </div>
-
-
   <script>
   	$(document).ready( function () {
   		lista("x_venta");
