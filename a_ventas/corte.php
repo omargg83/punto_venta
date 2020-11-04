@@ -1,5 +1,6 @@
 <?php
 	require_once("db_.php");
+  $pd=$db->corte_caja();
 
 	set_include_path('../librerias15/pdf2/src/'.PATH_SEPARATOR.get_include_path());
 	include 'Cezpdf.php';
@@ -19,17 +20,13 @@
 	$pdf->ezText("Expedido en: Pachuca Hgo.",10);
 	$pdf->ezText(" ",10);
 	$pdf->ezText("Corte de caja.",12);
+
 	$data=array();
 	$contar=0;
 
-	$sql="select sum(et_venta.total) as total, et_venta.fecha, sum(et_venta.gtotal) as gtotal, et_venta.estado, et_venta.tipo_pago from et_venta
-	left outer join et_tienda on et_tienda.id=et_venta.idtienda where et_venta.estado='Pagada' GROUP BY et_venta.tipo_pago";
-	$sth = $db->dbh->prepare($sql);
-	$sth->execute();
-	$resSql=$sth->fetchAll(PDO::FETCH_OBJ);
 
 
-	foreach($resSql as $ped){
+	foreach($pd as $ped){
 		$data[$contar]=array(
 			'NO.'=>$contar+1,
 			'Fecha'=>$ped->fecha,
