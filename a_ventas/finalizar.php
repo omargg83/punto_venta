@@ -36,8 +36,8 @@ else{
         <label>Metodo de pago</label>
         <select class="form-control" name="tipo_pago" id="tipo_pago">
           <option value="Efectivo">Efectivo</option>
-          <option value="Debito">Tarjeta debito</option>
-          <option value="Credito">Credito</option>
+          <option value="Debito">Tarjeta Debito</option>
+          <option value="Credito">Tarjeta Crédito</option>
           <option value="Cupon">Cupón</option>
         </select>
       </div>
