@@ -812,12 +812,14 @@ class Venta extends Sagyc{
 		$efectivo_g=$_REQUEST['efectivo_g'];
 		$cambio_g=$_REQUEST['cambio_g'];
 		$tipo_pago=$_REQUEST['tipo_pago'];
+		$idusuario=$_REQUEST['idusuario'];
 
 		if($total_g>0){
 			if($total_g<=$efectivo_g){
 				if (isset($_REQUEST['id'])){$id=$_REQUEST['id'];}
 				$arreglo =array();
 				$arreglo+=array('tipo_pago'=>$tipo_pago);
+				$arreglo+=array('idusuario'=>$idusuario);
 				$arreglo+=array('estado'=>"Pagada");
 				return $this->update('et_venta',array('idventa'=>$id), $arreglo);
 			}
@@ -904,6 +906,18 @@ class Venta extends Sagyc{
 			$sth->bindValue(":fecha2",$hasta);
 			$sth->execute();
 			return $sth->fetchAll();
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+
+	public function atiende(){
+		try{
+			$sql="select * from usuarios";
+			$sth = $this->dbh->prepare($sql);
+			$sth->execute();
+			return $sth->fetchAll(PDO::FETCH_OBJ);
 		}
 		catch(PDOException $e){
 			return "Database access FAILED! ".$e->getMessage();

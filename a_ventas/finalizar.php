@@ -2,10 +2,12 @@
 require_once("db_.php");
 $id=$_REQUEST['id'];
 
+
 $pd = $db->venta($id);
 $total=round($pd['total'],2);
 if ($total>0){
-
+$ati=$db->atiende();
+$idusuario=$_SESSION['idpersona'];
 }
 else{
   echo "<div class='card'>";
@@ -55,6 +57,19 @@ else{
         <label>Cambio</label>
         <input type='text' name='cambio_g' id='cambio_g' style='text-align:right' placeholder='Cambio' value='' class='form-control' required readonly>
       </div>
+
+      <div class='col-12'>
+        <label>Confirmar vendedor</label>
+      <select class='form-control form-control-sm' name='idusuario' id='idusuario' required>
+        <?php
+          foreach($ati as $key){
+            echo  "<option value='".$key->idusuario."' "; if($idusuario==$key->idusuario){ echo " selected";} echo ">".$key->nombre."</option>";
+
+          }
+          ?>
+        </select>
+      </div>
+
     </div>
   </div>
 
