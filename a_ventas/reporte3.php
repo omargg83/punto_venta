@@ -1,7 +1,7 @@
 <?php
   require_once("db_.php");
   $fecha=date("d-m-Y");
-  $nuevafecha = strtotime ( '-1 month' , strtotime ( $fecha ) ) ;
+  $nuevafecha = strtotime ( '-0 month' , strtotime ( $fecha ) ) ;
   $fecha1 = date ( "d-m-Y" , $nuevafecha );
 ?>
 
