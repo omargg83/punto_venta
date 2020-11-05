@@ -186,15 +186,20 @@
         echo "</div>";
         echo "<div class='card-footer'>";
           echo "<div class='btn-group'>";
+
+							if($estatus!='REALIZADA' or $id==0){
 							echo "<button type='submit' class='btn btn-outline-secondary btn-sm'><i class='far fa-save'></i>Guardar</button>";
+							}
 
 							if($estatus=='PENDIENTE' or $id==0){
 	            	echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='winmodal_cli' data-id='$idcliente' data-id2='$id' data-lugar='a_citas/form_cliente' title='Agregar Cliente' ><i class='fas fa-user-tag'></i>+ Cliente</button>";
 
 							}
+
+							if($estatus!='REALIZADA' or $id==0){
 							if($id>0){
 								echo "<button type='button' class='btn btn-outline-primary btn-sm' id='winmodal_producto' data-id='0' data-id2='$id' data-lugar='a_citas/form_producto'>+ <i class='fab fa-product-hunt'></i>Producto</button>";
-
+								}
 							}
 
             echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='lista_cat' data-lugar='a_citas/lista' title='Regresar'><i class='fas fa-undo-alt'></i>Regresar</button>";
