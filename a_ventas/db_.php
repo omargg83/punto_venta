@@ -143,7 +143,7 @@ class Venta extends Sagyc{
 			$texto=$_REQUEST['texto'];
 			$idventa=$_REQUEST['idventa'];
 
-			$sql="SELECT * from productos where idtienda=:tienda and cantidad>0 and
+			$sql="SELECT * from productos where cantidad>0 and
 			(nombre like :texto or
 				descripcion like :texto or
 				codigo like :texto  or
