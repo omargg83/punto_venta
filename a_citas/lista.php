@@ -15,6 +15,7 @@
 			<th>Estado</th>
 			<th>Cubículo</th>
 			<th>Servicio</th>
+			<th>Atendido por:</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -45,6 +46,12 @@
 						echo "<td>".$key->estatus."</td>";
 						echo "<td>".$key->cubiculo."</td>";
 						echo "<td>".$key->servicio."</td>";
+
+						if($key->atiende){
+							$ati=$db->atendido($key->atiende);
+							$nombreat=$ati->nombre;
+						}
+						echo "<td>".$nombreat."</td>";
 
 						echo "</tr>";
 					}
