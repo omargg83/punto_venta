@@ -24,8 +24,8 @@
 						echo "<tr id='".$key->idcitas."' class='edit-t'>";
 						echo "<td>";
 							echo "<div class='btn-group'>";
-								echo "<button class='btn btn-outline-secondary btn-sm' id='edit_comision' title='Editar' data-lugar='a_citas/editar'><i class='fas fa-pencil-alt'></i></i></button>";
 								if($key->estatus!="REALIZADA"){
+									echo "<button class='btn btn-outline-secondary btn-sm' id='edit_comision' title='Editar' data-lugar='a_citas/editar'><i class='fas fa-pencil-alt'></i></i></button>";
 									echo "<button class='btn btn-outline-secondary btn-sm' id='eliminar_pedido' data-lugar='a_citas/db_' data-destino='a_citas/lista' data-id='".$key->idcitas."' data-funcion='borrar_cita' data-div='trabajo'><i class='far fa-trash-alt'></i></button>";
 								}
 
