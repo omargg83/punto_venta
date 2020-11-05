@@ -24,7 +24,7 @@ class Productos extends Sagyc{
 				$sql="SELECT * from productos where codigo like '%$texto%' or nombre like '%$texto%' or marca like '%$texto%' or modelo like '%$texto%' or imei like '%$texto%' limit 100";
 			}
 			else{
-				$sql="SELECT * from productos where activo=1  and idventa is null order by tipo asc,id asc limit 100";
+				$sql="SELECT * from productos where activo=1 and tipo>0 and idventa is null order by tipo asc,id asc limit 100";
 			}
 			$sth = $this->dbh->prepare($sql);
 			$sth->execute();
@@ -34,6 +34,26 @@ class Productos extends Sagyc{
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
+
+	public function servicios_lista(){
+		try{
+			parent::set_names();
+			if (isset($_REQUEST['buscar']) and strlen(trim($_REQUEST['buscar']))>0){
+				$texto=trim(htmlspecialchars($_REQUEST['buscar']));
+				$sql="SELECT * from productos where codigo like '%$texto%' or nombre like '%$texto%' or marca like '%$texto%' or modelo like '%$texto%' or imei like '%$texto%' limit 100";
+			}
+			else{
+				$sql="SELECT * from productos where activo=1 and tipo=0 and idventa is null order by tipo asc,id asc limit 100";
+			}
+			$sth = $this->dbh->prepare($sql);
+			$sth->execute();
+			return $sth->fetchAll();
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+
 	public function producto_editar($id){
 		try{
 			parent::set_names();

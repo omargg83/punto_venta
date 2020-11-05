@@ -167,6 +167,19 @@ class Pedidos extends Sagyc{
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
+
+	public function servicios_lista(){
+		try{
+		 $sql="SELECT * from productos where activo=1 and tipo=0 order by nombre asc";
+			$sth = $this->dbh->prepare($sql);
+			$sth->execute();
+			return $sth->fetchAll(PDO::FETCH_OBJ);
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+
 	public function editar_cita($id){
 		try{
 			parent::set_names();

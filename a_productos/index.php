@@ -20,7 +20,8 @@
 				</div>
 
  				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='new_poliza' data-lugar='a_productos/editar'><i class="fas fa-folder-plus"></i><span>Nuevo</span></a></li>
- 				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_prod' data-lugar='a_productos/lista'><i class="fas fa-list"></i><span>Lista</span></a></li>
+ 				<li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_prod' data-lugar='a_productos/lista'><i class="fas fa-list"></i><span>Lista Productos</span></a></li>
+        <li class='nav-item active'><a class='nav-link barranav' title='Mostrar todo' id='lista_prod2' data-lugar='a_productos/lista2'><i class="fas fa-list"></i><span>Lista Servicios</span></a></li>
 
       </li>
 

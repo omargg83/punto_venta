@@ -4,6 +4,7 @@
 	$pd = $db->venta($idventa);
 	$id=$pd['idventa'];
 	$idcliente=$pd['idcliente'];
+	$idusuario=$pd['idusuario'];
 	$idtienda=$pd['idtienda'];
 	$iddescuento=$pd['iddescuento'];
 	$lugar=$pd['lugar'];
@@ -21,6 +22,8 @@
 	$correo_cli=$cliente->correo;
 	$telefono_cli=$cliente->telefono;
 
+	$atendio=$db->atendio($idusuario);
+	$nombre_atendio=$atendio->nombre;
 	$pedido = $db->ventas_pedido($idventa);
 
 	set_include_path('../librerias15/pdf2/src/'.PATH_SEPARATOR.get_include_path());
@@ -30,16 +33,18 @@
 	$pdf->selectFont('Helvetica');
 	// la imagen solo aparecera si antes del codigo ezStream se pone ob_end_clean como se muestra al final men
 	$pdf->ezImage("../img/logoimp.jpg", 0, 60, 'none', 'center');
-	$pdf->ezText("UN MUNDO PARA TUS PIES",10,array('justification' => 'center'));
-	$pdf->ezText("OPERADORA PLATHEA SA DE CV",10,array('justification' => 'center'));
-	$pdf->ezText("Rfc: OPL180514RA2",10,array('justification' => 'center'));
+//	$pdf->ezText("UN MUNDO PARA TUS PIES",10,array('justification' => 'center'));
+//	$pdf->ezText("OPERADORA PLATHEA SA DE CV",10,array('justification' => 'center'));
+//	$pdf->ezText("Rfc: OPL180514RA2",10,array('justification' => 'center'));
 	$pdf->ezText("Blvd. Valle de San Javier # 202, Local 10 C.P.: 42086 Pachuca de Soto, Hgo.",10,array('justification' => 'center'));
-	$pdf->ezText("Tel. 7716884592",10,array('justification' => 'center'));
-	$pdf->ezText("Cel. 7712602184",10,array('justification' => 'center'));
+//	$pdf->ezText("Tel. 7716884592",10,array('justification' => 'center'));
+	$pdf->ezText("Cel. 7711188263",10,array('justification' => 'center'));
 	$pdf->ezText(" ",10);
 	$pdf->ezText("Cliente: ".$nombre_cli,10);
 	$pdf->ezText("Fecha y hora: ".$fecha,10);
 	$pdf->ezText("Expedido en: Pachuca Hgo.",10);
+	$pdf->ezText(" ",10);
+	$pdf->ezText("Vendedor: ".$nombre_atendio,10);
 	$pdf->ezText("Ticket #: ".$idventa,12);
 	$pdf->ezText(" ",10);
 	$data=array();

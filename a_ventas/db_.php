@@ -39,6 +39,19 @@ class Venta extends Sagyc{
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
+
+	public function atendio($idusuario){
+		try{
+			$sql="select * from usuarios where idusuario='$idusuario'";
+			$sth = $this->dbh->prepare($sql);
+			$sth->execute();
+			return $sth->fetch(PDO::FETCH_OBJ);
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+
 	public function busca_cliente(){
 		try{
 			parent::set_names();
