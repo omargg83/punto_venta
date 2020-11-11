@@ -43,7 +43,7 @@
 	$pdf->ezText("Cliente: ".$nombre_cli,10);
 	$pdf->ezText("Fecha y hora: ".$fecha,10);
 	$pdf->ezText("Expedido en: Pachuca Hgo.",10);
-	$pdf->ezText(" ",10);
+//	$pdf->ezText(" ",10);
 	$pdf->ezText("Vendedor: ".$nombre_atendio,10);
 	$pdf->ezText("Ticket #: ".$idventa,12);
 	$pdf->ezText(" ",10);
@@ -71,7 +71,10 @@
 	$pdf->ezText("Sub-Total: $".$subtotal,10,array('justification' => 'right'));
 	$pdf->ezText("Iva: $".$iva,10,array('justification' => 'right'));
 	$pdf->ezText("Total: $".$total,12,array('justification' => 'right'));
-	$pdf->ezText(" ",10);
+	$pdf->ezText(" ",8);
+	$pdf->ezText("Recordamos que su servicio de podologia debe de realizarse cada 28 días",8,array('justification' => 'center'));
+	$pdf->ezText("Lo esperamos pronto.",8,array('justification' => 'center'));
+	//$pdf->ezText(" ",10);
 	$pdf->ezText("¡Gracias por tu preferencia!",12,array('justification' => 'center'));
 	if (ob_get_contents()) ob_end_clean();
 	$pdf->ezStream();
