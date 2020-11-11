@@ -52,18 +52,18 @@
 
 	foreach($pedido as $ped){
 		$data[$contar]=array(
-			'NO.'=>$contar+1,
+			'No.'=>$contar+1,
 			'Nombre'=>$ped['nombre'],
-			'Cantidad'=>number_format($ped['v_cantidad']),
-			'Precio'=>number_format($ped['v_precio'],2)
+			'Cant.'=>number_format($ped['v_cantidad']),
+			'Precio'=>number_format($ped['v_total'],2)
 		);
 		$contar++;
 	}
 	$pdf->ezTable($data,"","",array('xPos'=>'left','xOrientation'=>'right','cols'=>array(
 	'No.'=>array('width'=>20),
-	'Nombre'=>array('width'=>70),
-	'Cantidad'=>array('width'=>50),
-	'Precio'=>array('width'=>40)
+	'Nombre'=>array('width'=>75),
+	'Cant.'=>array('width'=>35),
+	'Precio'=>array('width'=>60)
 	),'fontSize' => 8));
 
 	$pdf->ezText("Tipo de pago: ".$tipo_pago,10);
