@@ -903,6 +903,42 @@ class Venta extends Sagyc{
 		}
 	}
 
+	public function tot_productos_vendidos(){
+		try{
+			parent::set_names();
+
+			$idusuario=$_REQUEST['idusuario'];
+			$desde=$_REQUEST['desde'];
+			$hasta=$_REQUEST['hasta'];
+
+			$desde = date("Y-m-d", strtotime($desde))." 00:00:00";
+			$hasta = date("Y-m-d", strtotime($hasta))." 23:59:59";
+
+			$sql="SELECT sum(bodega.v_total) as totalmonto, sum(bodega.v_cantidad) as totalcant, et_venta.idventa, et_venta.idtienda,	et_venta.iddescuento,et_venta.fecha, bodega.v_precio,	bodega.v_total, usuarios.nombre as vendedor FROM	bodega
+			LEFT OUTER JOIN et_venta ON et_venta.idventa = bodega.idventa
+			LEFT OUTER JOIN usuarios ON usuarios.idusuario = et_venta.idusuario
+			left outer join productos on productos.id=bodega.idproducto
+			LEFT OUTER JOIN clientes ON clientes.idcliente = et_venta.idcliente
+			LEFT OUTER JOIN et_tienda ON et_tienda.id = et_venta.idtienda
+				where bodega.idventa and (et_venta.fecha BETWEEN :fecha1 AND :fecha2)";
+				if(strlen($idusuario)>0){
+					$sql.=" and et_venta.idusuario=:idusuario";
+				}
+				$sql.=" order by idventa desc";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":fecha1",$desde);
+			$sth->bindValue(":fecha2",$hasta);
+			if(strlen($idusuario)>0){
+				$sth->bindValue(":idusuario",$idusuario);
+			}
+			$sth->execute();
+			return $sth->fetchAll(PDO::FETCH_OBJ);
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
+
 	public function corte_caja(){
 		try{
 			parent::set_names();

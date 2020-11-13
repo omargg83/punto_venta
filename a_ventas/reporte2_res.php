@@ -1,11 +1,47 @@
 <?php
   require_once("db_.php");
   $pd=$db->productos_vendidos();
-
+  $row=$db->tot_productos_vendidos();
 	echo "<div class='container-fluid' style='background-color:".$_SESSION['cfondo']."; '>";
 	echo "<br><h5>Ventas</h5>";
 	echo "<hr>";
+
+
+  $sql="select * from usuarios";
+  $sth = $db->dbh->prepare($sql);
+  $sth->execute();
+  $res=$sth->fetchAll(PDO::FETCH_OBJ);
+
+
 ?>
+<div class="content table-responsive table-full-width">
+    <table id='x_venta2' class='dataTable compact hover row-border' style='font-size:10pt;'>
+    <thead>
+    <tr>
+    <th>-</th>
+    <th>Total Cantidad</th>
+    <th>Total Monto</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <?php
+      foreach($row as $key){
+    ?>
+          <tr id="<?php echo $key->totalmonto; ?>" class="edit-t">
+            <td>
+
+            </td>
+            <td><?php echo $key->totalcant; ?></td>
+            <td><?php echo $key->totalmonto; ?></td>
+
+          </tr>
+    <?php
+      }
+    ?>
+    </tbody>
+  </table>
+</div>
 
   <div class="content table-responsive table-full-width">
   		<table id='x_venta' class='dataTable compact hover row-border' style='font-size:10pt;'>
@@ -55,4 +91,10 @@
   	$(document).ready( function () {
   		lista("x_venta");
   	});
+  </script>
+
+  <script>
+    $(document).ready( function () {
+      lista("x_venta2");
+    });
   </script>
