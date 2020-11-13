@@ -14,11 +14,14 @@
 
 
 ?>
-<div class="content table-responsive table-full-width">
-    <table id='x_venta2' class='dataTable compact hover row-border' style='font-size:10pt;'>
+
+  <div class="content table-responsive table-full-width">
+
+    <table id='x_venta' class='dataTable compact hover row-border' style='font-size:10pt;'>
     <thead>
     <tr>
     <th>-</th>
+    <th>Tipo</th>
     <th>Total Cantidad</th>
     <th>Total Monto</th>
 
@@ -32,8 +35,22 @@
             <td>
 
             </td>
+            <?php
+            if ($key->tipo==3){
+            echo "  <td> Productos</td>";
+              }
+
+            else if ($key->tipo=='0'){
+            echo "  <td> Servicios</td>";
+              }
+
+            else if ($key->tipo==''){
+            echo "  <td> Citas</td>";
+            }
+            ?>
+
             <td><?php echo $key->totalcant; ?></td>
-            <td><?php echo $key->totalmonto; ?></td>
+            <td><?php echo moneda($key->totalmonto); ?></td>
 
           </tr>
     <?php
@@ -41,10 +58,8 @@
     ?>
     </tbody>
   </table>
-</div>
 
-  <div class="content table-responsive table-full-width">
-  		<table id='x_venta' class='dataTable compact hover row-border' style='font-size:10pt;'>
+  		<table id='x_venta2' class='dataTable compact hover row-border' style='font-size:10pt;'>
   		<thead>
   		<tr>
   		<th>-</th>
@@ -73,8 +88,8 @@
   						<td><?php echo $key->fecha; ?></td>
   						<td><?php echo $key->nombre; ?></td>
               <td align="center"><?php echo $key->v_cantidad; ?></td>
-  						<td align="left"><?php echo number_format($key->v_precio,2); ?></td>
-  						<td align="left"><?php echo number_format($key->v_total,2); ?></td>
+  						<td align="left"><?php echo moneda($key->v_precio,2); ?></td>
+  						<td align="left"><?php echo moneda($key->v_total,2); ?></td>
   						<td><?php echo $key->estado; ?></td>
   						<td><?php echo $key->vendedor; ?></td>
 
@@ -85,13 +100,6 @@
   		</tbody>
   	</table>
   </div>
-
-
-  <script>
-  	$(document).ready( function () {
-  		lista("x_venta");
-  	});
-  </script>
 
   <script>
     $(document).ready( function () {

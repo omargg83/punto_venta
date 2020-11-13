@@ -914,7 +914,7 @@ class Venta extends Sagyc{
 			$desde = date("Y-m-d", strtotime($desde))." 00:00:00";
 			$hasta = date("Y-m-d", strtotime($hasta))." 23:59:59";
 
-			$sql="SELECT sum(bodega.v_total) as totalmonto, sum(bodega.v_cantidad) as totalcant, et_venta.idventa, et_venta.idtienda,	et_venta.iddescuento,et_venta.fecha, bodega.v_precio,	bodega.v_total, usuarios.nombre as vendedor FROM	bodega
+			$sql="SELECT sum(bodega.v_total) as totalmonto, sum(bodega.v_cantidad) as totalcant, et_venta.idventa, et_venta.idtienda,	et_venta.iddescuento,et_venta.fecha, bodega.v_precio,	bodega.v_total,productos.tipo, usuarios.nombre as vendedor FROM	bodega
 			LEFT OUTER JOIN et_venta ON et_venta.idventa = bodega.idventa
 			LEFT OUTER JOIN usuarios ON usuarios.idusuario = et_venta.idusuario
 			left outer join productos on productos.id=bodega.idproducto
@@ -924,6 +924,8 @@ class Venta extends Sagyc{
 				if(strlen($idusuario)>0){
 					$sql.=" and et_venta.idusuario=:idusuario";
 				}
+
+				$sql.=" GROUP BY productos.tipo";
 				$sql.=" order by idventa desc";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":fecha1",$desde);
